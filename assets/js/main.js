@@ -7,18 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
         navToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', navToggle.classList.contains('active') ? 'true' : 'false');
             
             // Animate toggle lines
             const lines = navToggle.querySelectorAll('.nav-toggle-line');
-            if (navToggle.classList.contains('active')) {
-                lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                lines[1].style.opacity = '0';
-                lines[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-            } else {
-                lines[0].style.transform = 'none';
-                lines[1].style.opacity = '1';
-                lines[2].style.transform = 'none';
-            }
+            // handled by CSS class .nav-toggle.active
         });
         
         // Close menu when clicking on a link
@@ -27,11 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
                 
-                const lines = navToggle.querySelectorAll('.nav-toggle-line');
-                lines[0].style.transform = 'none';
-                lines[1].style.opacity = '1';
-                lines[2].style.transform = 'none';
+                // lines reset handled by CSS when class removed
             });
         });
     }
@@ -142,8 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('is-inview');
             }
         });
     }, observerOptions);
@@ -165,11 +155,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (header) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
-                header.style.background = 'linear-gradient(135deg, rgba(45, 90, 61, 0.95) 0%, rgba(74, 124, 89, 0.95) 100%)';
-                header.style.backdropFilter = 'blur(15px)';
+                header.classList.add('is-scrolled');
             } else {
-                header.style.background = 'linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%)';
-                header.style.backdropFilter = 'blur(10px)';
+                header.classList.remove('is-scrolled');
             }
         });
     }
@@ -207,78 +195,23 @@ function showNotification(message, type = 'info') {
         </div>
     `;
     
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        z-index: 10000;
-        background: ${type === 'success' ? 'linear-gradient(135deg, #27ae60, #2ecc71)' : 'linear-gradient(135deg, #e74c3c, #c0392b)'};
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        transform: translateX(400px);
-        transition: transform 0.3s ease;
-        max-width: 350px;
-        font-family: var(--font-body);
-    `;
-    
+    notification.classList.add(type === 'success' ? 'notification-success' : 'notification-error');
     // Add to page
     document.body.appendChild(notification);
     
     // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
+    requestAnimationFrame(() => {
+        notification.classList.add('is-visible');
+    });
     
     // Auto remove after 5 seconds
     setTimeout(() => {
         if (notification.parentNode) {
-            notification.style.transform = 'translateX(400px)';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
-                }
-            }, 300);
+            notification.classList.remove('is-visible');
+            setTimeout(() => { if (notification.parentNode) notification.remove(); }, 300);
         }
     }, 5000);
 }
-
-// Add notification styles to head
-document.addEventListener('DOMContentLoaded', function() {
-    const notificationStyles = document.createElement('style');
-    notificationStyles.textContent = `
-        .notification-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-        
-        .notification-message {
-            flex: 1;
-            font-weight: 500;
-        }
-        
-        .notification-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.2s ease;
-            padding: 0;
-            line-height: 1;
-        }
-        
-        .notification-close:hover {
-            opacity: 1;
-        }
-    `;
-    document.head.appendChild(notificationStyles);
-});
 
 // Performance optimization: Lazy load images
 document.addEventListener('DOMContentLoaded', function() {

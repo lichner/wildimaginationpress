@@ -1,0 +1,38 @@
+---
+layout: default
+title: Books
+description: Explore books from Wild Imagination Press
+permalink: /books/
+---
+
+<section class="books-section">
+  <div class="container">
+    <h2>Our Books</h2>
+    <div class="books-grid">
+      {% if site.books and site.books.size > 0 %}
+        {% for book in site.books %}
+        <div class="book-card-small">
+          <div class="book-cover-small">
+            {% if book.cover_image %}
+              <img src="{{ book.cover_image | relative_url }}" alt="{{ book.title }}" loading="lazy">
+            {% else %}
+              <div class="book-placeholder-small">
+                <span>{{ book.title }}</span>
+              </div>
+            {% endif %}
+          </div>
+          <div class="book-info-small">
+            <h3><a href="{{ book.url | relative_url }}">{{ book.title }}</a></h3>
+            {% if book.author %}<p class="book-author-small">by {{ book.author }}</p>{% endif %}
+            {% if book.status %}<p class="book-status-small">{{ book.status }}</p>{% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p>No books have been published yet. Check back soon!</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+

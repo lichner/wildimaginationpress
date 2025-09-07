@@ -46,7 +46,7 @@ nav_links:
   - name: Home
     url: /
   - name: Books
-    url: /#books
+    url: /books/
   - name: About Author
     url: /#author
   - name: Contact
