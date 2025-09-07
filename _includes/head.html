@@ -3,29 +3,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="{{ page.url | absolute_url }}">
+    {%- comment -%} Title/description/canonical are handled by jekyll-seo-tag {%- endcomment -%}
     
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="{{ '/assets/images/wild-imagination-logo.jpg' | relative_url }}">
     <link rel="apple-touch-icon" href="{{ '/assets/images/wild-imagination-logo.jpg' | relative_url }}">
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ page.url | absolute_url }}">
-    <meta property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
-    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-    <meta property="og:image" content="{{ '/assets/images/wild-imagination-logo.jpg' | absolute_url }}">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ page.url | absolute_url }}">
-    <meta property="twitter:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
-    <meta property="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-    <meta property="twitter:image" content="{{ '/assets/images/wild-imagination-logo.jpg' | absolute_url }}">
+    {%- comment -%} Social meta (OG/Twitter) also handled by jekyll-seo-tag {%- endcomment -%}
     
     <!-- Theme Color -->
     <meta name="theme-color" content="{{ site.theme_color | default: '#27ae60' }}">
@@ -41,7 +25,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- SEO and Analytics -->
+    <!-- SEO -->
     {% seo %}
     
     <!-- Google Analytics -->

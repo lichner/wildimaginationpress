@@ -57,11 +57,11 @@ layout: default
         
         <div class="book-actions">
           {% if page.amazon_link and page.amazon_link != "#" %}
-          <a href="{{ page.amazon_link }}" class="btn btn-primary" onclick="trackAmazonClick()">
+          <a href="{{ page.amazon_link }}" class="btn btn-primary" data-track="amazon">
             📚 Buy on Amazon
           </a>
           {% else %}
-          <a href="/#contact" class="btn btn-primary">
+          <a href="{{ '/#contact' | relative_url }}" class="btn btn-primary">
             🔔 Notify Me When Available
           </a>
           {% endif %}

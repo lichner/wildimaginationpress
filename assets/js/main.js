@@ -163,6 +163,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Amazon outbound tracking via delegated listener (CSP-safe)
+document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a[data-track="amazon"]');
+        if (link) {
+            if (typeof trackAmazonClick === 'function') {
+                try { trackAmazonClick(); } catch (err) { /* noop */ }
+            }
+        }
+    });
+});
+
 // Track external links (for future Amazon links)
 function trackAmazonClick() {
     if (typeof gtag !== 'undefined') {
@@ -191,13 +203,21 @@ function showNotification(message, type = 'info') {
     notification.innerHTML = `
         <div class="notification-content">
             <span class="notification-message">${message}</span>
-            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+            <button class="notification-close" aria-label="Close notification">×</button>
         </div>
     `;
     
     notification.classList.add(type === 'success' ? 'notification-success' : 'notification-error');
     // Add to page
     document.body.appendChild(notification);
+    // Close handler (CSP-safe)
+    const closeBtn = notification.querySelector('.notification-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            const parent = notification;
+            if (parent && parent.parentNode) parent.parentNode.removeChild(parent);
+        });
+    }
     
     // Animate in
     requestAnimationFrame(() => {
