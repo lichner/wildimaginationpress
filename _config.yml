@@ -1,0 +1,57 @@
+# Site settings
+title: Wild Imagination Press
+description: "Creating enchanting children's books to nurture creativity and imagination"
+url: "https://lichner.github.io"
+baseurl: "/wildimaginationpress"
+
+# Author settings
+author:
+  name: Rebecca M
+  email: contact@wildimaginationpress.com
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  books:
+    output: true
+    permalink: /:collection/:name/
+
+# Exclude files
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+
+# SEO settings
+google_analytics: G-F2V6B1H630
+logo: /assets/images/wild-imagination-logo.jpg
+
+# Social settings
+social:
+  facebook: wildimaginationpress
+  instagram: wildimaginationpress
+  twitter: wildimagination
+
+# Navigation
+nav_links:
+  - name: Home
+    url: /
+  - name: Books
+    url: /#books
+  - name: About Author
+    url: /#author
+  - name: Contact
+    url: /#contact
+
+# Theme settings
+theme_color: "#27ae60"
+accent_color: "#74b9ff"

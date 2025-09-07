@@ -1,0 +1,85 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="{{ '/assets/images/wild-imagination-logo.jpg' | relative_url }}">
+    <link rel="apple-touch-icon" href="{{ '/assets/images/wild-imagination-logo.jpg' | relative_url }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
+    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:image" content="{{ '/assets/images/wild-imagination-logo.jpg' | absolute_url }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ page.url | absolute_url }}">
+    <meta property="twitter:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}">
+    <meta property="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="twitter:image" content="{{ '/assets/images/wild-imagination-logo.jpg' | absolute_url }}">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="{{ site.theme_color | default: '#27ae60' }}">
+    <meta name="msapplication-TileColor" content="{{ site.theme_color | default: '#27ae60' }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    
+    <!-- SEO and Analytics -->
+    {% seo %}
+    
+    <!-- Google Analytics -->
+    {% if site.google_analytics %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ site.google_analytics }}', {
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure'
+      });
+    </script>
+    {% endif %}
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ site.title }}",
+      "description": "{{ site.description }}",
+      "url": "{{ site.url }}{{ site.baseurl }}",
+      "logo": "{{ '/assets/images/wild-imagination-logo.jpg' | absolute_url }}",
+      "foundingDate": "2025",
+      "founder": {
+        "@type": "Person",
+        "name": "{{ site.author.name }}"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "{{ site.author.email }}"
+      },
+      "sameAs": [
+        {% if site.social.facebook %}"https://facebook.com/{{ site.social.facebook }}",{% endif %}
+        {% if site.social.instagram %}"https://instagram.com/{{ site.social.instagram }}",{% endif %}
+        {% if site.social.twitter %}"https://twitter.com/{{ site.social.twitter }}"{% endif %}
+      ]
+    }
+    </script>
+</head>
