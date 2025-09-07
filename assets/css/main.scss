@@ -18,9 +18,14 @@
   --text-medium: #5a6c7d;
   --text-light: #8b9dc3;
   
+  // Additional transition colors for smoother gradients
+  --bridge-green: #5a8b6b; // Intermediate color for smoother transitions
+  --soft-teal: #6b9a8a; // Bridge between green and blue
+  
   // Typography
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
+  --font-brand: 'Crimson Text', serif; // More professional serif for brand
   
   // Spacing
   --section-padding: 4rem 0;
@@ -81,7 +86,7 @@ p {
 
 // Header
 .site-header {
-  background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 50%, var(--bridge-green) 100%);
   color: white;
   position: fixed;
   width: 100%;
@@ -89,6 +94,18 @@ p {
   z-index: 1000;
   box-shadow: var(--shadow-medium);
   backdrop-filter: blur(10px);
+  
+  // Add a subtle transition overlay at the bottom
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(to bottom, transparent, rgba(107, 154, 138, 0.1));
+    pointer-events: none;
+  }
 }
 
 .navbar {
@@ -123,9 +140,10 @@ p {
     }
     
     .brand-text {
-      font-family: var(--font-heading);
+      font-family: var(--font-brand);
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 600;
+      letter-spacing: 0.5px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
   }
@@ -194,22 +212,36 @@ p {
 
 // Hero section
 .hero {
-  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--light-green) 50%, var(--secondary-green) 100%);
+  background: linear-gradient(135deg, var(--bridge-green) 0%, var(--soft-teal) 30%, var(--accent-blue) 60%, var(--light-green) 100%);
   color: white;
   text-align: center;
   padding: 6rem 2rem 4rem;
   position: relative;
   overflow: hidden;
   
-  &:before {
+  // Add a soft transition overlay at the top to blend with header
+  &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(107, 154, 138, 0.2), transparent);
+    z-index: 1;
+  }
+  
+  // Sparkle effect (moved to ::after to avoid conflict with transition overlay)
+  &::after {
+    content: '';
+    position: absolute;
+    top: 40px; // Start below the transition overlay
+    left: 0;
+    right: 0;
     bottom: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
     animation: sparkle 20s linear infinite;
+    z-index: 1;
   }
 }
 
@@ -220,7 +252,7 @@ p {
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3; // Ensure content appears above all overlays
   max-width: 800px;
   margin: 0 auto;
 }
@@ -1209,6 +1241,6 @@ blockquote {
 
 // Header scrolled state
 .site-header.is-scrolled {
-  background: linear-gradient(135deg, rgba(45, 90, 61, 0.95) 0%, rgba(74, 124, 89, 0.95) 100%) !important;
+  background: linear-gradient(135deg, rgba(45, 90, 61, 0.95) 0%, rgba(74, 124, 89, 0.95) 50%, rgba(90, 139, 107, 0.95) 100%) !important;
   backdrop-filter: blur(15px) !important;
 }
