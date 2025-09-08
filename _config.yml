@@ -39,12 +39,48 @@ collections:
     output: true
     permalink: /:collection/:name/
 
-# Exclude files
+# Sitemap configuration
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      sitemap:
+        priority: 0.7
+        changefreq: weekly
+  - scope:
+      path: ""
+      type: "books"
+    values:
+      sitemap:
+        priority: 0.9
+        changefreq: monthly
+  - scope:
+      path: "index.html"
+    values:
+      sitemap:
+        priority: 1.0
+        changefreq: weekly
+
+# Exclude files from Jekyll build
 exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
   - LICENSE
+  - WARP.md
+  - HUMANIZED_ICON_OPTIONS.md
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .git/
+  - .bundle/
+  - tmp/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
 
 # SEO settings
 google_analytics: G-F2V6B1H630

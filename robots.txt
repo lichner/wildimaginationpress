@@ -1,8 +1,41 @@
+---
+layout: null
+permalink: /robots.txt
+---
+# Robots.txt for Wild Imagination Press
+# Generated: {{ "now" | date: "%Y-%m-%d %H:%M:%S %Z" }}
+
+# Allow all search engines to crawl the site
 User-agent: *
 Allow: /
-Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml
 
-# Disallow admin and development paths
+# Crawl delay for being respectful to search engines
+Crawl-delay: 1
+
+# Disallow development and admin paths
 Disallow: /admin/
 Disallow: /cdn-cgi/
 Disallow: /vendor/
+Disallow: /_site/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.bundle/
+Disallow: /tmp/
+
+# Disallow search parameters and tracking URLs
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?source=*
+Disallow: /*?campaign=*
+
+# Allow important directories for SEO
+Allow: /assets/
+Allow: /books/
+Allow: /assets/images/
+
+# Sitemap location
+Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml
+
+# Additional sitemaps (for future expansion)
+# Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap-books.xml
+# Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap-authors.xml

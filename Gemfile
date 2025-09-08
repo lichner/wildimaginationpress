@@ -9,6 +9,12 @@ group :jekyll_plugins do
   gem "jekyll-seo-tag"
 end
 
+# Development and validation gems
+group :development do
+  gem "nokogiri", ">= 1.10"
+  gem "colorize", "~> 0.8"
+end
+
 # Windows and JRuby does not include zoneinfo files
 platforms :mingw, :x64_mingw, :mswin, :jruby do
   gem "tzinfo", ">= 1", "< 3"

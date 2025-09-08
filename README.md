@@ -75,6 +75,11 @@ The design uses a sophisticated, nature-inspired color palette:
 ├── Gemfile                    # Ruby dependencies
 ├── WARP.md                   # Development guidance for Warp AI
 ├── HUMANIZED_ICON_OPTIONS.md # Icon replacement strategy guide
+├── _scripts/                 # SEO validation scripts
+│   ├── validate_seo.rb       # Combined SEO validation
+│   ├── validate_robots.rb    # Robots.txt validator
+│   ├── validate_sitemap.rb   # Sitemap.xml validator
+│   └── README.md             # Validation documentation
 └── README.md                  # This file
 ```
 
@@ -114,6 +119,12 @@ The design uses a sophisticated, nature-inspired color palette:
    ```bash
    bundle exec jekyll build
    # Output in _site/ directory
+   ```
+
+6. **Validate SEO configuration:**
+   ```bash
+   bundle exec ruby _scripts/validate_seo.rb
+   # Validates robots.txt and sitemap.xml for production readiness
    ```
 
 ### Adding New Books
@@ -217,6 +228,13 @@ nav_links:
 - Social media integration (Instagram, X/Twitter)
 - Benefit callouts with Material UI icons
 - Conversion tracking for analytics
+
+### SEO Validation System
+- **Automated robots.txt validation** - Syntax checking, directive validation, sitemap URL verification
+- **Comprehensive sitemap.xml validation** - XML structure, URL format, priority and frequency validation
+- **Production readiness checks** - Development URL detection, common mistake identification
+- **Colorized terminal output** - Easy-to-read validation results with error categorization
+- **Integration ready** - Can be integrated into deployment pipelines and git hooks
 
 ### Performance Optimizations
 - Lazy loading images with `loading="lazy"`
