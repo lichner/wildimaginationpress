@@ -28,48 +28,67 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Email form handling
+// Email form handling for Formspree
 document.addEventListener('DOMContentLoaded', function() {
     const emailForm = document.getElementById('email-form');
     
     if (emailForm) {
         emailForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
             const emailInput = this.querySelector('input[type="email"]');
             const email = emailInput.value;
             const submitButton = this.querySelector('button[type="submit"]');
             
             // Basic email validation
             if (!isValidEmail(email)) {
+                e.preventDefault();
                 showNotification('Please enter a valid email address.', 'error');
                 return;
             }
             
-            // Disable button and show loading state
+            // Check if we're on localhost (development)
+            const isLocalhost = window.location.hostname === 'localhost' || 
+                               window.location.hostname === '127.0.0.1' || 
+                               window.location.hostname === '0.0.0.0';
+            
+            if (isLocalhost) {
+                // Prevent actual form submission on localhost
+                e.preventDefault();
+                
+                // Show loading state
+                const originalText = submitButton.textContent;
+                submitButton.textContent = 'Joining...';
+                submitButton.disabled = true;
+                
+                // Simulate success for local testing
+                setTimeout(() => {
+                    showNotification(
+                        '✅ LOCAL TEST: Form ready for Formspree! Deploy to test for real. Email: ' + email, 
+                        'success'
+                    );
+                    emailInput.value = '';
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }, 1000);
+                
+                return;
+            }
+            
+            // Production: Show loading state
             const originalText = submitButton.textContent;
             submitButton.textContent = 'Joining...';
             submitButton.disabled = true;
             
-            // Simulate form submission (replace with actual backend integration)
-            setTimeout(() => {
-                // Show success message
-                showNotification('Thank you for joining! We\'ll notify you when the book is available. 🌟', 'success');
-                
-                // Track conversion in Google Analytics if available
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'email_signup', {
-                        'event_category': 'engagement',
-                        'event_label': 'newsletter_signup',
-                        'value': 1
-                    });
-                }
-                
-                // Reset form
-                emailInput.value = '';
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-            }, 1500);
+            // Track conversion in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'email_signup', {
+                    'event_category': 'engagement',
+                    'event_label': 'formspree_signup',
+                    'value': 1
+                });
+            }
+            
+            // Allow form to submit naturally to Formspree
+            // Form will redirect to thank-you page on success
         });
     }
 });

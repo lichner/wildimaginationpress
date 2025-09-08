@@ -181,9 +181,21 @@ title: Home
       </div>
     </div>
 
-    <form id="email-form" class="email-signup" action="#" method="post">
+    <form id="email-form" class="email-signup" 
+          action="https://formspree.io/f/mvgbdyao" 
+          method="post">
+      
       <div class="form-group">
-        <input type="email" name="email" placeholder="Enter your email address" required>
+        <input type="email" 
+               name="email" 
+               placeholder="Enter your email address" 
+               required>
+        
+        <!-- Formspree configuration -->
+        <input type="hidden" name="_subject" value="New Wild Imagination Press Subscriber">
+        <input type="hidden" name="_next" value="https://lichner.github.io/wildimaginationpress/thank-you.html">
+        <input type="hidden" name="_captcha" value="false">
+        
         <button type="submit">Join Our Story Tree!</button>
       </div>
     </form>
