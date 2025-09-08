@@ -86,13 +86,13 @@ p {
 
 // Header
 .site-header {
-  background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 50%, var(--bridge-green) 100%);
-  color: white;
+  background: linear-gradient(135deg, #f3b858 0%, #e8a845 50%, #d4943c 100%);
+  color: var(--primary-green);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
-  box-shadow: var(--shadow-medium);
+  box-shadow: 0 2px 15px rgba(212, 148, 60, 0.2);
   backdrop-filter: blur(10px);
   
   // Add a subtle transition overlay at the bottom
@@ -103,7 +103,7 @@ p {
     left: 0;
     right: 0;
     height: 20px;
-    background: linear-gradient(to bottom, transparent, rgba(107, 154, 138, 0.1));
+    background: linear-gradient(to bottom, transparent, rgba(243, 184, 88, 0.1));
     pointer-events: none;
   }
 }
@@ -140,11 +140,15 @@ p {
     }
     
     .brand-text {
-      font-family: var(--font-brand);
-      font-size: 1.5rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Quicksand', var(--font-brand);
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      background: linear-gradient(45deg, #2d5a3d 30%, #4a7c59 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
     }
   }
 }
@@ -377,10 +381,20 @@ section {
   border: 1px solid rgba(45, 90, 61, 0.08);
   
   .book-cover {
+    .book-cover-link {
+      text-decoration: none;
+      display: block;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+    }
+    
     .book-placeholder {
       width: 100%;
       height: 400px;
-      background: linear-gradient(135deg, var(--cream), #e8e1d4);
+      background: linear-gradient(135deg, var(--cream), #f5efe4);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -388,25 +402,70 @@ section {
       box-shadow: var(--shadow-medium);
       text-align: center;
       padding: 2rem;
-      
-      h4 {
-        color: var(--text-medium);
-        margin-bottom: 1rem;
-        font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(45, 90, 61, 0.1);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60%;
+        background: linear-gradient(180deg, rgba(45, 90, 61, 0.05), transparent);
       }
       
-      p {
-        color: var(--text-light);
+      .book-placeholder-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .book-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      h4 {
+        color: var(--primary-green);
+        font-size: 1.4rem;
+        font-weight: 600;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+        padding: 0 1rem;
+      }
+      
+      .coming-soon-badge {
+        background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+        color: white;
+        padding: 0.5rem 1.2rem;
+        border-radius: 20px;
         font-size: 0.9rem;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(45, 90, 61, 0.2);
+        margin-top: 1rem;
       }
     }
   }
   
   .book-info {
     h3 {
-      color: var(--primary-green);
       font-size: 1.8rem;
       margin-bottom: 0.5rem;
+
+      .book-title-link {
+        color: var(--primary-green);
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: var(--secondary-green);
+        }
+      }
     }
     
     .author {
@@ -518,33 +577,76 @@ blockquote {
 // Mission section
 .mission-section {
   background: linear-gradient(135deg, var(--cream), var(--warm-white));
+  padding: var(--section-padding);
   
-  .mission-content {
+  h2 {
+    color: var(--primary-green);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .mission-card {
     display: grid;
-    grid-template-columns: 350px 1fr;
-    gap: 4rem;
-    align-items: center;
+    grid-template-columns: 250px 1fr;
+    gap: 3rem;
+    background: white;
+    border-radius: var(--border-radius-large);
+    padding: 3rem;
+    box-shadow: var(--shadow-soft);
     
     .mission-image {
-      .mission-logo {
+      img {
         width: 100%;
-        height: 350px;
-        border-radius: var(--border-radius-large);
-        object-fit: cover;
-        box-shadow: var(--shadow-strong);
+        height: 250px;
+        border-radius: var(--border-radius);
+        object-fit: contain;
+        box-shadow: var(--shadow-medium);
       }
     }
     
-    .mission-text {
-      h2 {
-        color: var(--primary-green);
-        margin-bottom: 1.5rem;
-      }
-      
+    .mission-info {
       p {
         font-size: 1.1rem;
         line-height: 1.7;
         margin-bottom: 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 2rem;
+      gap: 2rem;
+      
+      .mission-image {
+        display: flex;
+        justify-content: center;
+        
+        img {
+          width: 180px;
+          height: 180px;
+          margin: 0 auto;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 0 1.5rem 0;
+    
+    .mission-card {
+      padding: 1.5rem;
+      gap: 1.5rem;
+      
+      .mission-image img {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .mission-info p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
       }
     }
   }
@@ -680,18 +782,41 @@ blockquote {
     flex-wrap: wrap;
     
     .social-link {
-      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: white;
       text-decoration: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 25px;
-      backdrop-filter: blur(10px);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
       transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.3);
+      
+      .social-icon {
+        width: 22px;
+        height: 22px;
+      }
+      
+      &.instagram {
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        
+        &:hover {
+          background: linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2366 50%, #bc1888 75%, #f09433 100%);
+          transform: rotate(5deg) scale(1.1);
+        }
+      }
+      
+      &.x-twitter {
+        background: #000000;
+        
+        &:hover {
+          background: #141414;
+          transform: rotate(-5deg) scale(1.1);
+        }
+      }
       
       &:hover {
-        background: rgba(255,255,255,0.3);
-        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       }
     }
   }
@@ -898,8 +1023,20 @@ blockquote {
     padding: 1.5rem;
   }
   
+  .mission-section {
+    padding: 2rem 0 1.5rem 0;
+  }
   .mission-content {
-    gap: 1.5rem;
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+  .mission-list li {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  .mission-list .mission-icon {
+    font-size: 1.2rem;
+    width: 28px;
   }
 }
 
@@ -1241,6 +1378,6 @@ blockquote {
 
 // Header scrolled state
 .site-header.is-scrolled {
-  background: linear-gradient(135deg, rgba(45, 90, 61, 0.95) 0%, rgba(74, 124, 89, 0.95) 50%, rgba(90, 139, 107, 0.95) 100%) !important;
+  background: linear-gradient(135deg, rgba(243, 184, 88, 0.95) 0%, rgba(232, 168, 69, 0.95) 50%, rgba(212, 148, 60, 0.95) 100%) !important;
   backdrop-filter: blur(15px) !important;
 }

@@ -32,13 +32,18 @@ title: Home
     <h2>📖 Our Featured Book</h2>
     <div class="book-card">
       <div class="book-cover">
-        <div class="book-placeholder">
-          <h4>"One Puppy, Two Puppies, Hey What Do You Do?"</h4>
-          <p>Cover Coming Soon</p>
-        </div>
+        <a href="/books/one-puppy-two-puppies/" class="book-cover-link">
+          <div class="book-placeholder">
+            <div class="book-placeholder-content">
+              <span class="book-icon">📘</span>
+              <h4>"One Puppy, Two Puppies, Hey What Do You Do?"</h4>
+              <div class="coming-soon-badge">Cover Coming Soon</div>
+            </div>
+          </div>
+        </a>
       </div>
       <div class="book-info">
-        <h3>"One Puppy, Two Puppies, Hey What Do You Do"</h3>
+        <h3><a href="/books/one-puppy-two-puppies/" class="book-title-link">"One Puppy, Two Puppies, Hey What Do You Do"</a></h3>
         <p class="author">by Rebecca M</p>
         <div class="book-details">
           <div class="detail-item">
@@ -90,14 +95,14 @@ title: Home
   </div>
 </section>
 
-<section class="mission-section">
+<section id="mission" class="mission-section">
   <div class="container">
-    <div class="mission-content">
+    <h2>🌳 Our Mission</h2>
+    <div class="mission-card">
       <div class="mission-image">
-        <img src="{{ '/assets/images/wild-imagination-logo.jpg' | relative_url }}" alt="Book Tree" class="mission-logo">
+        <img src="{{ '/assets/images/wild-imagination-logo.jpg' | relative_url }}" alt="Book Tree" class="mission-logo" loading="lazy">
       </div>
-      <div class="mission-text">
-        <h2>🌳 Our Mission</h2>
+      <div class="mission-info">
         <p>Like the books growing on our magical tree, we believe every story has the power to flourish in a child's imagination. Wild Imagination Press is dedicated to creating books that:</p>
         <ul class="mission-list">
           <li>
@@ -155,9 +160,16 @@ title: Home
     <div class="social-links">
       <p>Follow our journey:</p>
       <div class="social-icons">
-        <a href="#" class="social-link facebook">📘 Facebook</a>
-        <a href="#" class="social-link instagram">📸 Instagram</a>
-        <a href="#" class="social-link twitter">🐦 Twitter</a>
+        <a href="https://instagram.com/wildimaginationpress" class="social-link instagram" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
+          <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <a href="https://x.com/wildimaginpress" class="social-link x-twitter" target="_blank" rel="noopener" aria-label="Follow us on X (Twitter)">
+          <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
       </div>
     </div>
   </div>

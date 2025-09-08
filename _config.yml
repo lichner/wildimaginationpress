@@ -3,11 +3,26 @@ title: Wild Imagination Press
 description: "Creating enchanting children's books to nurture creativity and imagination"
 url: "https://lichner.github.io"
 baseurl: "/wildimaginationpress"
+lang: en
+timezone: America/New_York
+
+# SEO settings
+tagline: "Where Stories Grow Like Magic"
+twitter:
+  username: wildimaginpress
+  card: summary_large_image
+logo: /assets/images/wild-imagination-logo.jpg
+social:
+  name: Wild Imagination Press
+  links:
+    - https://x.com/wildimaginpress
+    - https://instagram.com/wildimaginationpress
 
 # Author settings
 author:
   name: Rebecca M
   email: contact@wildimaginationpress.com
+  twitter: wildimaginationpress
 
 # Build settings
 markdown: kramdown
@@ -37,9 +52,8 @@ logo: /assets/images/wild-imagination-logo.jpg
 
 # Social settings
 social:
-  facebook: wildimaginationpress
   instagram: wildimaginationpress
-  twitter: wildimagination
+  twitter: wildimaginpress
 
 # Navigation
 nav_links:
