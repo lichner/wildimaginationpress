@@ -686,15 +686,20 @@ blockquote {
   
   li {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     font-size: 1.1rem;
     
     .mission-icon {
       font-size: 1.5rem;
       width: 40px;
       text-align: center;
+      flex-shrink: 0;
+    }
+    
+    span:last-child {
+      color: var(--text-medium);
     }
   }
 }
@@ -1030,6 +1035,16 @@ blockquote {
       .mission-list {
         li {
           text-align: left;
+          align-items: flex-start;
+          margin-bottom: 1rem;
+          
+          .mission-icon {
+            flex-shrink: 0;
+          }
+          
+          span:last-child {
+            color: var(--text-medium);
+          }
         }
       }
     }
@@ -1111,10 +1126,17 @@ blockquote {
   .mission-list li {
     font-size: 1rem;
     margin-bottom: 1rem;
-  }
-  .mission-list .mission-icon {
-    font-size: 1.2rem;
-    width: 28px;
+    align-items: flex-start;
+    
+    .mission-icon {
+      font-size: 1.2rem;
+      width: 28px;
+      flex-shrink: 0;
+    }
+    
+    span:last-child {
+      color: var(--text-medium);
+    }
   }
 }
 
