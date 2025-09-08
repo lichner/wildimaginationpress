@@ -86,13 +86,14 @@ p {
 
 // Header
 .site-header {
-  background: linear-gradient(135deg, #f3b858 0%, #e8a845 50%, #d4943c 100%);
+  /* Option 1 Reversed: Darker Golden Cream - Dark to light gradient */
+  background: linear-gradient(90deg, #dab882 0%, #e0c696 25%, #e6d4aa 50%, #ece2be 75%, #f2f0d2 100%);
   color: var(--primary-green);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 15px rgba(212, 148, 60, 0.2);
+  box-shadow: 0 2px 15px rgba(218, 184, 130, 0.3);
   backdrop-filter: blur(10px);
   
   // Add a subtle transition overlay at the bottom
@@ -170,7 +171,7 @@ p {
   .nav-toggle-line {
     width: 24px;
     height: 3px;
-    background: white;
+    background: var(--primary-green);
     border-radius: 2px;
     transition: all 0.3s ease;
   }
@@ -183,7 +184,7 @@ p {
   align-items: center;
   
   .nav-link {
-    color: white;
+    color: var(--primary-green);
     text-decoration: none;
     font-weight: 500;
     padding: 0.5rem 1rem;
@@ -192,7 +193,8 @@ p {
     position: relative;
     
     &:hover {
-      background: rgba(255,255,255,0.15);
+      background: rgba(45, 90, 61, 0.08);
+      color: var(--secondary-green);
       transform: translateY(-2px);
     }
     
@@ -204,7 +206,7 @@ p {
       transform: translateX(-50%);
       width: 0;
       height: 2px;
-      background: var(--warm-yellow);
+      background: var(--secondary-green);
       transition: width 0.3s ease;
     }
     
@@ -891,10 +893,12 @@ blockquote {
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--primary-green);
+    background: var(--warm-white);
     flex-direction: column;
     padding: 1rem;
     box-shadow: var(--shadow-medium);
+    border: 1px solid rgba(45, 90, 61, 0.1);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
     
     &.active {
       display: flex;
@@ -907,7 +911,13 @@ blockquote {
         display: block;
         padding: 1rem;
         text-align: center;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        color: var(--primary-green);
+        border-bottom: 1px solid rgba(45, 90, 61, 0.08);
+        
+        &:hover {
+          background: rgba(45, 90, 61, 0.05);
+          color: var(--secondary-green);
+        }
         
         &:after {
           display: none;
@@ -1432,6 +1442,7 @@ blockquote {
 
 // Header scrolled state
 .site-header.is-scrolled {
-  background: linear-gradient(135deg, rgba(243, 184, 88, 0.95) 0%, rgba(232, 168, 69, 0.95) 50%, rgba(212, 148, 60, 0.95) 100%) !important;
+  background: linear-gradient(90deg, rgba(218, 186, 130, 0.95) 0%, rgba(224, 198, 150, 0.95) 25%, rgba(230, 210, 170, 0.95) 50%, rgba(236, 222, 190, 0.95) 75%, rgba(242, 234, 210, 0.95) 100%) !important;
   backdrop-filter: blur(15px) !important;
+  box-shadow: 0 2px 20px rgba(218, 186, 130, 0.45) !important;
 }
