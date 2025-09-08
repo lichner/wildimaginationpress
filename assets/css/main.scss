@@ -145,11 +145,25 @@ p {
       font-size: 1.8rem;
       font-weight: 800;
       letter-spacing: 0.02em;
-      background: linear-gradient(45deg, #2d5a3d 30%, #4a7c59 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       text-shadow: none;
+      
+      // Option 1: Nature Harmony
+      .brand-word-1 {
+        color: var(--primary-green); // wild - Deep forest green
+      }
+      
+      .brand-word-2 {
+        color: var(--soft-teal); // imagination - Soft teal bridge
+      }
+      
+      .brand-word-3 {
+        color: #dab882; // press - Golden accent matching header
+      }
+      
+      .brand-dot {
+        color: var(--text-medium); // Subtle gray for dots
+        opacity: 0.7;
+      }
       
       // Hide on mobile portrait mode
       @media (max-width: 768px) and (orientation: portrait) {
