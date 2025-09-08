@@ -1,0 +1,39 @@
+# Sitemap Configuration for Wild Imagination Press
+# This file configures the jekyll-sitemap plugin
+
+# Default sitemap settings are handled by the jekyll-sitemap plugin
+# Additional custom configurations can be added here
+
+# Priority and change frequency settings
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      sitemap:
+        priority: 0.7
+        changefreq: weekly
+  
+  - scope:
+      path: ""
+      type: "books"
+    values:
+      sitemap:
+        priority: 0.9
+        changefreq: monthly
+  
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      sitemap:
+        priority: 0.8
+        changefreq: weekly
+
+# Homepage gets highest priority
+  - scope:
+      path: "index.html"
+    values:
+      sitemap:
+        priority: 1.0
+        changefreq: weekly
