@@ -17,7 +17,8 @@ permalink: /books/
               <img src="{{ book.cover_image | relative_url }}" alt="{{ book.title }}" loading="lazy">
             {% else %}
               <div class="book-placeholder-small">
-                <span>{{ book.title }}</span>
+                <span class="book-title-small">{{ book.title }}</span>
+                <span class="cover-coming-soon-small">Cover Coming Soon</span>
               </div>
             {% endif %}
           </div>

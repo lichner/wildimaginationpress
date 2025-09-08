@@ -1153,16 +1153,25 @@ blockquote {
   box-shadow: var(--shadow-strong);
   text-align: center;
   padding: 2rem;
+  gap: 1.5rem;
   
-  h4 {
-    color: var(--text-medium);
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
+  .book-title-large {
+    color: var(--primary-green);
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.3;
   }
   
-  p {
-    color: var(--text-light);
+  .cover-coming-soon-large {
+    background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
     font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(45, 90, 61, 0.25);
+    margin: 0;
   }
 }
 
@@ -1324,13 +1333,30 @@ blockquote {
     height: 200px;
     background: linear-gradient(135deg, var(--cream), #e8e1d4);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: var(--border-radius);
-    color: var(--text-medium);
-    font-size: 0.9rem;
     text-align: center;
     padding: 1rem;
+    gap: 1rem;
+    
+    .book-title-small {
+      color: var(--primary-green);
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    
+    .cover-coming-soon-small {
+      background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(45, 90, 61, 0.2);
+    }
   }
   
   .book-info-small {
