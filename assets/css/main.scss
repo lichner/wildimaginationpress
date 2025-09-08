@@ -1508,3 +1508,194 @@ blockquote {
   backdrop-filter: blur(15px) !important;
   box-shadow: 0 2px 20px rgba(218, 186, 130, 0.45) !important;
 }
+
+// Thank You Modal Styles
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 1rem;
+  
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    
+    .modal-container {
+      transform: scale(1) translateY(0);
+    }
+  }
+}
+
+.modal-container {
+  background: white;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-strong);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.9) translateY(-20px);
+  transition: all 0.3s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-medium);
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: rgba(45, 90, 61, 0.1);
+    color: var(--primary-green);
+    transform: scale(1.1);
+  }
+}
+
+.modal-content {
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+}
+
+.modal-icon {
+  margin-bottom: 1.5rem;
+  
+  svg {
+    width: 60px;
+    height: 60px;
+    animation: checkmark-bounce 0.6s ease 0.3s both;
+  }
+}
+
+@keyframes checkmark-bounce {
+  0% {
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(45deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.modal-content h2 {
+  color: var(--primary-green);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+}
+
+.modal-content p {
+  color: var(--text-medium);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-benefits {
+  background: linear-gradient(135deg, var(--cream), var(--warm-white));
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  
+  p {
+    margin-bottom: 1rem;
+    color: var(--primary-green);
+    font-weight: 600;
+  }
+}
+
+.benefit-grid {
+  display: grid;
+  gap: 1rem;
+  text-align: left;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  
+  svg {
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+  
+  span {
+    color: var(--text-dark);
+    font-size: 0.95rem;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-button-primary {
+  background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--secondary-green), var(--primary-green));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+  }
+}
+
+// Mobile Modal Styles
+@media (max-width: 768px) {
+  .modal-container {
+    margin: 1rem;
+    max-height: 85vh;
+  }
+  
+  .modal-content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .modal-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .benefit-grid {
+    gap: 0.75rem;
+  }
+  
+  .benefit-item {
+    gap: 0.5rem;
+    
+    span {
+      font-size: 0.9rem;
+    }
+  }
+}

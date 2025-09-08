@@ -28,22 +28,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Email form handling for Formspree
+// Email form handling for Formspree with AJAX and Modal
 document.addEventListener('DOMContentLoaded', function() {
     const emailForm = document.getElementById('email-form');
     
     if (emailForm) {
-        emailForm.addEventListener('submit', function(e) {
+        emailForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Always prevent default for AJAX submission
+            
             const emailInput = this.querySelector('input[type="email"]');
             const email = emailInput.value;
             const submitButton = this.querySelector('button[type="submit"]');
+            const formAction = this.action;
             
             // Basic email validation
             if (!isValidEmail(email)) {
-                e.preventDefault();
                 showNotification('Please enter a valid email address.', 'error');
                 return;
             }
+            
+            // Show loading state
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Joining...';
+            submitButton.disabled = true;
             
             // Check if we're on localhost (development)
             const isLocalhost = window.location.hostname === 'localhost' || 
@@ -51,44 +58,117 @@ document.addEventListener('DOMContentLoaded', function() {
                                window.location.hostname === '0.0.0.0';
             
             if (isLocalhost) {
-                // Prevent actual form submission on localhost
-                e.preventDefault();
-                
-                // Show loading state
-                const originalText = submitButton.textContent;
-                submitButton.textContent = 'Joining...';
-                submitButton.disabled = true;
-                
                 // Simulate success for local testing
                 setTimeout(() => {
-                    showNotification(
-                        '✅ LOCAL TEST: Form ready for Formspree! Deploy to test for real. Email: ' + email, 
-                        'success'
-                    );
                     emailInput.value = '';
                     submitButton.textContent = originalText;
                     submitButton.disabled = false;
+                    showThankYouModal();
                 }, 1000);
-                
                 return;
             }
             
-            // Production: Show loading state
-            const originalText = submitButton.textContent;
-            submitButton.textContent = 'Joining...';
-            submitButton.disabled = true;
-            
-            // Track conversion in Google Analytics
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'email_signup', {
-                    'event_category': 'engagement',
-                    'event_label': 'formspree_signup',
-                    'value': 1
+            // Production: Submit to Formspree via AJAX
+            try {
+                const formData = new FormData(this);
+                
+                const response = await fetch(formAction, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
                 });
+                
+                if (response.ok) {
+                    // Success!
+                    emailInput.value = '';
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                    
+                    // Track conversion in Google Analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'email_signup', {
+                            'event_category': 'engagement',
+                            'event_label': 'formspree_modal_signup',
+                            'value': 1
+                        });
+                    }
+                    
+                    // Show beautiful modal
+                    showThankYouModal();
+                    
+                } else {
+                    throw new Error('Form submission failed');
+                }
+                
+            } catch (error) {
+                console.error('Form submission error:', error);
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                showNotification('Something went wrong. Please try again or contact us directly.', 'error');
             }
-            
-            // Allow form to submit naturally to Formspree
-            // Form will redirect to thank-you page on success
+        });
+    }
+});
+
+// Modal functionality
+function showThankYouModal() {
+    const modal = document.getElementById('thank-you-modal');
+    if (modal) {
+        modal.classList.add('is-visible');
+        modal.setAttribute('aria-hidden', 'false');
+        
+        // Focus management for accessibility
+        const closeButton = modal.querySelector('.modal-close');
+        if (closeButton) closeButton.focus();
+        
+        // Prevent body scrolling
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeThankYouModal() {
+    const modal = document.getElementById('thank-you-modal');
+    if (modal) {
+        modal.classList.remove('is-visible');
+        modal.setAttribute('aria-hidden', 'true');
+        
+        // Restore body scrolling
+        document.body.style.overflow = '';
+        
+        // Return focus to form
+        const emailForm = document.getElementById('email-form');
+        if (emailForm) {
+            const emailInput = emailForm.querySelector('input[type="email"]');
+            if (emailInput) emailInput.focus();
+        }
+    }
+}
+
+// Close modal functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('thank-you-modal');
+    
+    if (modal) {
+        // Close on X button
+        const closeButton = modal.querySelector('.modal-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', closeThankYouModal);
+        }
+        
+        // Close on overlay click
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeThankYouModal();
+            }
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('is-visible')) {
+                closeThankYouModal();
+            }
         });
     }
 });
