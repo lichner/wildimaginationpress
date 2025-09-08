@@ -149,6 +149,11 @@ p {
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: none;
+      
+      // Hide on mobile portrait mode
+      @media (max-width: 768px) and (orientation: portrait) {
+        display: none;
+      }
     }
   }
 }
@@ -401,7 +406,7 @@ section {
       border-radius: var(--border-radius);
       box-shadow: var(--shadow-medium);
       text-align: center;
-      padding: 2rem;
+      padding: 1.5rem;
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(45, 90, 61, 0.1);
@@ -422,32 +427,40 @@ section {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1.5rem;
+        justify-content: center;
+        gap: 1rem;
+        width: 100%;
+        height: 100%;
       }
 
       .book-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
+        font-size: 2.5rem;
+        margin: 0;
+        flex-shrink: 0;
       }
       
       h4 {
         color: var(--primary-green);
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         font-weight: 600;
-        line-height: 1.4;
-        margin-bottom: 0.5rem;
-        padding: 0 1rem;
+        line-height: 1.3;
+        margin: 0;
+        padding: 0 0.5rem;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
       }
       
       .coming-soon-badge {
         background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
         color: white;
-        padding: 0.5rem 1.2rem;
+        padding: 0.6rem 1.2rem;
         border-radius: 20px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 500;
         box-shadow: 0 2px 8px rgba(45, 90, 61, 0.2);
-        margin-top: 1rem;
+        margin: 0;
+        flex-shrink: 0;
       }
     }
   }
@@ -930,6 +943,35 @@ blockquote {
       height: 300px;
       max-width: 250px;
       margin: 0 auto;
+      padding: 1.25rem;
+      
+      .book-placeholder-content {
+        gap: 0.8rem;
+      }
+      
+      .book-icon {
+        font-size: 2rem;
+      }
+      
+      h4 {
+        font-size: 1.1rem;
+        line-height: 1.2;
+      }
+      
+      .coming-soon-badge {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+      }
+    }
+    
+    .book-info {
+      text-align: left;
+      
+      .book-details {
+        .detail-item {
+          text-align: left;
+        }
+      }
     }
   }
   
@@ -954,6 +996,18 @@ blockquote {
       max-width: 250px;
       height: 250px;
       margin: 0 auto;
+    }
+  }
+  
+  .mission-card {
+    .mission-info {
+      text-align: left;
+      
+      .mission-list {
+        li {
+          text-align: left;
+        }
+      }
     }
   }
   
