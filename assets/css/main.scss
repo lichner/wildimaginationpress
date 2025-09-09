@@ -1302,9 +1302,30 @@ blockquote {
     margin: 0 auto;
     font-size: 1.1rem;
     line-height: 1.8;
+    color: var(--text-medium);
+    white-space: pre-wrap;
+
+    /* Style text that contains bullet points */
+    p {
+      margin-bottom: 0.75rem;
+    }
     
+    /* Tighter spacing for bullet point sections */
+    p:has(+ p:first-of-type:not(:last-of-type)) {
+      margin-bottom: 0.2rem;
+      line-height: 1.4;
+    }
+
+    /* Style sections */
     p {
       margin-bottom: 1.5rem;
+    }
+
+    /* Style feature list section */
+    p:contains("discover:") {
+      color: var(--text-dark);
+      font-size: 1.2rem;
+      margin: 2rem 0 1rem;
     }
   }
 }

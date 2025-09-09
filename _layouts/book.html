@@ -10,7 +10,7 @@ layout: default
           <img src="{{ page.cover_image | relative_url }}" alt="{{ page.title }}" class="book-cover-img">
         {% else %}
           <div class="book-placeholder-large">
-            <h4 class="book-title-large">{{ page.title }}</h4>
+            <!-- <h4 class="book-title-large">{{ page.title }}</h4> -->
             <p class="cover-coming-soon-large">Cover Coming Soon</p>
           </div>
         {% endif %}
@@ -74,9 +74,7 @@ layout: default
 <section class="book-description">
   <div class="container">
     <h2>About This Book</h2>
-    <div class="description-content">
-      {{ content }}
-    </div>
+    <div class="description-content">{{ page.full_description }}</div>
   </div>
 </section>
 
@@ -93,7 +91,7 @@ layout: default
               <img src="{{ book.cover_image | relative_url }}" alt="{{ book.title }}" loading="lazy">
             {% else %}
               <div class="book-placeholder-small">
-                <span class="book-title-small">{{ book.title }}</span>
+                <!-- <span class="book-title-small">{{ book.title }}</span> -->
                 <span class="cover-coming-soon-small">Cover Coming Soon</span>
               </div>
             {% endif %}
