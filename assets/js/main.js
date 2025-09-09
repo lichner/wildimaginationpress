@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Email form handling for Formspree with AJAX and Modal
+// Email form handling with Google reCAPTCHA v3 and AJAX Modal
 document.addEventListener('DOMContentLoaded', function() {
     const emailForm = document.getElementById('email-form');
     
@@ -49,28 +49,47 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show loading state
             const originalText = submitButton.textContent;
-            submitButton.textContent = 'Joining...';
+            submitButton.textContent = 'Verifying...';
             submitButton.disabled = true;
             
-            // Check if we're on localhost (development)
-            const isLocalhost = window.location.hostname === 'localhost' || 
-                               window.location.hostname === '127.0.0.1' || 
-                               window.location.hostname === '0.0.0.0';
-            
-            if (isLocalhost) {
-                // Simulate success for local testing
-                setTimeout(() => {
-                    emailInput.value = '';
-                    submitButton.textContent = originalText;
-                    submitButton.disabled = false;
-                    showThankYouModal();
-                }, 1000);
-                return;
-            }
-            
-            // Production: Submit to Formspree via AJAX
             try {
+                // Check if we're on localhost (development)
+                const isLocalhost = window.location.hostname === 'localhost' || 
+                                   window.location.hostname === '127.0.0.1' || 
+                                   window.location.hostname === '0.0.0.0';
+                
+                let recaptchaToken = '';
+                
+                // Get reCAPTCHA v3 token
+                if (typeof grecaptcha !== 'undefined') {
+                    try {
+                        console.log('Getting reCAPTCHA token...');
+                        recaptchaToken = await grecaptcha.execute('6LePxsIrAAAAAL5KZMaM9Gy-gnj62mMul9UnhBjv', {
+                            action: 'email_signup'
+                        });
+                        
+                        console.log('reCAPTCHA token received:', recaptchaToken ? 'Yes' : 'No');
+                        console.log('Token length:', recaptchaToken ? recaptchaToken.length : 0);
+                        
+                        // Add token to form using Formspree's expected field name
+                        document.getElementById('recaptcha-response').value = recaptchaToken;
+                    } catch (recaptchaError) {
+                        console.warn('reCAPTCHA failed:', recaptchaError);
+                        // Clear the field if reCAPTCHA fails
+                        document.getElementById('recaptcha-response').value = '';
+                    }
+                } else {
+                    console.warn('reCAPTCHA not loaded - grecaptcha is undefined');
+                    console.log('Window location:', window.location.hostname);
+                }
+                
+                submitButton.textContent = 'Joining...';
+                
+                // Submit to Formspree via AJAX (both localhost and production)
                 const formData = new FormData(this);
+                
+                console.log('Submitting form to:', formAction);
+                console.log('Form data:', Object.fromEntries(formData));
                 
                 const response = await fetch(formAction, {
                     method: 'POST',
@@ -80,33 +99,42 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
                 
-                if (response.ok) {
-                    // Success!
-                    emailInput.value = '';
-                    submitButton.textContent = originalText;
-                    submitButton.disabled = false;
-                    
-                    // Track conversion in Google Analytics
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'email_signup', {
-                            'event_category': 'engagement',
-                            'event_label': 'formspree_modal_signup',
-                            'value': 1
-                        });
-                    }
-                    
-                    // Show beautiful modal
-                    showThankYouModal();
-                    
-                } else {
-                    throw new Error('Form submission failed');
+                console.log('Formspree response status:', response.status);
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => null);
+                    console.error('Formspree error:', errorData);
+                    throw new Error(`Form submission failed: ${response.status}`);
                 }
+                
+                // Success!
+                emailInput.value = '';
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                
+                // Track conversion in Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'email_signup', {
+                        'event_category': 'engagement',
+                        'event_label': 'recaptcha_v3_modal_signup',
+                        'recaptcha_score': recaptchaToken ? 'protected' : 'unprotected',
+                        'value': 1
+                    });
+                }
+                
+                // Show beautiful modal
+                showThankYouModal();
                 
             } catch (error) {
                 console.error('Form submission error:', error);
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
-                showNotification('Something went wrong. Please try again or contact us directly.', 'error');
+                
+                if (error.message.includes('recaptcha')) {
+                    showNotification('Security verification failed. Please try again.', 'error');
+                } else {
+                    showNotification('Something went wrong. Please try again or contact us directly.', 'error');
+                }
             }
         });
     }
