@@ -34,7 +34,6 @@
     {% seo %}
     
     <!-- Google reCAPTCHA v3 -->
-    <!-- Replace YOUR_SITE_KEY with your actual reCAPTCHA site key -->
     <script src="https://www.google.com/recaptcha/api.js?render=6LePxsIrAAAAAL5KZMaM9Gy-gnj62mMul9UnhBjv"></script>
     
     <!-- Google Analytics -->
@@ -66,7 +65,7 @@
       "sameAs": [
         {% if site.social.facebook %}"https://facebook.com/{{ site.social.facebook }}",{% endif %}
         {% if site.social.instagram %}"https://instagram.com/{{ site.social.instagram }}",{% endif %}
-        {% if site.social.twitter %}"https://twitter.com/{{ site.social.twitter }}"{% endif %}
+        {% if site.social.twitter %}"https://x.com/{{ site.social.twitter }}"{% endif %}
       ]
     }
     </script>

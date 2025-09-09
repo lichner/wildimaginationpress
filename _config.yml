@@ -1,8 +1,8 @@
 # Site settings
 title: Wild Imagination Press
 description: "Creating enchanting children's books to nurture creativity and imagination"
-url: "https://lichner.github.io"
-baseurl: "/wildimaginationpress"
+url: "https://wildimaginationpress.com"
+baseurl: ""
 lang: en
 timezone: America/New_York
 
@@ -69,7 +69,6 @@ exclude:
   - README.md
   - LICENSE
   - WARP.md
-  - HUMANIZED_ICON_OPTIONS.md
   - node_modules/
   - vendor/bundle/
   - vendor/cache/
