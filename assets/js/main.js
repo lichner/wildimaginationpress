@@ -33,6 +33,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const emailForm = document.getElementById('email-form');
     
     if (emailForm) {
+        // Track form interaction (when user focuses on email field)
+        const emailInput = emailForm.querySelector('input[type="email"]');
+        let formInteractionTracked = false;
+        
+        if (emailInput) {
+            emailInput.addEventListener('focus', function() {
+                if (!formInteractionTracked) {
+                    formInteractionTracked = true;
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_start', {
+                            'event_category': 'engagement',
+                            'event_label': 'email_signup_form_interaction',
+                            'form_name': 'email_signup'
+                        });
+                    }
+                }
+            });
+        }
+        
         emailForm.addEventListener('submit', async function(e) {
             e.preventDefault(); // Always prevent default for AJAX submission
             
@@ -43,6 +62,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Basic email validation
             if (!isValidEmail(email)) {
+                // Track validation failure
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'form_error', {
+                        'event_category': 'form_interaction',
+                        'event_label': 'email_validation_failed',
+                        'form_name': 'email_signup'
+                    });
+                }
                 showNotification('Please enter a valid email address.', 'error');
                 return;
             }
