@@ -1303,29 +1303,26 @@ blockquote {
     font-size: 1.1rem;
     line-height: 1.8;
     color: var(--text-medium);
-    white-space: pre-wrap;
 
-    /* Style text that contains bullet points */
-    p {
-      margin-bottom: 0.75rem;
-    }
-    
-    /* Tighter spacing for bullet point sections */
-    p:has(+ p:first-of-type:not(:last-of-type)) {
-      margin-bottom: 0.2rem;
-      line-height: 1.4;
-    }
-
-    /* Style sections */
     p {
       margin-bottom: 1.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
-    /* Style feature list section */
-    p:contains("discover:") {
-      color: var(--text-dark);
-      font-size: 1.2rem;
-      margin: 2rem 0 1rem;
+    ul, ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+
+      li {
+        margin-bottom: 0.75rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 }
@@ -1721,39 +1718,45 @@ blockquote {
   }
 }
 
-// Book Preview Images - Force tight spacing
-// Reduce margin of paragraph immediately before images
+// Book Preview Images - Proper spacing
+// Reduce margin slightly for content before images
 p + .book-preview-images,
 ul + .book-preview-images {
-  margin-top: -1.5rem !important;
+  margin-top: 0.5rem;
 }
 
 .book-preview-images {
-  margin: 0 !important;
+  margin: 2rem 0 !important;
   padding: 0 !important;
   display: grid;
   gap: 2rem;
-  
+
+  .preview-image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
   .preview-image {
     width: 100%;
     height: auto;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-medium);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
+
     &:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-strong);
     }
   }
-  
+
   .preview-caption {
+    display: block;
     text-align: center;
     font-size: 0.9rem;
     color: var(--text-light);
     font-style: italic;
-    margin-top: 0.5rem !important;
-    margin-bottom: 0 !important;
+    margin: 0;
   }
   
   // Two column layout on larger screens
@@ -1762,26 +1765,26 @@ ul + .book-preview-images {
     gap: 2.5rem;
   }
   
-  // Single column on mobile with smaller gaps
+  // Single column on mobile with improved spacing
   @media (max-width: 767px) {
-    gap: 1.5rem;
-    margin: 0;
-    
+    gap: 2rem;
+    margin: 2rem 0 !important;
+
+    .preview-image-container {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
     .preview-caption {
       font-size: 0.85rem;
     }
   }
   
-  // Reduce spacing of adjacent paragraphs
+  // Proper spacing for paragraphs following images
   + p {
-    margin-top: -1.5rem !important;
-    padding-top: 0 !important;
-    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
   }
-}
-
-// Also target the paragraph that follows the images more specifically
-.book-preview-images + p {
-  margin-top: -1.5rem !important;
-  padding-top: 0 !important;
 }
