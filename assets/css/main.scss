@@ -1720,3 +1720,68 @@ blockquote {
     }
   }
 }
+
+// Book Preview Images - Force tight spacing
+// Reduce margin of paragraph immediately before images
+p + .book-preview-images,
+ul + .book-preview-images {
+  margin-top: -1.5rem !important;
+}
+
+.book-preview-images {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: grid;
+  gap: 2rem;
+  
+  .preview-image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-strong);
+    }
+  }
+  
+  .preview-caption {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0 !important;
+  }
+  
+  // Two column layout on larger screens
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  
+  // Single column on mobile with smaller gaps
+  @media (max-width: 767px) {
+    gap: 1.5rem;
+    margin: 0;
+    
+    .preview-caption {
+      font-size: 0.85rem;
+    }
+  }
+  
+  // Reduce spacing of adjacent paragraphs
+  + p {
+    margin-top: -1.5rem !important;
+    padding-top: 0 !important;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Also target the paragraph that follows the images more specifically
+.book-preview-images + p {
+  margin-top: -1.5rem !important;
+  padding-top: 0 !important;
+}
