@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "WebSearch",
+      "Bash(bundle exec:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
