@@ -409,6 +409,26 @@ section {
 
       &:hover {
         transform: translateY(-5px);
+        
+        .book-cover-img {
+          transform: translateY(0); // Prevent double transform
+        }
+      }
+    }
+    
+    .book-cover-img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-medium);
+      border: 1px solid rgba(45, 90, 61, 0.1);
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, var(--cream), #f5efe4);
+      
+      &:hover {
+        box-shadow: var(--shadow-strong);
+        transform: translateY(-2px);
       }
     }
     
@@ -968,28 +988,36 @@ blockquote {
     text-align: center;
     padding: 2rem;
     
-    .book-cover .book-placeholder {
-      height: 300px;
-      max-width: 250px;
-      margin: 0 auto;
-      padding: 1.25rem;
-      
-      .book-placeholder-content {
-        gap: 0.8rem;
+    .book-cover {
+      .book-placeholder {
+        height: 300px;
+        max-width: 250px;
+        margin: 0 auto;
+        padding: 1.25rem;
+        
+        .book-placeholder-content {
+          gap: 0.8rem;
+        }
+        
+        .book-icon {
+          font-size: 2rem;
+        }
+        
+        h4 {
+          font-size: 1.1rem;
+          line-height: 1.2;
+        }
+        
+        .coming-soon-badge {
+          font-size: 0.8rem;
+          padding: 0.5rem 1rem;
+        }
       }
       
-      .book-icon {
-        font-size: 2rem;
-      }
-      
-      h4 {
-        font-size: 1.1rem;
-        line-height: 1.2;
-      }
-      
-      .coming-soon-badge {
-        font-size: 0.8rem;
-        padding: 0.5rem 1rem;
+      .book-cover-img {
+        height: 300px;
+        max-width: 250px;
+        margin: 0 auto;
       }
     }
     
@@ -1114,6 +1142,16 @@ blockquote {
   
   .book-card, .author-card {
     padding: 1.5rem;
+    
+    .book-cover .book-cover-img {
+      height: 280px;
+      max-width: 220px;
+    }
+  }
+  
+  .book-cover-large .book-cover-img {
+    height: 350px;
+    max-width: 280px;
   }
   
   .mission-section {
@@ -1160,6 +1198,12 @@ blockquote {
     object-fit: cover;
     border-radius: var(--border-radius-large);
     box-shadow: var(--shadow-strong);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 60px rgba(45, 90, 61, 0.25);
+    }
   }
 }
 
@@ -1365,6 +1409,11 @@ blockquote {
       height: 200px;
       object-fit: cover;
       border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
     }
   }
   
@@ -1445,6 +1494,11 @@ blockquote {
   .book-placeholder-large,
   .book-cover-large .book-cover-img {
     height: 400px;
+  }
+  
+  .book-cover-large .book-cover-img {
+    max-width: 300px;
+    margin: 0 auto;
   }
   
   .book-details-main h1 {

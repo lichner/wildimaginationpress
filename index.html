@@ -31,11 +31,14 @@ layout: default
     <div class="book-card">
       <div class="book-cover">
         <a href="./books/bushlandia/" class="book-cover-link">
-          <div class="book-placeholder">
-            <div class="book-placeholder-content">
-              <div class="coming-soon-badge">Cover Coming Soon</div>
-            </div>
-          </div>
+          <img src="{{ '/assets/images/books/bushlandia-cover-medium.jpg' | relative_url }}" 
+               srcset="{{ '/assets/images/books/bushlandia-cover-small.jpg' | relative_url }} 360w,
+                       {{ '/assets/images/books/bushlandia-cover-medium.jpg' | relative_url }} 480w,
+                       {{ '/assets/images/books/bushlandia-cover-large.jpg' | relative_url }} 720w"
+               sizes="(max-width: 768px) 300px, 400px"
+               alt="Bushlandia book cover - The Magic of Imagination in the Australian Bush by Rebecca Mola"
+               class="book-cover-img"
+               loading="lazy">
         </a>
       </div>
       <div class="book-info">
@@ -80,7 +83,7 @@ layout: default
           <span class="feature-tag">Fiction</span>
           <span class="feature-tag">Creativity</span>
           <span class="feature-tag">Nature</span>
-          <span class="feature-tag">Ages 3-8</span>
+          <span class="feature-tag">Ages 7-10</span>
         </div>
       </div>
     </div>
