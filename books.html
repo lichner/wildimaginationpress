@@ -12,9 +12,18 @@ permalink: /books/
       {% if site.books and site.books.size > 0 %}
         {% for book in site.books %}
         <div class="book-card-small">
-          <div class="book-cover-small">
+          <div class="book-cover-small book-cover-square">
             {% if book.cover_image %}
-              <img src="{{ book.cover_image | relative_url }}" alt="{{ book.title }}" loading="lazy">
+              {% assign cover_base = book.cover_image | replace: '-cover-large.jpg', '' | replace: '-cover.jpg', '' | replace: '.jpg', '' %}
+              {% assign square_small = cover_base | append: '-cover-square-small.jpg' %}
+              {% assign square_medium = cover_base | append: '-cover-square-medium.jpg' %}
+              {% assign square_large = cover_base | append: '-cover-square-large.jpg' %}
+              <img 
+                src="{{ square_medium | relative_url }}" 
+                srcset="{{ square_small | relative_url }} 250w, {{ square_medium | relative_url }} 400w, {{ square_large | relative_url }} 600w"
+                sizes="(max-width: 768px) 250px, 400px"
+                alt="{{ book.title }}" 
+                loading="lazy">
             {% else %}
               <div class="book-placeholder-small">
                 <!-- <span class="book-title-small">{{ book.title }}</span> -->

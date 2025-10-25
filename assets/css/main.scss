@@ -1415,6 +1415,16 @@ blockquote {
         transform: scale(1.05);
       }
     }
+    
+    // Square cover styling for books.html page only
+    &.book-cover-square {
+      img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+      }
+    }
   }
   
   .book-placeholder-small {
