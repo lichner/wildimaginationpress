@@ -1279,8 +1279,9 @@ blockquote {
 .book-cover-large {
   .book-cover-img {
     width: 100%;
-    height: 500px;
-    object-fit: cover;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
     border-radius: var(--border-radius-large);
     box-shadow: var(--shadow-strong);
     transition: all 0.3s ease;
@@ -1473,6 +1474,20 @@ blockquote {
   gap: 2rem;
 }
 
+// Compact grid for book layout "More Books" section
+.related-books .books-grid {
+  grid-template-columns: repeat(2, minmax(200px, 300px));
+  justify-content: center;
+}
+
+.related-books .book-card-small {
+  padding: 1.25rem;
+  
+  .book-cover-small.book-cover-square {
+    max-width: 180px;
+  }
+}
+
 .book-card-small {
   background: white;
   padding: 1.5rem;
@@ -1588,6 +1603,12 @@ blockquote {
 }
 
 @media (max-width: 768px) {
+  .related-books .books-grid {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
   .book-hero-content {
     grid-template-columns: 1fr;
     text-align: center;
