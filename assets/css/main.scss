@@ -325,14 +325,53 @@ p {
   
   h2 {
     color: var(--warm-yellow);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     font-size: 1.8rem;
+  }
+  
+  .hero-book-link {
+    text-decoration: none;
+    display: block;
+    
+    &:hover {
+      .hero-book-cover-img {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+  
+  .hero-book-cover {
+    float: left;
+    margin: 0 1.5rem 1rem 0;
+    max-width: 250px;
+    
+    .hero-book-cover-img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+      display: block;
+    }
   }
   
   h3 {
     font-size: 1.4rem;
     margin-bottom: 0.5rem;
     color: white;
+    
+    .hero-book-title-link {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        color: var(--warm-yellow);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
   }
   
   .author-name {
@@ -344,6 +383,7 @@ p {
   
   .book-description {
     text-align: left;
+    clear: none; // Allow text to wrap around image
     
     p {
       font-size: 0.95rem;
@@ -352,6 +392,13 @@ p {
       margin-bottom: 1rem;
       color: white;
     }
+  }
+  
+  // Clear float after description to maintain layout
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
   }
 }
 
@@ -980,6 +1027,21 @@ blockquote {
     .coming-soon {
       padding: 2rem;
       margin: 2rem auto;
+      
+      .hero-book-cover {
+        float: none;
+        max-width: 200px;
+        margin: 0 auto 1.5rem auto;
+        text-align: center;
+      }
+      
+      h2 {
+        clear: both;
+      }
+      
+      .book-description {
+        clear: both;
+      }
     }
   }
   
@@ -1129,6 +1191,11 @@ blockquote {
     
     .coming-soon {
       padding: 1.5rem;
+      
+      .hero-book-cover {
+        max-width: 180px;
+        margin-bottom: 1.25rem;
+      }
       
       h2 {
         font-size: 1.5rem;
@@ -1418,6 +1485,9 @@ blockquote {
     
     // Square cover styling for books.html page only
     &.book-cover-square {
+      max-width: 200px;
+      margin: 0 auto;
+      
       img {
         width: 100%;
         height: auto;

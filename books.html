@@ -10,7 +10,8 @@ permalink: /books/
     <h2>Our Books</h2>
     <div class="books-grid">
       {% if site.books and site.books.size > 0 %}
-        {% for book in site.books %}
+        {% assign sorted_books = site.books | sort: "order" %}
+        {% for book in sorted_books %}
         <div class="book-card-small">
           <div class="book-cover-small book-cover-square">
             {% if book.cover_image %}
