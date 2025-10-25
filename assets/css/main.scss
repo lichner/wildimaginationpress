@@ -329,76 +329,82 @@ p {
     font-size: 1.8rem;
   }
   
-  .hero-book-link {
-    text-decoration: none;
-    display: block;
-    
-    &:hover {
-      .hero-book-cover-img {
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      }
-    }
+  .hero-book-content {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    align-items: start;
   }
   
-  .hero-book-cover {
-    float: left;
-    margin: 0 1.5rem 1rem 0;
-    max-width: 250px;
-    
-    .hero-book-cover-img {
-      width: 100%;
-      height: auto;
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      transition: all 0.3s ease;
-      display: block;
-    }
-  }
-  
-  h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-    color: white;
-    
-    .hero-book-title-link {
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      
-      &:hover {
-        color: var(--warm-yellow);
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      }
-    }
-  }
-  
-  .author-name {
-    font-style: italic;
-    margin-bottom: 1.5rem;
-    opacity: 0.9;
-    font-size: 1.1rem;
-  }
-  
-  .book-description {
-    text-align: left;
-    clear: none; // Allow text to wrap around image
-    
-    p {
-      font-size: 0.95rem;
-      line-height: 1.6;
-      opacity: 0.9;
+  .hero-book-left {
+    .hero-book-cover {
       margin-bottom: 1rem;
+      
+      .hero-book-link {
+        text-decoration: none;
+        display: block;
+        transition: transform 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-5px);
+          
+          .hero-book-cover-img {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+            transform: translateY(0); // Prevent double transform
+          }
+        }
+      }
+      
+      .hero-book-cover-img {
+        width: 100%;
+        height: auto;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        transition: all 0.3s ease;
+        display: block;
+      }
+    }
+    
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
       color: white;
+      text-align: center;
+      
+      .hero-book-title-link {
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          color: var(--warm-yellow);
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+    
+    .author-name {
+      font-style: italic;
+      margin-bottom: 0;
+      opacity: 0.9;
+      font-size: 1rem;
+      text-align: center;
     }
   }
   
-  // Clear float after description to maintain layout
-  &::after {
-    content: '';
-    display: table;
-    clear: both;
+  .hero-book-info {
+    .book-description {
+      text-align: left;
+      
+      p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        opacity: 0.9;
+        margin-bottom: 1rem;
+        color: white;
+      }
+    }
   }
 }
 
@@ -1028,19 +1034,22 @@ blockquote {
       padding: 2rem;
       margin: 2rem auto;
       
-      .hero-book-cover {
-        float: none;
-        max-width: 200px;
-        margin: 0 auto 1.5rem auto;
-        text-align: center;
+      .hero-book-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
       
-      h2 {
-        clear: both;
+      .hero-book-left {
+        .hero-book-cover {
+          max-width: 200px;
+          margin: 0 auto 1rem auto;
+        }
       }
       
-      .book-description {
-        clear: both;
+      .hero-book-info {
+        .book-description {
+          text-align: left;
+        }
       }
     }
   }
@@ -1192,17 +1201,26 @@ blockquote {
     .coming-soon {
       padding: 1.5rem;
       
-      .hero-book-cover {
-        max-width: 180px;
-        margin-bottom: 1.25rem;
+      .hero-book-content {
+        gap: 1.25rem;
+      }
+      
+      .hero-book-left {
+        .hero-book-cover {
+          max-width: 180px;
+        }
+        
+        h3 {
+          font-size: 1.1rem;
+        }
+        
+        .author-name {
+          font-size: 0.9rem;
+        }
       }
       
       h2 {
         font-size: 1.5rem;
-      }
-      
-      h3 {
-        font-size: 1.2rem;
       }
     }
   }
@@ -1400,7 +1418,7 @@ blockquote {
 }
 
 .book-description {
-  padding: 4rem 0;
+  padding: 0;
   
   h2 {
     color: var(--primary-green);
@@ -1471,16 +1489,27 @@ blockquote {
   .book-cover-small {
     margin-bottom: 1rem;
     
+    .book-cover-link {
+      display: block;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+        
+        img {
+          box-shadow: var(--shadow-strong);
+        }
+      }
+    }
+    
     img {
       width: 100%;
       height: 200px;
       object-fit: cover;
       border-radius: var(--border-radius);
       transition: all 0.3s ease;
-      
-      &:hover {
-        transform: scale(1.05);
-      }
+      display: block;
     }
     
     // Square cover styling for books.html page only
