@@ -2153,16 +2153,35 @@ ul + .book-preview-images {
 .author-connect {
   padding: 4rem 0;
   text-align: center;
+  background: linear-gradient(135deg, var(--cream), var(--warm-white));
   
   h2 {
     color: var(--primary-green);
     margin-bottom: 1rem;
   }
   
-  p {
+  > p {
     color: var(--text-medium);
     font-size: 1.1rem;
     margin-bottom: 2rem;
+  }
+  
+  .social-links {
+    margin: 2rem 0;
+    
+    p {
+      color: var(--text-dark);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      display: none; // Hide the "Follow our journey" text since we have it in section
+    }
+    
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
   }
   
   .cta-text {
@@ -2225,6 +2244,7 @@ ul + .book-preview-images {
     .author-quote {
       font-size: 1.1rem;
       padding: 1.5rem;
+      margin: 2rem 0;
     }
   }
   
@@ -2234,15 +2254,35 @@ ul + .book-preview-images {
     // Single column on mobile like books.html
     .books-grid {
       grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .book-card-small {
+      max-width: 400px;
+      margin: 0 auto;
     }
   }
   
   .author-connect {
     padding: 3rem 0;
+    
+    .social-icons {
+      gap: 1.5rem;
+    }
+    
+    .cta-button {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
   }
 }
 
 @media (max-width: 480px) {
+  .author-page-hero {
+    padding: 3rem 0 2rem;
+  }
+  
   .author-bio-main h1 {
     font-size: 2rem;
   }
@@ -2256,6 +2296,83 @@ ul + .book-preview-images {
     
     img {
       height: 250px;
+    }
+  }
+  
+  .author-stats {
+    .stat {
+      padding: 1rem 0.75rem;
+      
+      strong {
+        font-size: 1.3rem;
+      }
+      
+      span {
+        font-size: 0.85rem;
+      }
+    }
+  }
+  
+  .author-about {
+    padding: 2rem 0;
+    
+    .author-content {
+      .lead {
+        font-size: 1rem;
+      }
+      
+      p {
+        font-size: 0.95rem;
+      }
+      
+      ul {
+        padding-left: 1.5rem;
+        
+        li {
+          font-size: 0.95rem;
+        }
+      }
+    }
+    
+    .author-quote {
+      font-size: 1rem;
+      padding: 1rem;
+    }
+  }
+  
+  .author-books {
+    padding: 2rem 0;
+    
+    .books-grid {
+      gap: 1.5rem;
+    }
+    
+    .book-card-small {
+      max-width: 100%;
+    }
+  }
+  
+  .author-connect {
+    padding: 2rem 0;
+    
+    h2 {
+      font-size: 1.8rem;
+    }
+    
+    > p {
+      font-size: 1rem;
+      padding: 0 1rem;
+    }
+    
+    .cta-text {
+      font-size: 1.1rem;
+      padding: 0 1rem;
+    }
+    
+    .cta-button {
+      width: calc(100% - 2rem);
+      max-width: 300px;
+      margin: 2rem auto 0;
     }
   }
 }
