@@ -72,8 +72,10 @@ permalink: /author/
   <div class="container">
     <h2>Books by Rebecca</h2>
     <div class="books-grid">
-      {% assign author_books = site.books | where: "author", "Rebecca Mola" | sort: "order" %}
-      {% for book in author_books %}
+      {% assign sorted_books = site.books | sort: "order" %}
+      {% for book in sorted_books %}
+        {% assign book_author_name = book.author.name | default: book.author %}
+        {% if book_author_name == "Rebecca Mola" %}
       <div class="book-card-small">
         <div class="book-cover-small book-cover-square">
           <a href="{{ book.url | relative_url }}" class="book-cover-link">
@@ -98,10 +100,24 @@ permalink: /author/
         </div>
         <div class="book-info-small">
           <h3><a href="{{ book.url | relative_url }}">{{ book.title }}</a></h3>
-          <p class="book-author-small">by {{ book.author }}</p>
+          {% if book.author %}
+            <p class="book-author-small">
+              by 
+              {% if book.author.name %}
+                {% if book.author.url %}
+                  <a href="{{ book.author.url | relative_url }}">{{ book.author.name }}</a>
+                {% else %}
+                  {{ book.author.name }}
+                {% endif %}
+              {% else %}
+                {{ book.author }}
+              {% endif %}
+            </p>
+          {% endif %}
           <p class="book-status-small">{{ book.status }}</p>
         </div>
       </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>

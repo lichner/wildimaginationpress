@@ -36,7 +36,20 @@ permalink: /books/
           </div>
           <div class="book-info-small">
             <h3><a href="{{ book.url | relative_url }}">{{ book.title }}</a></h3>
-            {% if book.author %}<p class="book-author-small">by {{ book.author }}</p>{% endif %}
+            {% if book.author %}
+              <p class="book-author-small">
+                by 
+                {% if book.author.name %}
+                  {% if book.author.url %}
+                    <a href="{{ book.author.url | relative_url }}">{{ book.author.name }}</a>
+                  {% else %}
+                    {{ book.author.name }}
+                  {% endif %}
+                {% else %}
+                  {{ book.author }}
+                {% endif %}
+              </p>
+            {% endif %}
             {% if book.status %}<p class="book-status-small">{{ book.status }}</p>{% endif %}
           </div>
         </div>

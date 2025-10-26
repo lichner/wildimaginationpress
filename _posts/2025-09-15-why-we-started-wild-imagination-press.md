@@ -4,6 +4,7 @@ title: "Why We Started Wild Imagination Press"
 date: 2025-09-15
 author: Rebecca Mola
 category: Behind the Scenes
+permalink: /blog/behind-the-scenes/2025/09/15/why-we-started-wild-imagination-press/
 description: "Discover the inspiration behind Wild Imagination Press and our mission to create enchanting children's books that nurture creativity and imagination in young readers."
 keywords: "children's book publisher, independent publisher australia, kids books, creative storytelling, wild imagination press"
 og_image: /assets/images/wild-imagination-logo.jpg
@@ -85,4 +86,4 @@ Founder & Author, Wild Imagination Press
 
 ---
 
-*Want to stay connected? [Join our Story Tree](#) to receive updates, free resources, and be part of our growing community of book-loving families.*
+*Want to stay connected? [Join our Story Tree](/#contact) to receive updates, free resources, and be part of our growing community of book-loving families.*

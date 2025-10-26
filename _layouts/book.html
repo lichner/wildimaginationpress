@@ -260,7 +260,20 @@ layout: default
           </div>
           <div class="book-info-small">
             <h3><a href="{{ book.url | relative_url }}">{{ book.title }}</a></h3>
-            <p class="book-author-small">by {{ book.author }}</p>
+            {% if book.author %}
+              <p class="book-author-small">
+                by 
+                {% if book.author.name %}
+                  {% if book.author.url %}
+                    <a href="{{ book.author.url | relative_url }}">{{ book.author.name }}</a>
+                  {% else %}
+                    {{ book.author.name }}
+                  {% endif %}
+                {% else %}
+                  {{ book.author }}
+                {% endif %}
+              </p>
+            {% endif %}
             <p class="book-status-small">{{ book.status }}</p>
           </div>
         </div>

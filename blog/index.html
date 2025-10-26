@@ -1,0 +1,63 @@
+---
+layout: default
+title: Stories & Insights - Wild Imagination Press Blog
+description: Behind-the-scenes stories, writing insights, and tips for nurturing creativity in young readers from Wild Imagination Press.
+keywords: children's book blog, australian kids books, parenting tips, creative storytelling, early education
+permalink: /blog/
+---
+
+<section class="blog-hero">
+  <div class="container">
+    <h1>Stories & Insights</h1>
+    <p class="lead">Behind-the-scenes of Wild Imagination Press, writing journeys, and inspiration for nurturing creativity in young readers</p>
+  </div>
+</section>
+
+<section class="blog-posts">
+  <div class="container">
+    {% if site.posts.size > 0 %}
+      <div class="posts-grid">
+        {% for post in site.posts %}
+        <article class="blog-post-preview">
+          <div class="post-meta">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+            {% if post.category %}
+            <span class="post-category">{{ post.category }}</span>
+            {% endif %}
+          </div>
+          
+          <h2 class="post-preview-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h2>
+          
+          {% if post.description %}
+          <p class="post-excerpt">{{ post.description }}</p>
+          {% elsif post.excerpt %}
+          <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+          {% endif %}
+          
+          <a href="{{ post.url | relative_url }}" class="read-more">Read More →</a>
+        </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="blog-empty-state">
+        <div class="empty-state-icon">✍️</div>
+        <h2>Stories Coming Soon</h2>
+        <p>We're crafting our first blog posts with care. Check back soon for behind-the-scenes stories, writing insights, and tips for nurturing young imaginations.</p>
+        <a href="{{ '/#contact' | relative_url }}" class="btn btn-primary">Join Our Story Tree</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Newsletter CTA -->
+<section class="blog-newsletter-cta">
+  <div class="container">
+    <div class="newsletter-cta-content">
+      <h2>Never Miss a Story</h2>
+      <p>Get our latest blog posts, book updates, and exclusive activities delivered to your inbox.</p>
+      <a href="{{ '/#contact' | relative_url }}" class="btn btn-secondary">Subscribe Now</a>
+    </div>
+  </div>
+</section>

@@ -1387,8 +1387,13 @@ blockquote {
 
 // Book pages
 .book-hero {
-  padding: 6rem 0 4rem;
+  padding: 0 0 4rem;
   background: linear-gradient(135deg, var(--cream), var(--warm-white));
+  
+  // Remove top padding from breadcrumbs when inside book-hero
+  .breadcrumbs {
+    padding-top: 0.5rem;
+  }
 }
 
 .book-hero-content {
@@ -1736,6 +1741,18 @@ blockquote {
       color: var(--text-light);
       margin-bottom: 0.5rem;
       font-size: 0.9rem;
+      
+      a {
+        color: var(--text-medium);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        border-bottom: 1px solid transparent;
+        
+        &:hover {
+          color: var(--secondary-green);
+          border-bottom-color: var(--light-green);
+        }
+      }
     }
     
     .book-status-small {
@@ -1751,6 +1768,14 @@ blockquote {
     grid-template-columns: 1fr;
     max-width: 300px;
     margin: 0 auto;
+  }
+  
+  .book-hero {
+    padding: 0 0 3rem;
+    
+    .breadcrumbs {
+      padding-top: 0.5rem;
+    }
   }
   
   .book-hero-content {
