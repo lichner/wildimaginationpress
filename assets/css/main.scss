@@ -1310,6 +1310,81 @@ blockquote {
   }
 }
 
+// Breadcrumbs
+.breadcrumbs {
+  padding: 1rem 0 0.5rem;
+  
+  nav {
+    font-size: 0.875rem;
+  }
+  
+  .breadcrumb-list {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    color: var(--text-medium);
+    
+    a {
+      color: var(--text-medium);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: var(--primary-green);
+        text-decoration: underline;
+      }
+    }
+    
+  // Current page (no link)
+  &[aria-current="page"] {
+    color: var(--primary-green);
+    font-weight: 500;
+    
+    // Show full title on desktop, short on mobile
+    .breadcrumb-short {
+      display: none;
+    }
+    
+    @media (max-width: 640px) {
+      .breadcrumb-full {
+        display: none;
+      }
+      
+      .breadcrumb-short {
+        display: inline;
+      }
+    }
+  }
+    
+    // Add separator after each item except the last
+    &:not(:last-child)::after {
+      content: '›';
+      margin-left: 0.5rem;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.75rem 0 0.25rem;
+    
+    nav {
+      font-size: 0.8125rem;
+    }
+    
+    .breadcrumb-list {
+      gap: 0.375rem;
+    }
+  }
+}
+
 // Book pages
 .book-hero {
   padding: 6rem 0 4rem;

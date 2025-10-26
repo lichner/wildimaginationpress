@@ -3,6 +3,28 @@ layout: default
 ---
 
 <section class="book-hero">
+  <!-- Breadcrumb Navigation -->
+  <div class="breadcrumbs">
+    <div class="container">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li class="breadcrumb-item"><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ '/books/' | relative_url }}">Books</a></li>
+          <li class="breadcrumb-item" aria-current="page" title="{{ page.title }}">
+            {% if page.breadcrumb_title %}
+              {{ page.breadcrumb_title }}
+            {% elsif page.title.size > 35 %}
+              <span class="breadcrumb-full">{{ page.title }}</span>
+              <span class="breadcrumb-short">{{ page.title | truncatewords: 4, "..." }}</span>
+            {% else %}
+              {{ page.title }}
+            {% endif %}
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  
   <div class="container">
     <div class="book-hero-content">
       <div class="book-cover-large">
@@ -125,6 +147,34 @@ layout: default
   {% endif %}
   "numberOfPages": {{ page.page_count | default: 32 }},
   "genre": "{{ page.category }}"
+}
+</script>
+
+<!-- Breadcrumb Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Books",
+      "item": "{{ site.url }}/books/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ page.title }}",
+      "item": "{{ page.url | absolute_url }}"
+    }
+  ]
 }
 </script>
 
