@@ -1,0 +1,140 @@
+---
+layout: default
+---
+
+<article class="blog-post">
+  <!-- Breadcrumbs -->
+  <div class="breadcrumbs">
+    <div class="container">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+          <li aria-current="page">{{ page.title }}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Post Header -->
+  <header class="post-header">
+    <div class="container">
+      <div class="post-meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">
+          {{ page.date | date: "%B %d, %Y" }}
+        </time>
+        {% if page.category %}
+        <span class="post-category">{{ page.category }}</span>
+        {% endif %}
+      </div>
+      
+      <h1 class="post-title">{{ page.title }}</h1>
+      
+      {% if page.description %}
+      <p class="post-description">{{ page.description }}</p>
+      {% endif %}
+      
+      <div class="post-author">
+        <img src="{{ '/assets/images/rebecca.jpeg' | relative_url }}" 
+             alt="{{ page.author | default: site.author.name }}" 
+             class="author-avatar">
+        <div class="author-info">
+          <span class="author-name">
+            <a href="{{ '/author/' | relative_url }}" rel="author">{{ page.author | default: site.author.name }}</a>
+          </span>
+          <span class="author-title">Children's Book Author</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <div class="post-content">
+    <div class="container">
+      <div class="post-body">
+        {{ content }}
+      </div>
+
+      <!-- Author Bio -->
+      <aside class="post-author-bio">
+        <img src="{{ '/assets/images/rebecca.jpeg' | relative_url }}" 
+             alt="{{ page.author | default: site.author.name }}" 
+             class="author-bio-avatar">
+        <div class="author-bio-content">
+          <h3>About {{ page.author | default: site.author.name }}</h3>
+          <p>Rebecca Mola is an Australian children's book author dedicated to creating engaging literature that combines learning with joy. She believes that every child deserves stories that make them laugh, learn, dream, and imagine.</p>
+          <a href="{{ '/author/' | relative_url }}" class="author-bio-link">Read more about Rebecca →</a>
+        </div>
+      </aside>
+
+      <!-- Call to Action -->
+      <div class="post-cta">
+        <h3>Join Our Story Tree</h3>
+        <p>Get updates on new releases, behind-the-scenes stories, and exclusive activities for young readers.</p>
+        <a href="{{ '/#contact' | relative_url }}" class="btn btn-primary">Subscribe Now</a>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- BlogPosting Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ page.title }}",
+  "description": "{{ page.description | default: page.excerpt | strip_html | truncate: 160 }}",
+  "image": "{{ page.og_image | default: site.logo | absolute_url }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ page.author | default: site.author.name }}",
+    "url": "{{ '/author/' | absolute_url }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}",
+    "url": "{{ site.url }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.logo | absolute_url }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  },
+  "keywords": "{{ page.keywords | default: '' }}",
+  "articleSection": "{{ page.category | default: 'Blog' }}",
+  "inLanguage": "en-AU"
+}
+</script>
+
+<!-- Breadcrumb Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "{{ site.url }}/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ page.title }}",
+      "item": "{{ page.url | absolute_url }}"
+    }
+  ]
+}
+</script>

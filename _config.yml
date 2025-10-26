@@ -29,10 +29,14 @@ author:
 markdown: kramdown
 highlighter: rouge
 permalink: pretty
+excerpt_separator: <!--more-->
 plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
+
+# Blog settings
+show_excerpts: true
 
 # Collections
 collections:
@@ -55,6 +59,14 @@ defaults:
     values:
       sitemap:
         priority: 0.9
+        changefreq: monthly
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      sitemap:
+        priority: 0.8
         changefreq: monthly
   - scope:
       path: "index.html"
@@ -97,6 +109,8 @@ nav_links:
     url: /
   - name: Books
     url: /books/
+  - name: Blog
+    url: /blog/
   - name: About Author
     url: /author/
   - name: Contact
