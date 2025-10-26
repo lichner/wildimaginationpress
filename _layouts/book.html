@@ -156,6 +156,10 @@ layout: default
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "url": "{{ page.url | absolute_url }}",
+  {% if page.cover_image %}
+  "image": "{{ page.cover_image | absolute_url }}",
+  {% endif %}
   "mainEntity": [
     {% for item in page.faq %}
     {
