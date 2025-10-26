@@ -1,3 +1,7 @@
+---
+sitemap: false
+---
+
 # SEO & eBook Marketing Review: Wild Imagination Press
 
 **Review Date:** 2025-10-25  
