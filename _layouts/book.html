@@ -40,7 +40,7 @@ layout: default
       
       <div class="book-details-main">
         <h1>{{ page.title }}</h1>
-        <p class="book-author">by {{ page.author }}</p>
+        <p class="book-author">by {% if page.author.name %}{{ page.author.name }}{% else %}{{ page.author }}{% endif %}</p>
         
         <div class="book-meta">
           {% if page.age_range %}
@@ -101,10 +101,12 @@ layout: default
   "name": "{{ page.title }}",
   "author": {
     "@type": "Person",
-    "name": "{{ page.author }}",
-    {% if page.author_url %}
-    "url": "{{ page.author_url | absolute_url }}",
-    {% endif %}
+    "name": "{% if page.author.name %}{{ page.author.name }}{% else %}{{ page.author }}{% endif %}"
+    {% if page.author.url %},
+    "url": "{{ page.author.url | absolute_url }}"
+    {% elsif page.author_url %},
+    "url": "{{ page.author_url | absolute_url }}"
+    {% endif %},
     "sameAs": [
       "https://x.com/wildimaginpress",
       "https://instagram.com/wildimaginationpress"
