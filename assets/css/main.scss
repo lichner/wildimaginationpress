@@ -1235,8 +1235,10 @@ blockquote {
   }
   
   .book-cover-large .book-cover-img {
-    height: 350px;
-    max-width: 280px;
+    width: 100% !important;
+    height: auto;
+    max-width: none !important;
+    display: block;
   }
   
   .mission-section {
@@ -1615,20 +1617,25 @@ blockquote {
     gap: 2rem;
   }
   
-  .book-cover-large,
+  .book-cover-large {
+    max-width: 100%;
+    margin: 0;
+  }
+  
   .book-placeholder-large {
-    max-width: 300px;
-    margin: 0 auto;
-  }
-  
-  .book-placeholder-large,
-  .book-cover-large .book-cover-img {
-    height: 400px;
+    max-width: 100%;
+    margin: 0;
+    height: auto;
+    aspect-ratio: 2 / 3;
   }
   
   .book-cover-large .book-cover-img {
-    max-width: 300px;
-    margin: 0 auto;
+    width: 100% !important;
+    height: auto;
+    max-width: none !important;
+    margin: 0;
+    display: block;
+    object-fit: cover;
   }
   
   .book-details-main h1 {
