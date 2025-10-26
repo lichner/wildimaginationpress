@@ -38,6 +38,11 @@
     <!-- SEO -->
     {% seo %}
     
+    <!-- Keywords (for legacy search engines and documentation) -->
+    {% if page.keywords %}
+    <meta name="keywords" content="{{ page.keywords }}">
+    {% endif %}
+    
     <!-- Google reCAPTCHA v3 -->
     <script src="https://www.google.com/recaptcha/api.js?render=6LePxsIrAAAAAL5KZMaM9Gy-gnj62mMul9UnhBjv"></script>
     
