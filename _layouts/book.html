@@ -56,12 +56,12 @@ layout: default
         {% endif %}
         
         <div class="book-actions">
-          {% if page.amazon_link and page.amazon_link != "#" %}
+          {% if page.status == "Available" and page.amazon_link and page.amazon_link != "#" and page.amazon_link != "#preorder" %}
           <a href="{{ page.amazon_link }}" class="btn btn-primary" data-track="amazon">
             📚 Buy on Amazon
           </a>
           {% else %}
-          <a href="{{ '/#contact' | relative_url }}" class="btn btn-primary">
+          <a href="{{ '/#contact' | relative_url }}" class="cta-button">
             🔔 Notify Me When Available
           </a>
           {% endif %}
@@ -70,6 +70,63 @@ layout: default
     </div>
   </div>
 </section>
+
+<!-- Book Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "{{ page.title }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ page.author }}",
+    {% if page.author_url %}
+    "url": "{{ page.author_url | absolute_url }}",
+    {% endif %}
+    "sameAs": [
+      "https://x.com/wildimaginpress",
+      "https://instagram.com/wildimaginationpress"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ page.publisher }}",
+    "url": "{{ site.url }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/assets/images/wild-imagination-logo.jpg' | absolute_url }}"
+    }
+  },
+  {% if page.published_date %}
+  "datePublished": "{{ page.published_date }}",
+  {% endif %}
+  {% if page.isbn and page.isbn != "TBA" %}
+  "isbn": "{{ page.isbn }}",
+  {% endif %}
+  "bookFormat": "https://schema.org/{{ page.format | default: 'Hardcover' }}",
+  "image": "{{ page.cover_image | absolute_url }}",
+  "description": "{{ page.description | strip_html | truncate: 160 }}",
+  "inLanguage": "en-AU",
+  "audience": {
+    "@type": "PeopleAudience",
+    "suggestedMinAge": {{ page.age_range | split: '-' | first }},
+    "suggestedMaxAge": {{ page.age_range | split: '-' | last | split: ' ' | first }}
+  },
+  {% if page.amazon_link and page.amazon_link != "#" and page.amazon_link != "#preorder" and page.amazon_link != "" %}
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ page.amazon_link }}",
+    "priceCurrency": "AUD",
+    {% if page.price %}
+    "price": "{{ page.price | remove: '$' | remove: 'AUD' | strip }}",
+    {% endif %}
+    "availability": "{% if page.status == 'Available' %}https://schema.org/InStock{% else %}https://schema.org/PreOrder{% endif %}"
+  },
+  {% endif %}
+  "numberOfPages": {{ page.page_count | default: 32 }},
+  "genre": "{{ page.category }}"
+}
+</script>
 
 <section class="book-description">
   <div class="container">
