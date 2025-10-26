@@ -97,7 +97,7 @@ nav_links:
   - name: Books
     url: /books/
   - name: About Author
-    url: /#author
+    url: /author/
   - name: Contact
     url: /#contact
 
