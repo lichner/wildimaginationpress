@@ -1393,6 +1393,7 @@ blockquote {
   // Remove top padding from breadcrumbs when inside book-hero
   .breadcrumbs {
     padding-top: 0.5rem;
+    padding-bottom: 2rem; // Add more space below breadcrumbs
   }
 }
 
@@ -1400,7 +1401,8 @@ blockquote {
   display: grid;
   grid-template-columns: 350px 1fr;
   gap: 4rem;
-  align-items: start;
+  align-items: start; // Keep start alignment so book cover aligns with title
+  padding-top: 1rem; // Add space between breadcrumbs and content
 }
 
 .book-cover-large {
@@ -1775,6 +1777,7 @@ blockquote {
     
     .breadcrumbs {
       padding-top: 0.5rem;
+      padding-bottom: 1.5rem; // Add more space below breadcrumbs on mobile
     }
   }
   
@@ -1782,6 +1785,7 @@ blockquote {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 2rem;
+    padding-top: 0; // Remove extra padding on mobile since content is stacked
   }
   
   .book-cover-large {
