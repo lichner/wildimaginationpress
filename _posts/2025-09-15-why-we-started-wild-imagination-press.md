@@ -14,7 +14,7 @@ Every great story begins with a spark of imagination. For Wild Imagination Press
 
 ## The Beginning of Our Journey
 
-Wild Imagination Press was born from the courage to follow a dream—turning a love of storytelling and creativity into a venture that inspires imagination and connects children with the natural world. As the author of Bushlandia, I’m inspired by the wild beauty of the Australian bush and the boundless imagination of children. My work celebrates the connection between nature and creativity—encouraging young readers to explore, dream, and see magic in the world around them.
+Wild Imagination Press was born from the courage to follow a dream - turning a love of storytelling and creativity into a venture that inspires imagination and connects children with the natural world. As the author of Bushlandia, I’m inspired by the wild beauty of the Australian bush and the boundless imagination of children. My work celebrates the connection between nature and creativity - encouraging young readers to explore, dream, and see magic in the world around them.
 
 <!--more-->
 
