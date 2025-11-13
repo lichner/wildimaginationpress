@@ -416,7 +416,7 @@ p {
   padding: 1.2rem 2.5rem;
   font-size: 1.1rem;
   border-radius: 50px;
-  margin-top: 2rem;
+  margin-top: 1rem;
   transition: all 0.3s ease;
   box-shadow: 0 6px 20px rgba(244, 194, 194, 0.4);
   font-weight: 600;
@@ -427,6 +427,22 @@ p {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(244, 194, 194, 0.6);
     background: linear-gradient(135deg, #e17055, var(--soft-pink));
+  }
+  
+  &.cta-button-inline {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    margin-left: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 3px 12px rgba(244, 194, 194, 0.35);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 18px rgba(244, 194, 194, 0.5);
+    }
   }
 }
 
@@ -1522,6 +1538,8 @@ blockquote {
 }
 
 .book-actions {
+  text-align: left;
+  
   .btn {
     display: inline-block;
     padding: 1.2rem 2.5rem;
@@ -1565,6 +1583,14 @@ blockquote {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(244, 194, 194, 0.5);
       background: linear-gradient(135deg, #e17055, var(--soft-pink));
+    }
+    
+    // Status-aligned variant to match status badge style
+    &.cta-button-status {
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      border-radius: 15px;
+      box-shadow: 0 3px 12px rgba(244, 194, 194, 0.3);
     }
   }
 }

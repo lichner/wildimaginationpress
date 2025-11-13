@@ -36,6 +36,8 @@ layout: default
             <p class="cover-coming-soon-large">Cover Coming Soon</p>
           </div>
         {% endif %}
+        
+        {% include book-preview.html %}
       </div>
       
       <div class="book-details-main">
@@ -83,8 +85,8 @@ layout: default
             📚 Buy on Amazon
           </a>
           {% else %}
-          <a href="{{ '/#contact' | relative_url }}" class="cta-button">
-            🔔 Notify Me When Available
+          <a href="{{ '/#contact' | relative_url }}" class="cta-button cta-button-status">
+            Notify Me When Available
           </a>
           {% endif %}
         </div>
