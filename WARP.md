@@ -134,6 +134,7 @@ series:
    - Current book highlighted with "Currently Viewing" indicator
    - Book number badges on cover images
    - Books sorted by series number automatically
+   - **Homepage Series Spotlight**: Featured series displayed in grid layout on homepage
 
 3. **"Cover Coming Soon" Placeholder:**
    - Omit the `cover_image` field for upcoming books
@@ -143,7 +144,26 @@ series:
 4. **Non-series books:**
    - Simply omit the `series` field - no changes needed
 
-See `SERIES_IMPLEMENTATION.md` for complete documentation.
+See `SERIES_IMPLEMENTATION.md` and `SERIES_SPOTLIGHT_IMPLEMENTATION.md` for complete documentation.
+
+### Homepage Series Spotlight
+The homepage (`index.html`) features a dynamic **Series Spotlight** section that showcases the Bushlandia trilogy:
+
+**Features:**
+- Dynamic query: `{% assign bushlandia_books = site.books | where_exp: "book", "book.series.name == 'Bushlandia'" | sort: "series.number" %}`
+- Responsive grid layout (3 columns desktop, 1 column mobile)
+- Series badges showing book numbers (Book 1, 2, 3)
+- Cover images with responsive srcset or "Cover Coming Soon" placeholders
+- Book titles, subtitles, author links, and status for each book
+- "View All Books" CTA button linking to `/books/`
+
+**To change featured series:**
+Modify line 49 in `index.html` to query a different series name.
+
+**Styling:**
+- Class: `.series-spotlight` in `assets/css/main.scss` (lines 1852-1998)
+- Button: `.cta-button-secondary` for green gradient CTA
+- Matches existing `.series-books` patterns from individual book pages
 
 ### Site Configuration (`_config.yml`)
 Key settings include:

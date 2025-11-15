@@ -46,68 +46,59 @@ keywords: "Australian children's books, kids books australia, counting books, na
   </div>
 </section>
 
-<section id="books" class="books-section">
+{% assign bushlandia_books = site.books | where_exp: "book", "book.series.name == 'Bushlandia'" | sort: "series.number" %}
+
+<section id="books" class="books-section series-spotlight">
   <div class="container">
-    <h2>Our Featured Book</h2>
-    <div class="book-card">
-      <div class="book-cover">
-        <a href="./books/bushlandia-magic-imagination-australian-bush/" class="book-cover-link">
-          <img src="{{ '/assets/images/books/bushlandia-cover-medium.jpg' | relative_url }}" 
-               srcset="{{ '/assets/images/books/bushlandia-cover-small.jpg' | relative_url }} 360w,
-                       {{ '/assets/images/books/bushlandia-cover-medium.jpg' | relative_url }} 480w,
-                       {{ '/assets/images/books/bushlandia-cover-large.jpg' | relative_url }} 720w"
-               sizes="(max-width: 768px) 300px, 400px"
-               alt="Bushlandia book cover - The Magic of Imagination in the Australian Bush by Rebecca Mola"
-               class="book-cover-img"
-               loading="lazy">
-        </a>
-      </div>
-      <div class="book-info">
-        <h3><a href="./books/bushlandia-magic-imagination-australian-bush/" class="book-title-link">Bushlandia</a></h3>
-        <p class="book-subtitle">The Magic of Imagination in the Australian Bush</p>
-        <p class="author">by Rebecca Mola</p>
-        <div class="book-details">
-          <div class="detail-item">
-            <span class="icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.5 12.75C4.5 12.75 6 10.5 12 10.5S19.5 12.75 19.5 12.75V18.75C19.5 19.58 18.83 20.25 18 20.25H6C5.17 20.25 4.5 19.58 4.5 18.75V12.75ZM12 3C13.5 3 14.91 3.84 15.66 5.13C16.07 5.82 16.5 6.75 16.5 7.5C16.5 9.16 15.16 10.5 13.5 10.5H10.5C8.84 10.5 7.5 9.16 7.5 7.5C7.5 6.75 7.93 5.82 8.34 5.13C9.09 3.84 10.5 3 12 3ZM12 4.5C11.17 4.5 10.41 4.96 9.91 5.75C9.66 6.19 9.5 6.75 9.5 7.5C9.5 8.05 9.95 8.5 10.5 8.5H13.5C14.05 8.5 14.5 8.05 14.5 7.5C14.5 6.75 14.34 6.19 14.09 5.75C13.59 4.96 12.83 4.5 12 4.5Z" fill="#666666"/>
-              </svg>
-            </span>
-            <span>An enchanting Australian bush adventure where kids create their own nature town</span>
+    <h2>Featured Series: Bushlandia</h2>
+    <p class="series-spotlight-intro">Join the adventure in the Australian bush! Follow the children of Bushlandia as they explore nature, teamwork, creativity, and environmental responsibility across three enchanting books.</p>
+    
+    <div class="series-books-grid">
+      {% for book in bushlandia_books %}
+        <div class="book-card-small">
+          <div class="book-card-cover">
+            <a href="{{ book.url | relative_url }}" class="book-card-link">
+              {% if book.cover_image %}
+                {% assign cover_base = book.cover_image | replace: '-cover-large.jpg', '' | replace: '-cover.jpg', '' | replace: '.jpg', '' %}
+                {% assign cover_small = cover_base | append: '-cover-small.jpg' %}
+                {% assign cover_medium = cover_base | append: '-cover-medium.jpg' %}
+                {% assign cover_large = cover_base | append: '-cover-large.jpg' %}
+                <img src="{{ cover_medium | relative_url }}" 
+                     srcset="{{ cover_small | relative_url }} 360w,
+                             {{ cover_medium | relative_url }} 480w,
+                             {{ cover_large | relative_url }} 720w"
+                     sizes="(max-width: 768px) 200px, 300px"
+                     alt="{{ book.title }} book cover"
+                     loading="lazy">
+              {% else %}
+                <div class="cover-placeholder">
+                  <span class="placeholder-text">Cover<br>Coming<br>Soon</span>
+                </div>
+              {% endif %}
+              {% if book.series.number %}
+                <span class="series-book-number">Book {{ book.series.number }}</span>
+              {% endif %}
+            </a>
           </div>
-          <div class="detail-item">
-            <span class="icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8.5 14.5L4 18L1.5 15.5L2.91 14.09L4 15.17L7.09 12.09L8.5 14.5ZM8.5 7.5L4 11L1.5 8.5L2.91 7.09L4 8.17L7.09 5.09L8.5 7.5ZM10 6V8H22V6H10ZM10 13V15H22V13H10ZM10 20V22H16V20H10Z" fill="#666666"/>
-              </svg>
-            </span>
-            <span>Perfect for ages 7-10 exploring creativity, teamwork, and nature</span>
-          </div>
-          <div class="detail-item">
-            <span class="icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 5C19.89 4.65 18.67 4.5 17.5 4.5C15.55 4.5 13.45 4.9 12 6C10.55 4.9 8.45 4.5 6.5 4.5C4.55 4.5 2.45 4.9 1 6V18.5C1 18.78 1.22 19 1.5 19C1.6 19 1.69 18.97 1.78 18.92C2.55 18.47 3.74 18.2 5 18.2C6.83 18.2 8.15 18.7 9 19.5C10.25 20.5 11.75 20.5 13 19.5C13.85 18.7 15.17 18.2 17 18.2C18.26 18.2 19.45 18.47 20.22 18.92C20.31 18.97 20.4 19 20.5 19C20.78 19 21 18.78 21 18.5V5ZM12 17.5C11.25 16.7 9.83 16.2 8 16.2C6.74 16.2 5.55 16.47 4.78 16.92C4.69 16.97 4.6 17 4.5 17C4.22 17 4 16.78 4 16.5V7C4 6.45 4.45 6 5 6C5.74 6 6.45 6.2 7 6.5V16C7.85 15.7 8.83 15.5 10 15.5C10.83 15.5 11.5 15.7 12 16V17.5ZM20 16.5C20 16.78 19.78 17 19.5 17C19.4 17 19.31 16.97 19.22 16.92C18.45 16.47 17.26 16.2 16 16.2C14.17 16.2 12.75 16.7 12 17.5V16C12.5 15.7 13.17 15.5 14 15.5C15.17 15.5 16.15 15.7 17 16V6.5C17.55 6.2 18.26 6 19 6C19.55 6 20 6.45 20 7V16.5Z" fill="#666666"/>
-              </svg>
-            </span>
-            <span>Environmental responsibility and sustainability themes woven throughout</span>
-          </div>
-          <div class="detail-item">
-            <span class="icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z" fill="#666666"/>
-              </svg>
-            </span>
-            <span>Features native Australian wildlife and magical bush settings</span>
+          <div class="book-card-info">
+            <h3 class="book-card-title">
+              <a href="{{ book.url | relative_url }}">{{ book.title }}</a>
+            </h3>
+            {% if book.sub_title and book.sub_title != "" %}
+              <p class="book-subtitle-small">{{ book.sub_title }}</p>
+            {% endif %}
+            <p class="book-card-author">
+              {% assign author_name = book.author.name | default: "Rebecca Mola" %}
+              by {% if book.author.url %}<a href="{{ book.author.url | relative_url }}" class="author-link">{{ author_name }}</a>{% else %}{{ author_name }}{% endif %}
+            </p>
+            <p class="book-card-status">{{ book.status }}</p>
           </div>
         </div>
-        <p class="status">Status: Coming Soon to Amazon</p>
-        <div class="book-features">
-          <span class="feature-tag">Fiction</span>
-          <span class="feature-tag">Creativity</span>
-          <span class="feature-tag">Nature</span>
-          <span class="feature-tag">Ages 7-10</span>
-        </div>
-      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="series-spotlight-cta">
+      <a href="{{ '/books/' | relative_url }}" class="cta-button-secondary">View All Books</a>
     </div>
   </div>
 </section>
