@@ -112,6 +112,39 @@ layout: book
 ```
 3. Book content goes after the front matter (accessible via `{{ page.full_description }}`)
 
+### Book Series Support
+The site supports book series with automatic navigation and badging:
+
+1. **Add series metadata** to books in the same series:
+```yaml
+---
+title: "Book Title"
+series:
+  name: "Series Name"           # e.g., "Bushlandia"
+  number: 1                      # Book number in series
+  total_books: 3                 # Total books in series
+  subtitle: "Book Subtitle"      # Optional
+# ... other front matter
+---
+```
+
+2. **Features automatically enabled:**
+   - Series badge appears above book title (e.g., "Bushlandia | Book 1 of 3")
+   - Dedicated "Series Books" section shows all books in the series
+   - Current book highlighted with "Currently Viewing" indicator
+   - Book number badges on cover images
+   - Books sorted by series number automatically
+
+3. **"Cover Coming Soon" Placeholder:**
+   - Omit the `cover_image` field for upcoming books
+   - Placeholder automatically displays until cover is added
+   - Example: `_books/bushlandia-secret-sound-hollow.html`
+
+4. **Non-series books:**
+   - Simply omit the `series` field - no changes needed
+
+See `SERIES_IMPLEMENTATION.md` for complete documentation.
+
 ### Site Configuration (`_config.yml`)
 Key settings include:
 - Site metadata (title, description, URL structure)
