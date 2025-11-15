@@ -20,13 +20,40 @@ description: "A delightful counting book following ten playful puppies through f
 keywords: "counting books for toddlers, puppy books, numbers 1-10, preschool books, toddler learning, animal books, interactive counting, early maths, bedtime stories, ages 0-4"
 
 # Book Details
-amazon_link: "#preorder"
 published_date: "2025-10-01"
 isbn: "TBA"
-price: "$19.95 AUD"
 page_count: 32
-format: "Hardcover"
 publisher: "Wild Imagination Press"
+
+# Amazon KDP Product Links (Structure ready, values to be filled when account is active)
+# Note: Kindle, Paperback, and Audiobook formats are supported
+amazon:
+  kindle:
+    asin: ""  # Will be populated when KDP account is active
+    url: ""   # Will be populated when book is published
+    price: "$4.99 AUD"  # Estimated price
+    ku_eligible: true  # Plan for Kindle Unlimited enrollment
+    status: "pending"  # pending | available | coming_soon
+  paperback:
+    asin: ""  # Will be populated when KDP account is active
+    url: ""   # Will be populated when book is published
+    price: "$19.95 AUD"  # Estimated price
+    print_length: 32  # KDP uses print length, not page count
+    status: "pending"
+  audiobook:
+    asin: ""  # Will be populated when audiobook is available (via ACX or similar)
+    url: ""   # Will be populated when audiobook is published
+    price: "$14.99 AUD"  # Estimated price
+    status: "pending"  # pending | available | coming_soon
+  
+  # Marketplace-specific links (optional, for future)
+  marketplaces:
+    au: ""  # Primary marketplace (Amazon.com.au)
+    us: ""  # If expanding to Amazon.com
+    uk: ""  # If expanding to Amazon.co.uk
+
+# Primary format (for display purposes)
+format: "Paperback"  # Primary format planned
 
 # Social Sharing
 og_image: "/assets/images/books/onepuppytwopuppies-og.jpg"

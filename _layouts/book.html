@@ -80,14 +80,64 @@ layout: default
         {% endif %}
         
         <div class="book-actions">
-          {% if page.status == "Available" and page.amazon_link and page.amazon_link != "#" and page.amazon_link != "#preorder" %}
-          <a href="{{ page.amazon_link }}" class="btn btn-primary" data-track="amazon">
-            📚 Buy on Amazon
-          </a>
+          {% comment %} Check if any format is available using new multi-format structure {% endcomment %}
+          {% assign has_available_format = false %}
+          {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+            {% assign has_available_format = true %}
+          {% elsif page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+            {% assign has_available_format = true %}
+          {% elsif page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
+            {% assign has_available_format = true %}
+          {% endif %}
+          
+          {% if has_available_format %}
+            <div class="format-selector">
+              {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+              <a href="{{ page.amazon.kindle.url }}" 
+                 class="btn-format kindle" 
+                 data-format="kindle"
+                 {% if page.amazon.kindle.asin != "" %}data-asin="{{ page.amazon.kindle.asin }}"{% endif %}
+                 data-track="amazon">
+                <span class="format-name">Kindle eBook</span>
+                {% if page.amazon.kindle.price %}
+                <span class="format-price">{{ page.amazon.kindle.price }}</span>
+                {% endif %}
+                {% if page.amazon.kindle.ku_eligible %}
+                <span class="ku-badge">KU</span>
+                {% endif %}
+              </a>
+              {% endif %}
+              
+              {% if page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+              <a href="{{ page.amazon.paperback.url }}" 
+                 class="btn-format paperback" 
+                 data-format="paperback"
+                 {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
+                 data-track="amazon">
+                <span class="format-name">Paperback</span>
+                {% if page.amazon.paperback.price %}
+                <span class="format-price">{{ page.amazon.paperback.price }}</span>
+                {% endif %}
+              </a>
+              {% endif %}
+              
+              {% if page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
+              <a href="{{ page.amazon.audiobook.url }}" 
+                 class="btn-format audiobook" 
+                 data-format="audiobook"
+                 {% if page.amazon.audiobook.asin != "" %}data-asin="{{ page.amazon.audiobook.asin }}"{% endif %}
+                 data-track="amazon">
+                <span class="format-name">Audiobook</span>
+                {% if page.amazon.audiobook.price %}
+                <span class="format-price">{{ page.amazon.audiobook.price }}</span>
+                {% endif %}
+              </a>
+              {% endif %}
+            </div>
           {% else %}
-          <a href="{{ '/#contact' | relative_url }}" class="cta-button cta-button-status">
-            Notify Me When Available
-          </a>
+            <a href="{{ '/#contact' | relative_url }}" class="cta-button cta-button-status">
+              Notify Me When Available
+            </a>
           {% endif %}
         </div>
       </div>
@@ -129,7 +179,14 @@ layout: default
   {% if page.isbn and page.isbn != "TBA" %}
   "isbn": "{{ page.isbn }}",
   {% endif %}
-  "bookFormat": "https://schema.org/{{ page.format | default: 'Hardcover' }}",
+  {% comment %} Use primary format from new structure, fallback to legacy format {% endcomment %}
+  {% if page.amazon.paperback.status == "available" %}
+  "bookFormat": "https://schema.org/Paperback",
+  {% elsif page.amazon.kindle.status == "available" %}
+  "bookFormat": "https://schema.org/EBook",
+  {% else %}
+  "bookFormat": "https://schema.org/{{ page.format | default: 'Paperback' }}",
+  {% endif %}
   "image": "{{ page.cover_image | absolute_url }}",
   "description": "{{ page.description | strip_html | truncate: 160 }}",
   "inLanguage": "en-AU",
@@ -138,16 +195,69 @@ layout: default
     "suggestedMinAge": {{ page.age_range | split: '-' | first }},
     "suggestedMaxAge": {{ page.age_range | split: '-' | last | split: ' ' | first }}
   },
-  {% if page.amazon_link and page.amazon_link != "#" and page.amazon_link != "#preorder" and page.amazon_link != "" %}
-  "offers": {
-    "@type": "Offer",
-    "url": "{{ page.amazon_link }}",
-    "priceCurrency": "AUD",
-    {% if page.price %}
-    "price": "{{ page.price | remove: '$' | remove: 'AUD' | strip }}",
+  {% comment %} Multiple offers support - only from new multi-format structure {% endcomment %}
+  {% assign has_offers = false %}
+  {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+    {% assign has_offers = true %}
+  {% elsif page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+    {% assign has_offers = true %}
+  {% elsif page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
+    {% assign has_offers = true %}
+  {% endif %}
+  {% if has_offers %}
+  "offers": [
+    {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+    {
+      "@type": "Offer",
+      "url": "{{ page.amazon.kindle.url }}",
+      "priceCurrency": "AUD",
+      {% if page.amazon.kindle.price %}
+      "price": "{{ page.amazon.kindle.price | remove: '$' | remove: 'AUD' | strip }}",
+      {% endif %}
+      "availability": "https://schema.org/InStock",
+      "itemOffered": {
+        "@type": "Book",
+        "bookFormat": "https://schema.org/EBook"
+      }
+    {% assign has_more_offers = false %}
+    {% if page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+      {% assign has_more_offers = true %}
+    {% elsif page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
+      {% assign has_more_offers = true %}
     {% endif %}
-    "availability": "{% if page.status == 'Available' %}https://schema.org/InStock{% else %}https://schema.org/PreOrder{% endif %}"
-  },
+    {% if has_more_offers %},{% endif %}
+    {% endif %}
+    {% if page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+    {
+      "@type": "Offer",
+      "url": "{{ page.amazon.paperback.url }}",
+      "priceCurrency": "AUD",
+      {% if page.amazon.paperback.price %}
+      "price": "{{ page.amazon.paperback.price | remove: '$' | remove: 'AUD' | strip }}",
+      {% endif %}
+      "availability": "https://schema.org/InStock",
+      "itemOffered": {
+        "@type": "Book",
+        "bookFormat": "https://schema.org/Paperback"
+      }
+    }{% if page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %},{% endif %}
+    {% endif %}
+    {% if page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
+    {
+      "@type": "Offer",
+      "url": "{{ page.amazon.audiobook.url }}",
+      "priceCurrency": "AUD",
+      {% if page.amazon.audiobook.price %}
+      "price": "{{ page.amazon.audiobook.price | remove: '$' | remove: 'AUD' | strip }}",
+      {% endif %}
+      "availability": "https://schema.org/InStock",
+      "itemOffered": {
+        "@type": "Audiobook",
+        "bookFormat": "https://schema.org/AudiobookFormat"
+      }
+    }
+    {% endif %}
+  ],
   {% endif %}
   "numberOfPages": {{ page.page_count | default: 32 }},
   "genre": "{{ page.category }}"

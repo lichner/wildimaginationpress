@@ -1593,6 +1593,110 @@ blockquote {
       box-shadow: 0 3px 12px rgba(244, 194, 194, 0.3);
     }
   }
+  
+  // Format selector for multi-format books
+  .format-selector {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    align-items: center;
+    
+    .btn-format {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      
+      .format-name {
+        color: var(--text-dark);
+        font-weight: 600;
+      }
+      
+      .format-price {
+        color: var(--text-medium);
+        font-weight: 500;
+        font-size: 0.8rem;
+      }
+      
+      .ku-badge {
+        display: inline-block;
+        padding: 0.15rem 0.4rem;
+        background: linear-gradient(135deg, #ff9900, #ffaa33);
+        color: white;
+        border-radius: 10px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-left: 0.3rem;
+      }
+      
+      // Kindle format styling - subtle grey, similar to feature tags
+      &.kindle {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        color: var(--text-dark);
+        border-color: rgba(45, 90, 61, 0.15);
+        
+        &:hover {
+          background: linear-gradient(135deg, #e9ecef, #dee2e6);
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          border-color: rgba(45, 90, 61, 0.25);
+        }
+      }
+      
+      // Paperback format styling - warm yellow, similar to feature tags
+      &.paperback {
+        background: linear-gradient(135deg, #fff8e1, #ffe082);
+        color: var(--text-dark);
+        border-color: rgba(255, 204, 2, 0.3);
+        
+        &:hover {
+          background: linear-gradient(135deg, #ffe082, #ffcc02);
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(255, 204, 2, 0.2);
+          border-color: rgba(255, 204, 2, 0.5);
+        }
+      }
+      
+      // Audiobook format styling - soft purple/blue, similar to feature tags
+      &.audiobook {
+        background: linear-gradient(135deg, #e8eaf6, #c5cae9);
+        color: var(--text-dark);
+        border-color: rgba(103, 58, 183, 0.2);
+        
+        &:hover {
+          background: linear-gradient(135deg, #c5cae9, #9fa8da);
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(103, 58, 183, 0.2);
+          border-color: rgba(103, 58, 183, 0.4);
+        }
+      }
+      
+      // Active/selected state
+      &:active {
+        transform: translateY(0);
+      }
+    }
+    
+    // Responsive adjustments
+    @media (max-width: 767px) {
+      flex-direction: row;
+      gap: 0.6rem;
+      
+      .btn-format {
+        font-size: 0.8rem;
+        padding: 0.45rem 0.9rem;
+      }
+    }
+  }
 }
 
 .book-description {
