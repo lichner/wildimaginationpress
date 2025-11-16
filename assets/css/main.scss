@@ -1927,7 +1927,8 @@ blockquote {
     
     img {
       width: 100%;
-      height: 300px;
+      height: auto;
+      aspect-ratio: 1 / 1;
       object-fit: cover;
       border-radius: var(--border-radius);
       transition: all 0.3s ease;
@@ -1935,22 +1936,28 @@ blockquote {
       box-shadow: var(--shadow-medium);
     }
     
-    .cover-placeholder {
+    .cover-placeholder-spotlight {
       width: 100%;
-      height: 300px;
-      background: linear-gradient(135deg, var(--cream), #e8e1d4);
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #e8ede8, #d8ddd8);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow-soft);
+      text-align: center;
+      padding: 1rem;
       
-      .placeholder-text {
+      .cover-coming-soon-spotlight {
+        background: linear-gradient(135deg, #f9ecc4, var(--warm-yellow));
         color: var(--primary-green);
-        font-size: 1.2rem;
-        font-weight: 600;
-        text-align: center;
-        line-height: 1.5;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(247, 231, 180, 0.4);
+        border: 1px solid rgba(45, 90, 61, 0.3);
       }
     }
   }
