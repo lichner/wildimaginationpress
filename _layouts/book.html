@@ -280,7 +280,14 @@ layout: default
   ],
   {% endif %}
   "numberOfPages": {{ page.page_count | default: 32 }},
-  "genre": "{{ page.category }}"
+  {% if page.category_meta and page.category_meta.primary %}
+  "genre": "{{ page.category_meta.primary }}",
+  {% elsif page.category %}
+  "genre": "{{ page.category }}",
+  {% endif %}
+  {% if page.bisac_codes %}
+  "keywords": "{{ page.bisac_codes | join: ', ' }}",
+  {% endif %}
 }
 </script>
 
