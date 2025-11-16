@@ -57,6 +57,9 @@ defaults:
       path: ""
       type: "books"
     values:
+      seo:
+        json_ld: false
+        type: WebPage
       sitemap:
         priority: 0.9
         changefreq: monthly
