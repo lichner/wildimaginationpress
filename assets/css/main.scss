@@ -1558,6 +1558,42 @@ blockquote {
     strong {
       color: var(--primary-green);
     }
+
+      // Category badges container
+      .category-badges {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        max-width: 70%;
+      }
+      
+      // Individual badge
+      .category-badge {
+        display: inline-block;
+        padding: 0.35rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        line-height: 1.1;
+        color: var(--text-dark);
+        border: 1px solid rgba(45, 90, 61, 0.15);
+        background: linear-gradient(135deg, #f7faf9, #eef5f1);
+        box-shadow: 0 1px 4px rgba(45, 90, 61, 0.08);
+        word-break: break-word;
+        hyphens: auto;
+      }
+      
+      .category-badge.secondary {
+        background: linear-gradient(135deg, #f9f9ff, #eef0ff);
+        border-color: rgba(116, 185, 255, 0.3);
+      }
+      
+      @media (max-width: 768px) {
+        // Hide category badges entirely on mobile
+        .category-badges { display: none; }
+        // Also hide the entire category row on mobile
+        &.meta-item-category { display: none; }
+      }
   }
 }
 

@@ -68,9 +68,19 @@ layout: default
           </div>
           {% endif %}
           
-          {% if page.category %}
-          <div class="meta-item">
-            <strong>Category:</strong> {{ page.category }}
+          {% if page.category_meta or page.category %}
+          <div class="meta-item meta-item-category">
+            <strong>Category:</strong>
+            <div class="category-badges" aria-label="Book categories">
+              {% if page.category_meta and page.category_meta.primary %}
+                <span class="category-badge primary" title="{{ page.category_meta.primary }}">{{ page.category_meta.primary }}</span>
+                {% if page.category_meta.secondary %}
+                <span class="category-badge secondary" title="{{ page.category_meta.secondary }}">{{ page.category_meta.secondary }}</span>
+                {% endif %}
+              {% elsif page.category %}
+                <span class="category-badge primary" title="{{ page.category }}">{{ page.category }}</span>
+              {% endif %}
+            </div>
           </div>
           {% endif %}
           
