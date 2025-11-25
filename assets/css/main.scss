@@ -975,6 +975,15 @@ blockquote {
         }
       }
       
+      &.facebook {
+        background: #1877f2;
+        
+        &:hover {
+          background: #0d65d9;
+          transform: rotate(-5deg) scale(1.1);
+        }
+      }
+      
       &.x-twitter {
         background: #000000;
         
