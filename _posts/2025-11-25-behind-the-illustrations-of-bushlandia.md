@@ -7,7 +7,8 @@ category: Behind the Scenes
 permalink: /blog/behind-the-scenes/2025/11/25/behind-the-illustrations-of-bushlandia/
 description: "Author Rebecca Mola shares the story of her creative collaboration with illustrator Braia Matrix, highlighting how their international partnership, deep research into the Australian bush, and shared artistic vision brought the magical world of Bushlandia to life through authentic and emotionally resonant illustrations."
 keywords: "children's book publisher, independent publisher australia, kids books, creative storytelling, wild imagination press, bushlandia, illustration, collaboration"
-og_image: /assets/images/wild-imagination-logo.jpg
+excerpt: "When I set out to create Bushlandia, I knew the illustrations would be just as important as the story itself. Discover how my collaboration with illustrator Braia Matrix brought the magical world of the Australian bush to life."
+image: /assets/images/wild-imagination-logo.jpg
 ---
 
 When I set out to create **Bushlandia: The Magic of Imagination in the Australian Bush**, I knew that the illustrations would be just as important as the story itself. After all, children's books aren't just read - they're experienced through images. Every character, every leaf, every subtle expression needed to feel authentic and magical. That's when I found **Braia Matrix**.

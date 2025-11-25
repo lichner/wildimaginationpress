@@ -15,6 +15,7 @@ logo: /assets/images/wild-imagination-logo.jpg
 social:
   name: Wild Imagination Press
   links:
+    - https://www.facebook.com/people/Wild-Imagination-Press/61583883973173/
     - https://x.com/wildimaginpress
     - https://instagram.com/wildimaginationpress
 
@@ -103,6 +104,7 @@ logo: /assets/images/wild-imagination-logo.jpg
 
 # Social settings
 social:
+  facebook: people/Wild-Imagination-Press/61583883973173
   instagram: wildimaginationpress
   twitter: wildimaginpress
 

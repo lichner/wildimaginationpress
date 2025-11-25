@@ -7,7 +7,8 @@ category: Behind the Scenes
 permalink: /blog/behind-the-scenes/2025/09/15/why-we-started-wild-imagination-press/
 description: "Discover the inspiration behind Wild Imagination Press and our mission to create enchanting children's books that nurture creativity and imagination in young readers."
 keywords: "children's book publisher, independent publisher australia, kids books, creative storytelling, wild imagination press"
-og_image: /assets/images/wild-imagination-logo.jpg
+excerpt: "Every great story begins with a spark of imagination. Discover the inspiration behind Wild Imagination Press and our mission to create children's books that nurture creativity and imagination."
+image: /assets/images/wild-imagination-logo.jpg
 ---
 
 Every great story begins with a spark of imagination. For Wild Imagination Press, that spark ignited from a simple but powerful belief: **every child deserves stories that make them laugh, learn, dream, and imagine**.
