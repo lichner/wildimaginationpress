@@ -47,8 +47,6 @@ yarn.lock
 .env.test
 .env.production
 
-# Netlify
-.netlify/
 
 # Ruby version managers
 .ruby-version

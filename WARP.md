@@ -4,7 +4,7 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-Wild Imagination Press is a Jekyll-based website for a children's book publisher. The site showcases books, author information, and includes email signup functionality. It's deployed on Netlify and designed with a nature-inspired color palette reflecting the magical book tree logo.
+Wild Imagination Press is a Jekyll-based website for a children's book publisher. The site showcases books, author information, and includes email signup functionality. It's deployed on GitHub Pages and designed with a nature-inspired color palette reflecting the magical book tree logo.
 
 ## Development Commands
 
@@ -28,13 +28,13 @@ bundle exec jekyll build
 bundle exec jekyll clean
 ```
 
-### Netlify Deployment
-The site auto-deploys to Netlify with the following build command:
+### GitHub Pages Deployment
+The site auto-deploys to GitHub Pages via GitHub Actions with the following build command:
 ```bash
 bundle exec jekyll build
 ```
 Publish directory: `_site`
-Ruby version: 3.2.2 (configured in netlify.toml)
+Ruby version: 3.2.2
 
 ## Architecture
 
@@ -176,11 +176,11 @@ Key settings include:
 
 ## Performance & Security Features
 
-### Netlify Configuration (`netlify.toml`)
-- **Security Headers**: CSP, XSS protection, frame options, referrer policy
-- **Caching Strategy**: Long-term caching for static assets (1 year)
-- **Ruby Environment**: Version 3.2.2 with Bundler 2.5.9
-- **Redirect Rules**: SEO-friendly book URL handling
+### GitHub Pages Configuration
+- **Deployment**: Automatic via GitHub Actions on push to main branch
+- **Custom Domain**: Configured via CNAME file and DNS settings
+- **HTTPS**: Automatic SSL certificates via Let's Encrypt
+- **Jekyll Processing**: Native Jekyll support with safe mode enabled
 
 ### Frontend Optimizations
 - CSS custom properties for consistent theming and easy maintenance

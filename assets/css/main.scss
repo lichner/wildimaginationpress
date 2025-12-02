@@ -893,17 +893,18 @@ blockquote {
 
 .email-signup {
   margin: 3rem auto;
-  max-width: 500px;
+  max-width: 560px;
   
   .form-group {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
     justify-content: center;
+    align-items: stretch;
+    flex-wrap: nowrap;
     
     input {
       flex: 1;
-      min-width: 250px;
+      min-width: 260px;
       padding: 1rem 1.5rem;
       border: none;
       border-radius: 50px;
@@ -926,6 +927,7 @@ blockquote {
       font-weight: 600;
       transition: all 0.3s ease;
       box-shadow: var(--shadow-medium);
+      white-space: nowrap;
       
       &:hover {
         background: linear-gradient(135deg, var(--secondary-green), var(--primary-green));
@@ -933,6 +935,33 @@ blockquote {
         box-shadow: var(--shadow-strong);
       }
     }
+  }
+}
+
+.contact-meta-box {
+  max-width: 560px;
+  margin: 1.5rem auto 0 auto;
+  padding: 1.1rem 1.5rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  font-size: 0.95rem;
+  text-align: center;
+  
+  p {
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+  
+  p:last-child {
+    margin-bottom: 0;
+  }
+  
+  a {
+    color: #ffffff;
+    text-decoration: underline;
+    font-weight: 500;
   }
 }
 
@@ -993,6 +1022,15 @@ blockquote {
         }
       }
       
+      &.tiktok {
+        background: #00f2ea;
+        
+        &:hover {
+          background: #00d9d1;
+          transform: rotate(5deg) scale(1.1);
+        }
+      }
+      
       &:hover {
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       }
@@ -1026,36 +1064,37 @@ blockquote {
         border: 3px solid rgba(255,255,255,0.3);
       }
       
-      .footer-text {
-        p {
-          margin-bottom: 0.5rem;
-          color: rgba(255,255,255,0.8);
-          
-          &:first-child {
-            font-weight: 500;
-          }
-          
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
-        
-        .footer-privacy {
-          font-size: 0.8rem;
-          margin-top: 0.25rem;
-          margin-bottom: 0;
-          
-          a {
-            color: rgba(255,255,255,0.6);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            
-            &:hover {
-              color: rgba(255,255,255,0.9);
-            }
-          }
-        }
-      }
+.footer-text {
+  p {
+    margin-bottom: 0.5rem;
+    color: rgba(255,255,255,0.8);
+    
+    &:first-child {
+      font-weight: 500;
+    }
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: rgba(255,255,255,1);
+      text-decoration: underline;
+    }
+  }
+  
+  .footer-privacy {
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+  }
+}
     }
   }
 }
@@ -1248,16 +1287,17 @@ blockquote {
   .email-signup .form-group {
     flex-direction: column;
     align-items: center;
+    flex-wrap: wrap;
     
     input {
       min-width: auto;
       width: 100%;
-      max-width: 300px;
+      max-width: 320px;
     }
     
     button {
       width: 100%;
-      max-width: 300px;
+      max-width: 320px;
     }
   }
   

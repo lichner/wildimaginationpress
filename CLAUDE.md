@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Wild Imagination Press is a Jekyll-based static website for a children's book publisher. The site showcases books with a nature-inspired design, includes email signup functionality with Google reCAPTCHA v3, and features comprehensive SEO optimization. Deployed on Netlify with security headers and CSP compliance.
+Wild Imagination Press is a Jekyll-based static website for a children's book publisher. The site showcases books with a nature-inspired design, includes email signup functionality with Google reCAPTCHA v3, and features comprehensive SEO optimization. Deployed on GitHub Pages with automatic deployment via GitHub Actions.
 
 ## Development Commands
 
@@ -36,10 +36,10 @@ bundle exec ruby _scripts/validate_seo.rb
 ```
 
 ### Deployment
-- **Platform**: Netlify (auto-deploy from git)
+- **Platform**: GitHub Pages (auto-deploy from git)
 - **Build command**: `bundle exec jekyll build`
 - **Publish directory**: `_site`
-- **Ruby version**: 3.2.2 (configured in netlify.toml)
+- **Ruby version**: 3.2.2
 - **Bundler version**: 2.5.9+
 
 ## Architecture Overview
@@ -226,12 +226,12 @@ Nature-inspired palette defined in CSS custom properties (`assets/css/main.scss`
 
 ## Performance & Security
 
-### Netlify Configuration
-If `netlify.toml` exists, it includes:
-- Security headers: CSP, XSS protection, frame options, referrer policy
-- Caching strategy: Long-term caching for static assets (1 year)
-- Ruby environment configuration
-- Redirect rules for SEO-friendly book URLs
+### GitHub Pages Configuration
+The site is deployed on GitHub Pages with:
+- Automatic deployment via GitHub Actions on push to main branch
+- Native Jekyll support with safe mode enabled
+- Automatic SSL certificates via Let's Encrypt
+- Custom domain support with HTTPS enforcement
 
 ### Frontend Optimizations
 - Lazy loading images with `loading="lazy"` attribute

@@ -159,8 +159,8 @@ social:
 
 **Issues Found**:
 1. reCAPTCHA site key exposed in HTML source (`_includes/head.html` line 51)
-2. No `netlify.toml` with security headers
-3. No Content Security Policy (CSP)
+2. Security headers could be improved via GitHub Actions workflow
+3. No Content Security Policy (CSP) meta tags
 4. No X-Frame-Options, X-Content-Type-Options headers
 
 **Impact**:
@@ -170,52 +170,22 @@ social:
 - Failed security audits
 
 **Files to Create/Modify**:
-- Create `netlify.toml`
-- Modify `_includes/head.html`
+- Modify `_includes/head.html` (add security meta tags)
+- Update GitHub Actions workflow (if exists)
 - Create `.env.example`
 
 **Implementation Steps**:
 
-1. **Move reCAPTCHA key to environment variable**:
+1. **Move reCAPTCHA key to environment variable and add security headers**:
 
-Create `netlify.toml`:
-```toml
-[build]
-  publish = "_site"
-  command = "bundle exec jekyll build"
-
-[context.production.environment]
-  RECAPTCHA_SITE_KEY = "6LePxsIrAAAAAL5KZMaM9Gy-gnj62mMul9UnhBjv"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-src https://www.google.com;"
-
-[[headers]]
-  for = "*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.jpg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.webp"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+**Note:** GitHub Pages has limited support for custom headers. Consider adding security meta tags to `_includes/head.html`:
+```html
+<!-- Add to _includes/head.html -->
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-src https://www.google.com;">
 ```
 
 2. **Update _includes/head.html**:
@@ -243,9 +213,9 @@ RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
 - Proper cache headers for performance
 
 **Success Criteria**:
-- [ ] netlify.toml created with headers
+- [ ] Security meta tags added to head.html
 - [ ] reCAPTCHA key in environment variable
-- [ ] Security headers verified with curl/browser
+- [ ] Security headers verified with browser dev tools
 - [ ] CSP passes without console errors
 
 ---
@@ -1349,7 +1319,7 @@ permalink: /404.html
 **Deliverables**:
 - Optimized images deployed
 - Clean config files
-- netlify.toml with security headers
+- Security meta tags added
 - Security audit passed
 
 ---
@@ -1474,7 +1444,7 @@ npm run test
 ## Resource Requirements
 
 ### Tools & Services (Free Tier)
-- Netlify (hosting + deployment)
+- GitHub Pages (hosting + deployment)
 - GitHub Actions (CI/CD - 2000 min/month free)
 - Google Search Console (free)
 - Google Analytics 4 (free)
