@@ -106,29 +106,47 @@ layout: default
         </div>
         {% endif %}
         
-        <div class="book-actions">
+        <div id="buy" class="book-actions">
           {% assign has_primary_paperback = false %}
-          {% if page.amazon and page.amazon.paperback and page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
-          {% assign has_primary_paperback = true %}
-          <div class="primary-purchase-row">
-            <p class="availability-note">Available now · Paperback on Amazon</p>
-            <a href="{{ page.amazon.paperback.url }}" 
-               class="btn-format paperback primary-paperback" 
-               data-format="paperback"
-               {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
-               data-track="amazon">
-              <span class="format-name">Buy Paperback</span>
-              {% if page.amazon.paperback.price %}
-              <span class="format-price">{{ page.amazon.paperback.price }}</span>
-              {% endif %}
-            </a>
-          </div>
+          {% if page.amazon and page.amazon.paperback and page.amazon.paperback.status == "available" %}
+            {% assign marketplaces = page.amazon.paperback.marketplaces %}
+            {% if marketplaces %}
+              {% assign has_primary_paperback = true %}
+              <div class="primary-purchase-row">
+                <p class="availability-note">Available now · Paperback on Amazon</p>
+                <button 
+                   class="btn-format paperback primary-paperback btn-marketplace-trigger" 
+                   data-format="paperback"
+                   {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
+                   onclick="openMarketplaceModal()">
+                  <span class="format-name">Buy on Amazon</span>
+                  {% if page.amazon.paperback.price %}
+                  <span class="format-price">{{ page.amazon.paperback.price }}</span>
+                  {% endif %}
+                </button>
+              </div>
+            {% elsif page.amazon.paperback.url and page.amazon.paperback.url != '' and page.amazon.paperback.url != '#' %}
+              {% assign has_primary_paperback = true %}
+              <div class="primary-purchase-row">
+                <p class="availability-note">Available now · Paperback on Amazon</p>
+                <a href="{{ page.amazon.paperback.url }}" 
+                   class="btn-format paperback primary-paperback" 
+                   data-format="paperback"
+                   {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
+                   data-track="amazon">
+                  <span class="format-name">Buy Paperback</span>
+                  {% if page.amazon.paperback.price %}
+                  <span class="format-price">{{ page.amazon.paperback.price }}</span>
+                  {% endif %}
+                </a>
+              </div>
+            {% endif %}
           {% endif %}
           {% comment %} Check if any format is available using new multi-format structure {% endcomment %}
           {% assign has_available_format = false %}
           {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
             {% assign has_available_format = true %}
-          {% elsif page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+          {% elsif page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" or page.amazon.paperback.status == "available" and page.amazon.paperback.marketplaces %}
             {% assign has_available_format = true %}
           {% elsif page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
             {% assign has_available_format = true %}
@@ -152,17 +170,31 @@ layout: default
               </a>
               {% endif %}
               
-              {% if has_primary_paperback == false and page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
-              <a href="{{ page.amazon.paperback.url }}" 
-                 class="btn-format paperback" 
-                 data-format="paperback"
-                 {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
-                 data-track="amazon">
-                <span class="format-name">Buy Paperback</span>
-                {% if page.amazon.paperback.price %}
-                <span class="format-price">{{ page.amazon.paperback.price }}</span>
+              {% if has_primary_paperback == false and page.amazon.paperback.status == "available" %}
+                {% if page.amazon.paperback.marketplaces %}
+                  {%- assign primary_market = page.amazon.paperback.marketplaces.au | default: page.amazon.paperback.marketplaces.first[1] -%}
+                  <a href="{{ primary_market.url }}" 
+                     class="btn-format paperback" 
+                     data-format="paperback"
+                     {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
+                     data-track="amazon">
+                    <span class="format-name">Buy Paperback — {{ primary_market.name }}</span>
+                    {% if page.amazon.paperback.price %}
+                    <span class="format-price">{{ page.amazon.paperback.price }}</span>
+                    {% endif %}
+                  </a>
+                {% elsif page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+                  <a href="{{ page.amazon.paperback.url }}" 
+                     class="btn-format paperback" 
+                     data-format="paperback"
+                     {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
+                     data-track="amazon">
+                    <span class="format-name">Buy Paperback</span>
+                    {% if page.amazon.paperback.price %}
+                    <span class="format-price">{{ page.amazon.paperback.price }}</span>
+                    {% endif %}
+                  </a>
                 {% endif %}
-              </a>
               {% endif %}
               
               {% if page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
@@ -277,7 +309,11 @@ layout: default
     {% if page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
     {
       "@type": "Offer",
+      {% if page.amazon.paperback.marketplaces %}{% assign _primary_offer = page.amazon.paperback.marketplaces.au | default: page.amazon.paperback.marketplaces.first[1] %}
+      "url": "{{ _primary_offer.url }}",
+      {% else %}
       "url": "{{ page.amazon.paperback.url }}",
+      {% endif %}
       "priceCurrency": "AUD",
       {% if page.amazon.paperback.price %}
       "price": "{{ page.amazon.paperback.price | remove: '$' | remove: 'AUD' | strip }}",
@@ -446,7 +482,28 @@ layout: default
                 {% endif %}
               </p>
             {% endif %}
+            {% if book.amazon and book.amazon.paperback and book.amazon.paperback.status == "available" %}
+              {% if book.amazon.paperback.marketplaces %}
+                <a href="{{ book.url | relative_url }}#buy"
+                   class="book-status-buy-pill"
+                   data-format="paperback"
+                   {% if book.amazon.paperback.asin != "" %}data-asin="{{ book.amazon.paperback.asin }}"{% endif %}>
+                  Buy on Amazon
+                </a>
+              {% elsif book.amazon.paperback.url != '' and book.amazon.paperback.url != '#' %}
+                <a href="{{ book.amazon.paperback.url }}"
+                   class="book-status-buy-pill"
+                   data-format="paperback"
+                   {% if book.amazon.paperback.asin != "" %}data-asin="{{ book.amazon.paperback.asin }}"{% endif %}
+                   data-track="amazon">
+                  Buy on Amazon
+                </a>
+              {% else %}
+                <p class="book-status-small">{{ book.status }}</p>
+              {% endif %}
+            {% else %}
             <p class="book-status-small">{{ book.status }}</p>
+            {% endif %}
           </div>
         </div>
       {% endfor %}
@@ -522,4 +579,97 @@ layout: default
     </div>
   </div>
 </section>
+{% endif %}
+
+{% if page.amazon and page.amazon.paperback and page.amazon.paperback.marketplaces %}
+<!-- Marketplace Selector Modal -->
+<div id="marketplace-modal" class="marketplace-modal" aria-hidden="true" role="dialog" aria-labelledby="marketplace-modal-title">
+  <div class="marketplace-modal-container">
+    <button class="marketplace-modal-close" onclick="closeMarketplaceModal()" aria-label="Close marketplace selector">×</button>
+    <div class="marketplace-modal-content">
+      <div class="marketplace-modal-header">
+        <h3 id="marketplace-modal-title">Choose Your Amazon Store</h3>
+        <p>Select your preferred Amazon marketplace to purchase {{ page.title }}</p>
+      </div>
+      <div class="marketplace-list">
+        {%- for pair in page.amazon.paperback.marketplaces -%}
+          {%- assign key = pair[0] -%}
+          {%- assign market = pair[1] -%}
+          <a href="{{ market.url }}" 
+             class="marketplace-option {% if market.primary %}primary{% endif %}" 
+             data-track="amazon"
+             data-marketplace="{{ key }}"
+             {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}>
+            {% if market.flag %}<span class="marketplace-flag">{{ market.flag }}</span>{% endif %}
+            <div class="marketplace-info">
+              <span class="marketplace-name">{{ market.name }}</span>
+              <span class="marketplace-domain">{{ market.url | replace: 'https://', '' | replace: 'http://', '' | split: '/' | first }}</span>
+            </div>
+            <span class="marketplace-arrow">→</span>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openMarketplaceModal() {
+  const modal = document.getElementById('marketplace-modal');
+  if (modal) {
+    modal.classList.add('is-visible');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeMarketplaceModal() {
+  const modal = document.getElementById('marketplace-modal');
+  if (modal) {
+    modal.classList.remove('is-visible');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+}
+
+// Close on overlay click
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('marketplace-modal');
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeMarketplaceModal();
+      }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-visible')) {
+        closeMarketplaceModal();
+      }
+    });
+    
+    // Auto-open modal if URL has #buy anchor
+    if (window.location.hash === '#buy') {
+      openMarketplaceModal();
+      // Scroll to the buy section
+      const buySection = document.getElementById('buy');
+      if (buySection) {
+        buySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+    
+    // Listen for hash changes (for same-page navigation)
+    window.addEventListener('hashchange', function() {
+      if (window.location.hash === '#buy') {
+        openMarketplaceModal();
+        const buySection = document.getElementById('buy');
+        if (buySection) {
+          buySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    });
+  }
+});
+</script>
 {% endif %}

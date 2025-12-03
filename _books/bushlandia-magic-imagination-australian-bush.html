@@ -62,10 +62,68 @@ amazon:
     status: "coming_soon"  # pending | available | coming_soon
   paperback:
     asin: "1764423003"
-    url: "https://www.amazon.com/dp/1764423003"  # Universal link - auto-redirects to user's local Amazon marketplace
-    price: "$15.39 AUD"  # Estimated price
+    price: "$15.39 AUD"
     print_length: 48  # KDP uses print length, not page count
     status: "available"
+    # Multiple marketplace support - same ASIN via Expanded Distribution
+    marketplaces:
+      au:
+        url: "https://www.amazon.com.au/dp/1764423003"
+        name: "Australia"
+        flag: "🇦🇺"
+        primary: true  # Primary market
+      us:
+        url: "https://www.amazon.com/dp/1764423003"
+        name: "United States"
+        flag: "🇺🇸"
+      uk:
+        url: "https://www.amazon.co.uk/dp/1764423003"
+        name: "United Kingdom"
+        flag: "🇬🇧"
+      de:
+        url: "https://www.amazon.de/dp/1764423003"
+        name: "Germany"
+        flag: "🇩🇪"
+      fr:
+        url: "https://www.amazon.fr/dp/1764423003"
+        name: "France"
+        flag: "🇫🇷"
+      es:
+        url: "https://www.amazon.es/dp/1764423003"
+        name: "Spain"
+        flag: "🇪🇸"
+      it:
+        url: "https://www.amazon.it/dp/1764423003"
+        name: "Italy"
+        flag: "🇮🇹"
+      nl:
+        url: "https://www.amazon.nl/dp/1764423003"
+        name: "Netherlands"
+        flag: "🇳🇱"
+      pl:
+        url: "https://www.amazon.pl/dp/1764423003"
+        name: "Poland"
+        flag: "🇵🇱"
+      se:
+        url: "https://www.amazon.se/dp/1764423003"
+        name: "Sweden"
+        flag: "🇸🇪"
+      be:
+        url: "https://www.amazon.com.be/dp/1764423003"
+        name: "Belgium"
+        flag: "🇧🇪"
+      ie:
+        url: "https://www.amazon.ie/dp/1764423003"
+        name: "Ireland"
+        flag: "🇮🇪"
+      jp:
+        url: "https://www.amazon.co.jp/dp/1764423003"
+        name: "Japan"
+        flag: "🇯🇵"
+      ca:
+        url: "https://www.amazon.ca/dp/1764423003"
+        name: "Canada"
+        flag: "🇨🇦"
   audiobook:
     asin: ""  # Will be populated when audiobook is available (via ACX or similar)
     url: ""   # Will be populated when audiobook is published
