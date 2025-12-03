@@ -2670,9 +2670,17 @@ blockquote {
   align-items: center;
   justify-content: center;
   animation: fadeIn 0.2s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem;
   
   &.is-visible {
     display: flex;
+  }
+  
+  // Prevent body scroll on mobile when modal is open
+  @supports (-webkit-overflow-scrolling: touch) {
+    position: fixed;
   }
 }
 
@@ -2693,8 +2701,16 @@ blockquote {
   width: 90%;
   max-height: 85vh;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   position: relative;
   animation: slideUp 0.3s ease;
+  margin: auto;
+  
+  // Better scrolling on iOS
+  @supports (-webkit-overflow-scrolling: touch) {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
 }
 
 @keyframes slideUp {
@@ -2859,11 +2875,16 @@ blockquote {
   }
 }
 
-// Mobile Modal Styles
+// Tablet Modal Styles
 @media (max-width: 768px) {
+  .marketplace-modal {
+    padding: 0.75rem;
+  }
+  
   .marketplace-modal-container {
     width: 95%;
     max-height: 90vh;
+    border-radius: 16px;
   }
   
   .marketplace-modal-content {
@@ -2887,6 +2908,80 @@ blockquote {
     
     .marketplace-domain {
       font-size: 0.8rem;
+    }
+  }
+}
+
+// Mobile Phone Modal Styles
+@media (max-width: 480px) {
+  .marketplace-modal {
+    padding: 0.5rem;
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+  
+  .marketplace-modal-container {
+    width: 100%;
+    max-width: 100%;
+    max-height: 95vh;
+    border-radius: 12px;
+    margin: 0;
+  }
+  
+  .marketplace-modal-content {
+    padding: 2.5rem 1.25rem 1.5rem;
+  }
+  
+  .marketplace-modal-header {
+    margin-bottom: 1.5rem;
+    
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.4rem;
+    }
+    
+    p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .marketplace-modal-close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+  }
+  
+  .marketplace-list {
+    gap: 0.6rem;
+  }
+  
+  .marketplace-option {
+    padding: 0.85rem 0.9rem;
+    border-radius: 10px;
+    
+    .marketplace-flag {
+      font-size: 1.6rem;
+    }
+    
+    .marketplace-name {
+      font-size: 0.9rem;
+    }
+    
+    .marketplace-domain {
+      font-size: 0.75rem;
+    }
+    
+    .marketplace-arrow {
+      font-size: 1.1rem;
+    }
+    
+    &.primary::after {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      top: -8px;
+      right: 10px;
     }
   }
   

@@ -614,12 +614,29 @@ layout: default
 </div>
 
 <script>
+// Track scroll position for mobile
+let scrollPosition = 0;
+
 function openMarketplaceModal() {
   const modal = document.getElementById('marketplace-modal');
   if (modal) {
+    // Save current scroll position
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    
     modal.classList.add('is-visible');
     modal.setAttribute('aria-hidden', 'false');
+    
+    // Prevent background scroll (works on all devices)
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = '100%';
+    
+    // Focus trap for accessibility
+    const firstFocusable = modal.querySelector('button, a');
+    if (firstFocusable) {
+      setTimeout(() => firstFocusable.focus(), 100);
+    }
   }
 }
 
@@ -628,19 +645,31 @@ function closeMarketplaceModal() {
   if (modal) {
     modal.classList.remove('is-visible');
     modal.setAttribute('aria-hidden', 'true');
+    
+    // Restore scroll position and body styles
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    
+    window.scrollTo(0, scrollPosition);
   }
 }
 
-// Close on overlay click
+// Close on overlay click and touch
 document.addEventListener('DOMContentLoaded', function() {
   const modal = document.getElementById('marketplace-modal');
   if (modal) {
-    modal.addEventListener('click', function(e) {
+    // Handle both click and touch events for overlay
+    const handleOverlayClose = function(e) {
       if (e.target === modal) {
+        e.preventDefault();
         closeMarketplaceModal();
       }
-    });
+    };
+    
+    modal.addEventListener('click', handleOverlayClose);
+    modal.addEventListener('touchend', handleOverlayClose, { passive: false });
     
     // Close on Escape key
     document.addEventListener('keydown', function(e) {
@@ -662,6 +691,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listen for hash changes (for same-page navigation)
     window.addEventListener('hashchange', function() {
       if (window.location.hash === '#buy') {
+        openMarketplaceModal();
+        const buySection = document.getElementById('buy');
+        if (buySection) {
+          buySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    });
+    
+    // Handle clicks on #buy links (for when already on same page with #buy hash)
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a[href$="#buy"]');
+      if (link && window.location.hash === '#buy') {
+        // Already on #buy hash, just open modal
+        e.preventDefault();
         openMarketplaceModal();
         const buySection = document.getElementById('buy');
         if (buySection) {
