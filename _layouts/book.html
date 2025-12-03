@@ -504,7 +504,17 @@ layout: default
                 {% endif %}
               </p>
             {% endif %}
+            {% if book.amazon and book.amazon.paperback and book.amazon.paperback.status == "available" and book.amazon.paperback.url != "" and book.amazon.paperback.url != "#" %}
+            <a href="{{ book.amazon.paperback.url }}"
+               class="book-status-buy-pill"
+               data-format="paperback"
+               {% if book.amazon.paperback.asin != "" %}data-asin="{{ book.amazon.paperback.asin }}"{% endif %}
+               data-track="amazon">
+              Buy on Amazon.com.au
+            </a>
+            {% else %}
             <p class="book-status-small">{{ book.status }}</p>
+            {% endif %}
           </div>
         </div>
         {% endunless %}
