@@ -2904,6 +2904,29 @@ ul + .book-preview-images {
       flex-wrap: wrap;
     }
   }
+
+  .author-email-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    padding: 0.6rem 1.6rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #fff8e1, #ffe082);
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    border: 1px solid transparent;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16);
+      border-color: rgba(255, 204, 2, 0.7);
+    }
+  }
   
   .cta-text {
     margin-top: 3rem;
