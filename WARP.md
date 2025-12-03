@@ -165,6 +165,32 @@ Modify line 49 in `index.html` to query a different series name.
 - Button: `.cta-button-secondary` for green gradient CTA
 - Matches existing `.series-books` patterns from individual book pages
 
+### Amazon Universal Links
+The site uses **Amazon Universal Links** for automatic region-specific marketplace routing:
+
+**Format in book front matter:**
+```yaml
+amazon:
+  paperback:
+    asin: "1764423003"
+    url: "https://www.amazon.com/dp/1764423003"  # Universal link - auto-redirects to local market
+    price: "$15.39 AUD"
+    status: "available"
+```
+
+**How it works:**
+- Amazon's CDN detects user location and redirects to their local marketplace (e.g., .com.au, .co.uk, .de)
+- Requires **Amazon Expanded Distribution** enrollment in KDP
+- Single link works globally with local pricing and currency
+- All UI text uses generic "Amazon" not "Amazon.com.au"
+
+**Template usage:**
+- Book layout: `_layouts/book.html` displays "Buy on Amazon" (not market-specific)
+- Pages: `index.html`, `books.html`, `author.html` follow same pattern
+- Analytics tracking via `data-track="amazon"` attribute works across all markets
+
+See `docs/AMAZON_UNIVERSAL_LINKS.md` for complete implementation details.
+
 ### Site Configuration (`_config.yml`)
 Key settings include:
 - Site metadata (title, description, URL structure)

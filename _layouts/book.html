@@ -111,7 +111,7 @@ layout: default
           {% if page.amazon and page.amazon.paperback and page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
           {% assign has_primary_paperback = true %}
           <div class="primary-purchase-row">
-            <p class="availability-note">Available now · Paperback on Amazon.com.au</p>
+            <p class="availability-note">Available now · Paperback on Amazon</p>
             <a href="{{ page.amazon.paperback.url }}" 
                class="btn-format paperback primary-paperback" 
                data-format="paperback"
@@ -510,7 +510,7 @@ layout: default
                data-format="paperback"
                {% if book.amazon.paperback.asin != "" %}data-asin="{{ book.amazon.paperback.asin }}"{% endif %}
                data-track="amazon">
-              Buy on Amazon.com.au
+              Buy on Amazon
             </a>
             {% else %}
             <p class="book-status-small">{{ book.status }}</p>
