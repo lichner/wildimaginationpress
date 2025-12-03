@@ -178,7 +178,7 @@ layout: default
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "{{ page.name }}",
-  "jobTitle": "{{ page.job_title | default: "Children's Book Author" }}",
+  "jobTitle": {% if page.job_title %}"{{ page.job_title }}"{% else %}"Children's Book Author"{% endif %},
   "description": "{{ page.description }}",
   "image": "{{ page.image | absolute_url }}",
   "url": "{{ page.url | absolute_url }}",
