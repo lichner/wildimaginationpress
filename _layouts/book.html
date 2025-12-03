@@ -585,7 +585,7 @@ layout: default
 <!-- Marketplace Selector Modal -->
 <div id="marketplace-modal" class="marketplace-modal" aria-hidden="true" role="dialog" aria-labelledby="marketplace-modal-title">
   <div class="marketplace-modal-container">
-    <button class="marketplace-modal-close" onclick="closeMarketplaceModal()" aria-label="Close marketplace selector">×</button>
+    <button class="marketplace-modal-close" data-action="close-modal" aria-label="Close marketplace selector">×</button>
     <div class="marketplace-modal-content">
       <div class="marketplace-modal-header">
         <h3 id="marketplace-modal-title">Choose Your Amazon Store</h3>
@@ -623,96 +623,131 @@ function openMarketplaceModal() {
     // Save current scroll position
     scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     
-    modal.classList.add('is-visible');
-    modal.setAttribute('aria-hidden', 'false');
-    
-    // Prevent background scroll (works on all devices)
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollPosition}px`;
-    document.body.style.width = '100%';
-    
-    // Focus trap for accessibility
-    const firstFocusable = modal.querySelector('button, a');
-    if (firstFocusable) {
-      setTimeout(() => firstFocusable.focus(), 100);
-    }
+    // Use requestAnimationFrame for smooth rendering
+    requestAnimationFrame(() => {
+      modal.classList.add('is-visible');
+      modal.setAttribute('aria-hidden', 'false');
+      
+      // Prevent background scroll (works on all devices)
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPosition}px`;
+      document.body.style.width = '100%';
+      
+      // Focus trap for accessibility
+      requestAnimationFrame(() => {
+        const firstFocusable = modal.querySelector('button, a');
+        if (firstFocusable) {
+          firstFocusable.focus();
+        }
+      });
+    });
   }
 }
 
 function closeMarketplaceModal() {
   const modal = document.getElementById('marketplace-modal');
   if (modal) {
-    modal.classList.remove('is-visible');
-    modal.setAttribute('aria-hidden', 'true');
-    
-    // Restore scroll position and body styles
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    
-    window.scrollTo(0, scrollPosition);
+    // Use requestAnimationFrame for smooth rendering
+    requestAnimationFrame(() => {
+      modal.classList.remove('is-visible');
+      modal.setAttribute('aria-hidden', 'true');
+      
+      // Restore scroll position and body styles
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      
+      // Restore scroll in next frame for smoothness
+      requestAnimationFrame(() => {
+        window.scrollTo(0, scrollPosition);
+      });
+    });
   }
 }
 
-// Close on overlay click and touch
-document.addEventListener('DOMContentLoaded', function() {
+// Initialize modal once DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMarketplaceModal);
+} else {
+  initMarketplaceModal();
+}
+
+function initMarketplaceModal() {
   const modal = document.getElementById('marketplace-modal');
-  if (modal) {
-    // Handle both click and touch events for overlay
-    const handleOverlayClose = function(e) {
-      if (e.target === modal) {
-        e.preventDefault();
-        closeMarketplaceModal();
-      }
-    };
-    
-    modal.addEventListener('click', handleOverlayClose);
-    modal.addEventListener('touchend', handleOverlayClose, { passive: false });
-    
-    // Close on Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal.classList.contains('is-visible')) {
-        closeMarketplaceModal();
-      }
-    });
-    
-    // Auto-open modal if URL has #buy anchor
-    if (window.location.hash === '#buy') {
-      openMarketplaceModal();
-      // Scroll to the buy section
-      const buySection = document.getElementById('buy');
-      if (buySection) {
-        buySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
-    
-    // Listen for hash changes (for same-page navigation)
-    window.addEventListener('hashchange', function() {
-      if (window.location.hash === '#buy') {
-        openMarketplaceModal();
-        const buySection = document.getElementById('buy');
-        if (buySection) {
-          buySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
-    });
-    
-    // Handle clicks on #buy links (for when already on same page with #buy hash)
-    document.addEventListener('click', function(e) {
-      const link = e.target.closest('a[href$="#buy"]');
-      if (link && window.location.hash === '#buy') {
-        // Already on #buy hash, just open modal
-        e.preventDefault();
-        openMarketplaceModal();
-        const buySection = document.getElementById('buy');
-        if (buySection) {
-          buySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
+  if (!modal || modal.dataset.initialized) return;
+  
+  modal.dataset.initialized = 'true';
+  
+  // Handle close button clicks (Safari-compatible)
+  const closeButton = modal.querySelector('.marketplace-modal-close');
+  if (closeButton) {
+    closeButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMarketplaceModal();
     });
   }
-});
+  
+  // Handle overlay clicks (use click only, not touchend for better performance)
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      closeMarketplaceModal();
+    }
+  });
+  
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-visible')) {
+      closeMarketplaceModal();
+    }
+  });
+  
+  // Safari-compatible hash detection with delay
+  function checkHashAndOpenModal() {
+    const hash = window.location.hash;
+    if (hash === '#buy') {
+      // Small delay for Safari to properly parse URL
+      setTimeout(function() {
+        openMarketplaceModal();
+        scrollToBuySection();
+      }, 100);
+    }
+  }
+  
+  // Auto-open modal if URL has #buy anchor
+  checkHashAndOpenModal();
+  
+  // Listen for hash changes (for same-page navigation)
+  window.addEventListener('hashchange', checkHashAndOpenModal);
+  
+  // Handle clicks on #buy links (Safari-compatible event delegation)
+  document.addEventListener('click', function(e) {
+    // Check if clicked element or any parent is a #buy link
+    let target = e.target;
+    while (target && target !== document) {
+      if (target.tagName === 'A' && target.getAttribute('href')) {
+        const href = target.getAttribute('href');
+        if (href.endsWith('#buy')) {
+          if (window.location.hash === '#buy') {
+            e.preventDefault();
+            openMarketplaceModal();
+            scrollToBuySection();
+          }
+          break;
+        }
+      }
+      target = target.parentNode;
+    }
+  });
+}
+
+function scrollToBuySection() {
+  const buySection = document.getElementById('buy');
+  if (buySection) {
+    buySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
 </script>
 {% endif %}
