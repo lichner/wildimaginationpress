@@ -107,6 +107,9 @@ layout: default
         {% endif %}
         
         <div class="book-actions">
+          {% if page.amazon and page.amazon.paperback and page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+          <p class="availability-note">Now available in paperback on Amazon.com.au</p>
+          {% endif %}
           {% comment %} Check if any format is available using new multi-format structure {% endcomment %}
           {% assign has_available_format = false %}
           {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}

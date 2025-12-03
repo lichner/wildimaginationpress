@@ -53,7 +53,11 @@ permalink: /books/
                 {% endif %}
               </p>
             {% endif %}
-            {% if book.status %}<p class="book-status-small">{{ book.status }}</p>{% endif %}
+            {% if book.amazon and book.amazon.paperback and book.amazon.paperback.status == "available" and book.amazon.paperback.url != "" and book.amazon.paperback.url != "#" %}
+            <p class="book-status-small">Available – Paperback on Amazon.com.au</p>
+            {% elsif book.status %}
+            <p class="book-status-small">{{ book.status }}</p>
+            {% endif %}
           </div>
         </div>
         {% endfor %}
