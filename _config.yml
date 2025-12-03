@@ -43,7 +43,7 @@ show_excerpts: true
 collections:
   books:
     output: true
-    permalink: /:collection/:name/
+    permalink: /books/:name/
   authors:
     output: true
     permalink: /author/:name/
