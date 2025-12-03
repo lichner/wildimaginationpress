@@ -22,11 +22,11 @@ layout: default
             <span>Books Published</span>
           </div>
           <div class="stat">
-            <strong>{{ page.age_range | default: "Ages 0-10" }}</strong>
+            <strong>{% if page.age_range %}{{ page.age_range }}{% else %}Ages 0-10{% endif %}</strong>
             <span>Reader Range</span>
           </div>
           <div class="stat">
-            <strong>{{ page.location | default: "Australia" }}</strong>
+            <strong>{% if page.location %}{{ page.location }}{% else %}Australia{% endif %}</strong>
             <span>Based In</span>
           </div>
         </div>
