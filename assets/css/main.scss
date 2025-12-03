@@ -961,7 +961,8 @@ blockquote {
   a {
     color: #ffffff;
     text-decoration: underline;
-    font-weight: 500;
+    font-weight: 400;
+    font-size: inherit; // match surrounding paragraph text size
   }
 }
 
@@ -2930,9 +2931,9 @@ ul + .book-preview-images {
   
   .cta-text {
     margin-top: 3rem;
-    font-size: 1.2rem;
-    color: var(--text-dark);
-    font-weight: 500;
+    font-size: 1.1rem;          // match intro paragraph size
+    color: var(--text-medium);  // match intro color
+    font-weight: 400;           // normal weight like intro
   }
 }
 
