@@ -91,13 +91,17 @@ keywords: "Australian children's books, kids books australia, counting books, na
               {% assign author_name = book.author.name | default: "Rebecca Mola" %}
               by {% if book.author.url %}<a href="{{ book.author.url | relative_url }}" class="author-link">{{ author_name }}</a>{% else %}{{ author_name }}{% endif %}
             </p>
-            <p class="book-card-status">
-              {% if book.amazon and book.amazon.paperback and book.amazon.paperback.status == "available" and book.amazon.paperback.url != "" and book.amazon.paperback.url != "#" %}
-              Available now – Paperback on Amazon.com.au
-              {% else %}
-              {{ book.status }}
-              {% endif %}
-            </p>
+            {% if book.amazon and book.amazon.paperback and book.amazon.paperback.status == "available" and book.amazon.paperback.url != "" and book.amazon.paperback.url != "#" %}
+            <a href="{{ book.amazon.paperback.url }}"
+               class="book-card-buy-pill"
+               data-format="paperback"
+               {% if book.amazon.paperback.asin != "" %}data-asin="{{ book.amazon.paperback.asin }}"{% endif %}
+               data-track="amazon">
+              Buy on Amazon.com.au
+            </a>
+            {% else %}
+            <p class="book-card-status">{{ book.status }}</p>
+            {% endif %}
           </div>
         </div>
       {% endfor %}

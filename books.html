@@ -54,7 +54,13 @@ permalink: /books/
               </p>
             {% endif %}
             {% if book.amazon and book.amazon.paperback and book.amazon.paperback.status == "available" and book.amazon.paperback.url != "" and book.amazon.paperback.url != "#" %}
-            <p class="book-status-small">Available – Paperback on Amazon.com.au</p>
+            <a href="{{ book.amazon.paperback.url }}"
+               class="book-status-buy-pill"
+               data-format="paperback"
+               {% if book.amazon.paperback.asin != "" %}data-asin="{{ book.amazon.paperback.asin }}"{% endif %}
+               data-track="amazon">
+              Buy on Amazon.com.au
+            </a>
             {% elsif book.status %}
             <p class="book-status-small">{{ book.status }}</p>
             {% endif %}

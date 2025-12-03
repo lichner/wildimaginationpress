@@ -107,8 +107,22 @@ layout: default
         {% endif %}
         
         <div class="book-actions">
+          {% assign has_primary_paperback = false %}
           {% if page.amazon and page.amazon.paperback and page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
-          <p class="availability-note">Now available in paperback on Amazon.com.au</p>
+          {% assign has_primary_paperback = true %}
+          <div class="primary-purchase-row">
+            <p class="availability-note">Available now · Paperback on Amazon.com.au</p>
+            <a href="{{ page.amazon.paperback.url }}" 
+               class="btn-format paperback primary-paperback" 
+               data-format="paperback"
+               {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
+               data-track="amazon">
+              <span class="format-name">Buy Paperback</span>
+              {% if page.amazon.paperback.price %}
+              <span class="format-price">{{ page.amazon.paperback.price }}</span>
+              {% endif %}
+            </a>
+          </div>
           {% endif %}
           {% comment %} Check if any format is available using new multi-format structure {% endcomment %}
           {% assign has_available_format = false %}
@@ -138,13 +152,13 @@ layout: default
               </a>
               {% endif %}
               
-              {% if page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+              {% if has_primary_paperback == false and page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
               <a href="{{ page.amazon.paperback.url }}" 
                  class="btn-format paperback" 
                  data-format="paperback"
                  {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
                  data-track="amazon">
-                <span class="format-name">Paperback</span>
+                <span class="format-name">Buy Paperback</span>
                 {% if page.amazon.paperback.price %}
                 <span class="format-price">{{ page.amazon.paperback.price }}</span>
                 {% endif %}
