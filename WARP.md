@@ -39,10 +39,13 @@ Ruby version: 3.2.2
 ## Architecture
 
 ### Jekyll Structure & Key Concepts
-- **Collections**: `_books/` uses Jekyll collections for book management with custom permalink structure (`/:collection/:name/`)
+- **Collections**: Jekyll collections manage structured content with custom URLs
+  - `_books/` - Book catalog with permalink structure (`/books/:name/`)
+  - `_authors/` - Author profiles with permalink structure (`/author/:name/`)
 - **Layouts**: `_layouts/` contains page templates
   - `default.html` - Main site template with header/footer, navigation, and analytics
   - `book.html` - Individual book page template for collection items
+  - `author.html` - Individual author page template for author profiles
 - **Includes**: `_includes/` contains reusable components
   - `head.html` - SEO metadata, Open Graph tags, Google Analytics, and font loading
 - **Assets**: Static files in `assets/`
@@ -190,6 +193,46 @@ amazon:
 - Analytics tracking via `data-track="amazon"` attribute works across all markets
 
 See `docs/AMAZON_UNIVERSAL_LINKS.md` for complete implementation details.
+
+### Authors Collection
+The site uses a Jekyll `_authors` collection for managing author profiles with individual URLs:
+
+**URL Structure:**
+- Individual author pages: `/author/rebecca-mola/`, `/author/another-author/`
+- Legacy redirect: `/author/` redirects to `/author/rebecca-mola/`
+
+**Adding New Authors:**
+1. Create file: `_authors/author-name.html`
+2. Use front matter template:
+```yaml
+---
+layout: author
+name: Author Name
+slug: author-name
+tagline: Children's Book Author | Description
+image: /assets/images/author-photo.jpg
+email: author@wildimaginationpress.com
+social:
+  instagram: username
+  facebook: page-name
+  twitter: username
+---
+<!-- Author bio content -->
+```
+3. Update book files to reference the author:
+```yaml
+author:
+  name: Author Name
+  url: /author/author-name/
+```
+
+**Features:**
+- Dynamic book counting and filtering by author
+- SEO-optimized with Schema.org JSON-LD
+- Social media integration
+- Backward compatible (legacy `/author/` URL redirects)
+
+See `docs/AUTHORS_COLLECTION.md` for complete implementation details.
 
 ### Site Configuration (`_config.yml`)
 Key settings include:

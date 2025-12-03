@@ -24,7 +24,7 @@ author:
   name: Rebecca Mola
   email: contact@wildimaginationpress.com
   twitter: wildimaginationpress
-  url: https://wildimaginationpress.com/author/
+  url: https://wildimaginationpress.com/author/rebecca-mola/
 
 # Build settings
 markdown: kramdown
@@ -44,6 +44,9 @@ collections:
   books:
     output: true
     permalink: /:collection/:name/
+  authors:
+    output: true
+    permalink: /author/:name/
 
 # Sitemap configuration
 defaults:
@@ -63,6 +66,16 @@ defaults:
         type: WebPage
       sitemap:
         priority: 0.9
+        changefreq: monthly
+  - scope:
+      path: ""
+      type: "authors"
+    values:
+      seo:
+        json_ld: false
+        type: WebPage
+      sitemap:
+        priority: 0.8
         changefreq: monthly
   - scope:
       path: ""
@@ -120,7 +133,7 @@ nav_links:
   - name: Blog
     url: /blog/
   - name: About Author
-    url: /author/
+    url: /author/rebecca-mola/
   - name: Contact
     url: /#contact
 

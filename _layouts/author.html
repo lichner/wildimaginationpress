@@ -1,43 +1,32 @@
 ---
 layout: default
-title: Authors - Wild Imagination Press
-description: Meet the talented authors behind Wild Imagination Press children's books.
-permalink: /author/
 ---
-
-<script>
-  // Redirect to Rebecca Mola's author page
-  window.location.replace('/author/rebecca-mola/');
-</script>
-
-<noscript>
-  <meta http-equiv="refresh" content="0; url=/author/rebecca-mola/">
-</noscript>
 
 <section class="author-page-hero">
   <div class="container">
     <div class="author-hero-content">
       <div class="author-image-large">
-        <img src="{{ '/assets/images/rebecca.jpeg' | relative_url }}" 
-             alt="Rebecca Mola - Children's Book Author" 
+        <img src="{{ page.image | relative_url }}" 
+             alt="{{ page.name }} - Children's Book Author" 
              loading="eager">
       </div>
       
       <div class="author-bio-main">
-        <h1>Rebecca Mola</h1>
-        <p class="author-tagline">Children's Book Author | Creativity Advocate | Nature Lover</p>
+        <h1>{{ page.name }}</h1>
+        <p class="author-tagline">{{ page.tagline }}</p>
         
         <div class="author-stats">
+          {% assign author_books = site.books | where_exp: "book", "book.author.name == page.name or book.author == page.name" %}
           <div class="stat">
-            <strong>{{ site.books.size }}+</strong>
+            <strong>{{ author_books.size }}+</strong>
             <span>Books Published</span>
           </div>
           <div class="stat">
-            <strong>Ages 0-10</strong>
+            <strong>{{ page.age_range | default: "Ages 0-10" }}</strong>
             <span>Reader Range</span>
           </div>
           <div class="stat">
-            <strong>Australia</strong>
+            <strong>{{ page.location | default: "Australia" }}</strong>
             <span>Based In</span>
           </div>
         </div>
@@ -48,43 +37,22 @@ permalink: /author/
 
 <section class="author-about">
   <div class="container">
-    <h2>About Rebecca</h2>
+    <h2>About {{ page.name }}</h2>
     
     <div class="author-content">
-      <p class="lead">Rebecca Mola is an Australian children's book author dedicated to creating engaging literature that combines learning with joy. She believes that every child deserves stories that make them laugh, learn, dream, and imagine.</p>
-      
-      <p>In her spare time, with a passion for nurturing creativity in young minds, Rebecca writes children's stories that celebrate the wonder of childhood, the beauty of nature, and the power of imagination. Her books are designed to bring families together through shared reading experiences while teaching valuable life lessons.</p>
-      
-      <p>Rebecca's debut books, <em>Bushlandia</em> and <em>One Puppy, Two Puppies, Hey What Do You Do?</em>, showcase her commitment to creating stories that entertain while promoting early learning, environmental awareness, and emotional development.</p>
-      
-      <blockquote class="author-quote">
-        "Every child has a wild imagination waiting to be nurtured. My goal is to plant seeds of wonder that grow into lifelong love of reading and creativity."
-        <cite>- Rebecca Mola</cite>
-      </blockquote>
-      
-      <h3>Writing Philosophy</h3>
-      <p>Rebecca's books are crafted with intention, focusing on:</p>
-      <ul>
-        <li><strong>Joyful Learning:</strong> Making education an adventure through storytelling</li>
-        <li><strong>Nature Connection:</strong> Inspiring appreciation for the natural world</li>
-        <li><strong>Emotional Intelligence:</strong> Teaching empathy, teamwork, and problem-solving</li>
-        <li><strong>Australian Identity:</strong> Celebrating unique Australian landscapes and wildlife</li>
-      </ul>
-      
-      <h3>When She's Not Writing</h3>
-      <p>Rebecca enjoys exploring the Australian bush, spending time with animals, and discovering new ways to spark creativity in children. She believes the best stories come from observing the world with childlike wonder.</p>
+      {{ content }}
     </div>
   </div>
 </section>
 
 <section class="author-books">
   <div class="container">
-    <h2>Books by Rebecca</h2>
+    <h2>Books by {{ page.name }}</h2>
     <div class="books-grid">
       {% assign sorted_books = site.books | sort: "order" %}
       {% for book in sorted_books %}
         {% assign book_author_name = book.author.name | default: book.author %}
-        {% if book_author_name == "Rebecca Mola" %}
+        {% if book_author_name == page.name %}
       <div class="book-card-small">
         <div class="book-cover-small book-cover-square">
           <a href="{{ book.url | relative_url }}" class="book-cover-link">
@@ -101,7 +69,6 @@ permalink: /author/
                 loading="lazy">
             {% else %}
               <div class="book-placeholder-small">
-                <!-- <span class="book-title-small">{{ book.title }}</span> -->
                 <span class="cover-coming-soon-small">Cover Coming Soon</span>
               </div>
             {% endif %}
@@ -156,71 +123,82 @@ permalink: /author/
   </div>
 </section>
 
+{% if page.email or page.social %}
 <section class="author-connect">
   <div class="container">
-    <h2>Connect with Rebecca</h2>
-    <a href="mailto:rebecca@wildimaginationpress.com" class="author-email-pill">Email Rebecca directly: rebecca@wildimaginationpress.com</a>
-    <p>Follow Rebecca's writing journey and get updates on new releases:</p>
+    <h2>Connect with {{ page.name }}</h2>
+    {% if page.email %}
+    <a href="mailto:{{ page.email }}" class="author-email-pill">{{ page.email }}</a>
+    {% endif %}
+    <p>Follow {{ page.name }}'s writing journey and get updates on new releases:</p>
+    {% if page.social %}
     <div class="social-links">
       <div class="social-icons">
-        <a href="https://instagram.com/wildimaginationpress" class="social-link instagram" target="_blank" rel="noopener" aria-label="Follow Wild Imagination Press on Instagram">
+        {% if page.social.instagram %}
+        <a href="https://instagram.com/{{ page.social.instagram }}" class="social-link instagram" target="_blank" rel="noopener" aria-label="Follow {{ page.name }} on Instagram">
           <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
           </svg>
         </a>
-        <a href="https://www.facebook.com/people/Wild-Imagination-Press/61583883973173/" class="social-link facebook" target="_blank" rel="noopener" aria-label="Follow Wild Imagination Press on Facebook">
+        {% endif %}
+        {% if page.social.facebook %}
+        <a href="https://www.facebook.com/{{ page.social.facebook }}" class="social-link facebook" target="_blank" rel="noopener" aria-label="Follow {{ page.name }} on Facebook">
           <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
           </svg>
         </a>
-        <a href="https://x.com/wildimaginpress" class="social-link x-twitter" target="_blank" rel="noopener" aria-label="Follow Wild Imagination Press on X (Twitter)">
+        {% endif %}
+        {% if page.social.twitter %}
+        <a href="https://x.com/{{ page.social.twitter }}" class="social-link x-twitter" target="_blank" rel="noopener" aria-label="Follow {{ page.name }} on X (Twitter)">
           <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
         </a>
-        <a href="https://www.tiktok.com/@wildimaginationpress" class="social-link tiktok" target="_blank" rel="noopener" aria-label="Follow Wild Imagination Press on TikTok">
+        {% endif %}
+        {% if page.social.tiktok %}
+        <a href="https://www.tiktok.com/@{{ page.social.tiktok }}" class="social-link tiktok" target="_blank" rel="noopener" aria-label="Follow {{ page.name }} on TikTok">
           <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
           </svg>
         </a>
+        {% endif %}
       </div>
     </div>
+    {% endif %}
 
     <p>Want to be the first to know about new books?</p>
     <a href="/#contact" class="cta-button">Join Our Story Tree Email List</a>
   </div>
 </section>
+{% endif %}
 
 <!-- Author Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "Rebecca Mola",
-  "jobTitle": "Children's Book Author",
-  "description": "Australian children's book author creating enchanting stories that nurture creativity, imagination, and love of nature",
-  "image": "{{ '/assets/images/rebecca.jpeg' | absolute_url }}",
-  "url": "{{ '/author/' | absolute_url }}",
+  "name": "{{ page.name }}",
+  "jobTitle": "{{ page.job_title | default: "Children's Book Author" }}",
+  "description": "{{ page.description }}",
+  "image": "{{ page.image | absolute_url }}",
+  "url": "{{ page.url | absolute_url }}",
   "worksFor": {
     "@type": "Organization",
     "name": "Wild Imagination Press",
     "url": "{{ site.url }}"
-  },
+  }{% if page.nationality %},
   "nationality": {
     "@type": "Country",
-    "name": "Australia"
-  },
+    "name": "{{ page.nationality }}"
+  }{% endif %}{% if page.social %},
   "sameAs": [
-    "https://x.com/wildimaginpress",
-    "https://instagram.com/wildimaginationpress",
-    "https://www.facebook.com/people/Wild-Imagination-Press/61583883973173/",
-    "https://www.tiktok.com/@wildimaginationpress"
-  ],
+    {% if page.social.twitter %}"https://x.com/{{ page.social.twitter }}"{% if page.social.instagram or page.social.facebook or page.social.tiktok %},{% endif %}{% endif %}
+    {% if page.social.instagram %}"https://instagram.com/{{ page.social.instagram }}"{% if page.social.facebook or page.social.tiktok %},{% endif %}{% endif %}
+    {% if page.social.facebook %}"https://www.facebook.com/{{ page.social.facebook }}"{% if page.social.tiktok %},{% endif %}{% endif %}
+    {% if page.social.tiktok %}"https://www.tiktok.com/@{{ page.social.tiktok }}"{% endif %}
+  ]{% endif %}{% if page.knows_about %},
   "knowsAbout": [
-    "Children's Literature",
-    "Early Childhood Education",
-    "Environmental Education",
-    "Creative Writing"
-  ]
+    {% for topic in page.knows_about %}"{{ topic }}"{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]{% endif %}
 }
 </script>
