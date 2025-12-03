@@ -16,9 +16,14 @@ layout: default
         <p class="author-tagline">{{ page.tagline }}</p>
         
         <div class="author-stats">
-          {% assign author_books = site.books | where_exp: "book", "book.author.name == page.name or book.author == page.name" %}
+          {% assign author_book_count = 0 %}
+          {% for book in site.books %}
+            {% if book.author.name == page.name or book.author == page.name %}
+              {% assign author_book_count = author_book_count | plus: 1 %}
+            {% endif %}
+          {% endfor %}
           <div class="stat">
-            <strong>{{ author_books.size }}+</strong>
+            <strong>{{ author_book_count }}+</strong>
             <span>Books Published</span>
           </div>
           <div class="stat">
