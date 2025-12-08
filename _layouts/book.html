@@ -232,12 +232,12 @@ layout: default
   {% endif %}
   "author": {
     "@type": "Person",
-    "name": "{% if page.author.name %}{{ page.author.name }}{% else %}{{ page.author }}{% endif %}"
-    {% if page.author.url %},
-    "url": "{{ page.author.url | absolute_url }}"
-    {% elsif page.author_url %},
-    "url": "{{ page.author_url | absolute_url }}"
-    {% endif %},
+    "name": "{% if page.author.name %}{{ page.author.name }}{% else %}{{ page.author }}{% endif %}",
+    {% if page.author.url %}
+    "url": "{{ page.author.url | absolute_url }}",
+    {% elsif page.author_url %}
+    "url": "{{ page.author_url | absolute_url }}",
+    {% endif %}
     "sameAs": [
       "https://x.com/wildimaginpress",
       "https://instagram.com/wildimaginationpress"
