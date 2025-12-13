@@ -342,14 +342,14 @@ layout: default
     {% endif %}
   ],
   {% endif %}
-  "numberOfPages": {{ page.page_count | default: 32 }},
+  "numberOfPages": {{ page.page_count | default: 32 }}{% if page.category_meta.primary or page.category or page.bisac_codes %},{% endif %}
   {% if page.category_meta and page.category_meta.primary %}
-  "genre": "{{ page.category_meta.primary }}",
+  "genre": "{{ page.category_meta.primary }}"{% if page.bisac_codes %},{% endif %}
   {% elsif page.category %}
-  "genre": "{{ page.category }}",
+  "genre": "{{ page.category }}"{% if page.bisac_codes %},{% endif %}
   {% endif %}
   {% if page.bisac_codes %}
-  "keywords": "{{ page.bisac_codes | join: ', ' }}",
+  "keywords": "{{ page.bisac_codes | join: ', ' }}"
   {% endif %}
 }
 </script>
