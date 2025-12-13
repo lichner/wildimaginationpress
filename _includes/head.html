@@ -38,6 +38,20 @@
     <!-- SEO -->
     {% seo %}
     
+    <!-- Add og:image with dimensions and alt text for better social preview -->
+    {% if page.og_image %}
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="400" />
+    <meta property="og:image:alt" content="{{ page.title }}" />
+    {% elsif page.image %}
+    {% if page.layout == 'default' %}
+    <!-- Homepage logo image -->
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+    <meta property="og:image:alt" content="Wild Imagination Press logo - magical book tree" />
+    {% endif %}
+    {% endif %}
+    
     <!-- Keywords (for legacy search engines and documentation) -->
     {% if page.keywords %}
     <meta name="keywords" content="{{ page.keywords }}">
