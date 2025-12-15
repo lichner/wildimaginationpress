@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% assign display_title = page.book_title | default: page.title %}
+
 <section class="book-hero">
   <!-- Breadcrumb Navigation -->
   <div class="breadcrumbs">
@@ -10,14 +12,14 @@ layout: default
         <ol class="breadcrumb-list">
           <li class="breadcrumb-item"><a href="{{ '/' | relative_url }}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{ '/books/' | relative_url }}">Books</a></li>
-          <li class="breadcrumb-item" aria-current="page" title="{{ page.title }}">
+          <li class="breadcrumb-item" aria-current="page" title="{{ display_title }}">
             {% if page.breadcrumb_title %}
               {{ page.breadcrumb_title }}
-            {% elsif page.title.size > 35 %}
-              <span class="breadcrumb-full">{{ page.title }}</span>
-              <span class="breadcrumb-short">{{ page.title | truncatewords: 4, "..." }}</span>
+            {% elsif display_title.size > 35 %}
+              <span class="breadcrumb-full">{{ display_title }}</span>
+              <span class="breadcrumb-short">{{ display_title | truncatewords: 4, "..." }}</span>
             {% else %}
-              {{ page.title }}
+              {{ display_title }}
             {% endif %}
           </li>
         </ol>
@@ -48,7 +50,7 @@ layout: default
         </div>
         {% endif %}
         
-        <h1>{{ page.title }}</h1>
+        <h1>{{ display_title }}</h1>
         {% if page.sub_title and page.sub_title != "" %}
           <p class="book-subtitle">{{ page.sub_title }}</p>
         {% endif %}
@@ -210,10 +212,11 @@ layout: default
               </a>
               {% endif %}
             </div>
+            {% comment %} Review signup form for available books {% endcomment %}
+            {% include book-review-form.html %}
           {% else %}
-            <a href="{{ '/#contact' | relative_url }}" class="cta-button cta-button-status">
-              Notify Me When Available
-            </a>
+            {% comment %} Notify form for Coming Soon books {% endcomment %}
+            {% include book-notify-form.html %}
           {% endif %}
         </div>
       </div>
@@ -226,7 +229,7 @@ layout: default
 {
   "@context": "https://schema.org",
   "@type": "Book",
-  "name": "{% if page.sub_title and page.sub_title != '' %}{{ page.title }}: {{ page.sub_title }}{% else %}{{ page.title }}{% endif %}",
+  "name": "{% if page.sub_title and page.sub_title != '' %}{{ display_title }} - {{ page.sub_title }}{% else %}{{ display_title }}{% endif %}",
   {% if page.sub_title and page.sub_title != "" %}
   "alternativeHeadline": "{{ page.sub_title }}",
   {% endif %}
@@ -375,7 +378,7 @@ layout: default
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "{{ page.title }}",
+      "name": "{{ display_title }}",
       "item": "{{ page.url | absolute_url }}"
     }
   ]
@@ -464,7 +467,8 @@ layout: default
             {% endif %}
           </div>
           <div class="book-info-small">
-            <h3><a href="{{ book.url | relative_url }}">{{ book.title }}</a></h3>
+            {% assign series_display_title = book.book_title | default: book.title %}
+            <h3><a href="{{ book.url | relative_url }}">{{ series_display_title }}</a></h3>
             {% if book.sub_title and book.sub_title != "" %}
               <p class="book-subtitle-small">{{ book.sub_title }}</p>
             {% endif %}
@@ -543,7 +547,8 @@ layout: default
             </a>
           </div>
           <div class="book-info-small">
-            <h3><a href="{{ book.url | relative_url }}">{{ book.title }}</a></h3>
+            {% assign related_display_title = book.book_title | default: book.title %}
+            <h3><a href="{{ book.url | relative_url }}">{{ related_display_title }}</a></h3>
             {% if book.sub_title and book.sub_title != "" %}
               <p class="book-subtitle-small">{{ book.sub_title }}</p>
             {% endif %}

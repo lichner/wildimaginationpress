@@ -42,7 +42,20 @@ image: /assets/images/wild-imagination-logo.jpg
         </div>
       </div>
     </div>
-    <a href="#contact" class="cta-button">Notify Me When Available</a>
+    <button type="button"
+            class="cta-button btn-signup-trigger"
+            data-signup-modal
+            data-intent="newsletter"
+            data-source="homepage-hero"
+            data-book-slug="one-puppy-two-puppies"
+            data-book-title="One Puppy, Two Puppies, Hey What Do You Do?"
+            data-age-range="0-4"
+            data-title="Get Notified"
+            data-subtitle="Be the first to know when One Puppy, Two Puppies, Hey What Do You Do? is available!"
+            data-button-text="Notify Me"
+            data-show-optional="false">
+      Notify Me When Available
+    </button>
   </div>
 </section>
 
@@ -81,8 +94,9 @@ image: /assets/images/wild-imagination-logo.jpg
             </a>
           </div>
           <div class="book-card-info">
+            {% assign spotlight_display_title = book.book_title | default: book.title %}
             <h3 class="book-card-title">
-              <a href="{{ book.url | relative_url }}">{{ book.title }}</a>
+              <a href="{{ book.url | relative_url }}">{{ spotlight_display_title }}</a>
             </h3>
             {% if book.sub_title and book.sub_title != "" %}
               <p class="book-subtitle-small">{{ book.sub_title }}</p>
@@ -194,52 +208,26 @@ image: /assets/images/wild-imagination-logo.jpg
   </div>
 </section>
 
-<section id="contact" class="contact-section">
+<section id="contact" class="contact-section contact-section--compact">
   <div class="container">
     <h2>Stay Connected</h2>
-    <p class="contact-intro">Join our community of book lovers and be the first to know when our magical stories become available through our Story Tree email list.</p>
-    
-    <div class="contact-benefits">
-      <div class="benefit">
-        <span class="benefit-icon">📖</span>
-        <h4>Early Access</h4>
-        <p>Be first to discover new releases</p>
-      </div>
-      <div class="benefit">
-        <span class="benefit-icon">🎁</span>
-        <h4>Exclusive Content</h4>
-        <p>Reading guides & activities</p>
-      </div>
-      <div class="benefit">
-        <span class="benefit-icon">✨</span>
-        <h4>Author Insights</h4>
-        <p>Behind-the-scenes stories</p>
-      </div>
+    <p class="contact-intro">Join our Story Tree community for early access, exclusive content, and author insights.</p>
+
+    <div class="contact-cta">
+      <button type="button"
+              class="btn-signup-trigger btn-signup-trigger--primary"
+              data-signup-modal
+              data-intent="newsletter"
+              data-source="homepage"
+              data-title="Join the Story Tree"
+              data-subtitle="Be first to know about new releases and exclusive content."
+              data-button-text="Join the Story Tree"
+              data-show-optional="true">
+        Join Our Story Tree Email List
+      </button>
     </div>
 
-    <form id="email-form" class="email-signup" 
-          action="https://formspree.io/f/mvgbdyao" 
-          method="post">
-      
-      <div class="form-group">
-        <input type="email" 
-               name="email" 
-               placeholder="Enter your email address" 
-               required>
-        
-        <!-- Formspree configuration -->
-        <input type="hidden" name="_subject" value="New Wild Imagination Press Subscriber">
-        <input type="hidden" name="_captcha" value="false">
-        
-        <!-- Google reCAPTCHA v3 token (populated by JavaScript) -->
-        <!-- Formspree expects this field name for reCAPTCHA v3 -->
-        <input type="hidden" name="_recaptcha" id="recaptcha-response">
-        
-        <button type="submit">Join Our Story Tree Email List</button>
-      </div>
-    </form>
-
-    <div class="contact-meta-box">
+    <div class="contact-meta-box contact-meta-box--compact">
       <p>
         You can unsubscribe anytime. We respect your privacy.
         <a href="{{ '/privacy/' | relative_url }}">Read our Privacy Policy</a>.
@@ -278,48 +266,3 @@ image: /assets/images/wild-imagination-logo.jpg
   </div>
 </section>
 
-<!-- Thank You Modal -->
-<div id="thank-you-modal" class="modal-overlay" aria-hidden="true">
-  <div class="modal-container" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description">
-    <button class="modal-close" aria-label="Close modal">&times;</button>
-    
-    <div class="modal-content">
-      <div class="modal-icon">
-        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 16.2L4.8 12L3.4 13.4L9 19L21 7L19.6 5.6L9 16.2Z" fill="var(--primary-green)"/>
-        </svg>
-      </div>
-      
-      <h2 id="modal-title">Welcome to Our Story Tree!</h2>
-      <p id="modal-description">Thank you for joining our community of book lovers!</p>
-      
-      <div class="modal-benefits">
-        <p><strong>You'll be the first to know when our book is ready!</strong></p>
-        <div class="benefit-grid">
-          <div class="benefit-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 5C19.89 4.65 18.67 4.5 17.5 4.5C15.55 4.5 13.45 4.9 12 6C10.55 4.9 8.45 4.5 6.5 4.5C4.55 4.5 2.45 4.9 1 6V18.5C1 18.78 1.22 19 1.5 19C1.6 19 1.69 18.97 1.78 18.92C2.55 18.47 3.74 18.2 5 18.2C6.83 18.2 8.15 18.7 9 19.5C10.25 20.5 11.75 20.5 13 19.5C13.85 18.7 15.17 18.2 17 18.2C18.26 18.2 19.45 18.47 20.22 18.92C20.31 18.97 20.4 19 20.5 19C20.78 19 21 18.78 21 18.5V5Z" fill="var(--secondary-green)"/>
-            </svg>
-            <span>Release announcements</span>
-          </div>
-          <div class="benefit-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L3.09 8.26L4 21H20L20.91 8.26L12 2ZM12 4.44L18.18 9H5.82L12 4.44ZM18 19H6L5.27 10H18.73L18 19Z" fill="var(--secondary-green)"/>
-            </svg>
-            <span>Exclusive previews</span>
-          </div>
-          <div class="benefit-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" fill="var(--secondary-green)"/>
-            </svg>
-            <span>Behind-the-scenes stories</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="modal-actions">
-        <button class="modal-button-primary" onclick="closeThankYouModal()">Continue Reading</button>
-      </div>
-    </div>
-  </div>
-</div>

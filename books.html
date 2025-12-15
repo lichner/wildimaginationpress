@@ -35,7 +35,8 @@ permalink: /books/
             </a>
           </div>
           <div class="book-info-small">
-            <h3><a href="{{ book.url | relative_url }}">{{ book.title }}</a></h3>
+            {% assign card_display_title = book.book_title | default: book.title %}
+            <h3><a href="{{ book.url | relative_url }}">{{ card_display_title }}</a></h3>
             {% if book.sub_title and book.sub_title != "" %}
               <p class="book-subtitle-small">{{ book.sub_title }}</p>
             {% endif %}

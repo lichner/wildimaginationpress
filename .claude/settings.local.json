@@ -3,7 +3,8 @@
     "allow": [
       "Bash(cd:*)",
       "WebSearch",
-      "Bash(bundle exec:*)"
+      "Bash(bundle exec:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

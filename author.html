@@ -108,7 +108,8 @@ permalink: /author/
           </a>
         </div>
         <div class="book-info-small">
-          <h3><a href="{{ book.url | relative_url }}">{{ book.title }}</a></h3>
+          {% assign author_display_title = book.book_title | default: book.title %}
+          <h3><a href="{{ book.url | relative_url }}">{{ author_display_title }}</a></h3>
           {% if book.sub_title and book.sub_title != "" %}
             <p class="book-subtitle-small">{{ book.sub_title }}</p>
           {% endif %}
@@ -187,7 +188,17 @@ permalink: /author/
     </div>
 
     <p>Want to be the first to know about new books?</p>
-    <a href="/#contact" class="cta-button">Join Our Story Tree Email List</a>
+    <button type="button"
+            class="cta-button btn-signup-trigger"
+            data-signup-modal
+            data-intent="newsletter"
+            data-source="author-page"
+            data-title="Join the Story Tree"
+            data-subtitle="Be first to know about new releases and exclusive content."
+            data-button-text="Join the Story Tree"
+            data-show-optional="true">
+      Join Our Story Tree Email List
+    </button>
   </div>
 </section>
 

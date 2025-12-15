@@ -71,7 +71,17 @@ layout: default
       <div class="post-cta">
         <h3>Join Our Story Tree Email List</h3>
         <p>Get updates on new releases, behind-the-scenes stories, and exclusive activities for young readers.</p>
-        <a href="{{ '/#contact' | relative_url }}" class="btn btn-primary">Join Our Story Tree Email List</a>
+        <button type="button"
+                class="btn btn-primary btn-signup-trigger"
+                data-signup-modal
+                data-intent="newsletter"
+                data-source="blog-post"
+                data-title="Join the Story Tree"
+                data-subtitle="Be first to know about new releases and exclusive content."
+                data-button-text="Join the Story Tree"
+                data-show-optional="true">
+          Join Our Story Tree Email List
+        </button>
       </div>
     </div>
   </div>

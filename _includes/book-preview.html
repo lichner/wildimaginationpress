@@ -9,10 +9,10 @@
 
 <!-- Book Preview Modal -->
 <div id="bookPreviewModal" class="book-preview-modal">
-  <div class="modal-content">
-    <div class="modal-header">
+  <div class="book-preview-modal__content">
+    <div class="book-preview-modal__header">
       <h3>{{ page.title }} - Preview</h3>
-      <button class="modal-close" id="closePreviewBtn">&times;</button>
+      <button class="book-preview-modal__close" id="closePreviewBtn" aria-label="Close preview">&times;</button>
     </div>
     
     <div class="swiper bookPreviewSwiper">
@@ -184,7 +184,7 @@
   opacity: 1;
 }
 
-.modal-content {
+.book-preview-modal__content {
   position: relative;
   width: 95%;
   max-width: 1200px;
@@ -195,7 +195,7 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-.modal-header {
+.book-preview-modal__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -205,13 +205,13 @@
   border-bottom: none;
 }
 
-.modal-header h3 {
+.book-preview-modal__header h3 {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
 }
 
-.modal-close {
+.book-preview-modal__close {
   background: none;
   border: none;
   color: white;
@@ -227,7 +227,7 @@
   transition: background 0.2s ease;
 }
 
-.modal-close:hover {
+.book-preview-modal__close:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 

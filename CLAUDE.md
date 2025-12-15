@@ -186,7 +186,10 @@ The `_scripts/` directory contains Ruby-based SEO validation:
 - All tracking is CSP-compliant with event delegation
 - Cookie settings: `SameSite=None;Secure` for compliance
 
-### Email Form Integration
+### Email Form Integration & Mailing List Architecture
+The site uses a multi-intent email signup system designed to support automated review request sequences (Ask #3–#6).
+
+**Current Form Setup**:
 - Client-side form in contact section with validation
 - Google reCAPTCHA v3 integration (site key in `_includes/head.html`)
 - Formspree backend for email collection (action URL in form)
@@ -194,7 +197,43 @@ The `_scripts/` directory contains Ruby-based SEO validation:
 - Analytics tracking for form engagement and conversions
 - Works in both localhost and production environments
 
-**Note**: If Formspree integration needs updating, modify form action URL in `index.html` contact section.
+**Two Signup Intents**:
+1. **Newsletter**: General book updates, freebies, behind-the-scenes content
+2. **Review**: Reader has purchased/read a specific book and is willing to review it
+
+**Data Model for Forms**:
+All signup forms capture (or can capture via hidden fields):
+- `email` (required)
+- `source_page` (homepage, book, blog)
+- `book_slug` (optional; which book the user is interested in)
+- `series` (optional; e.g., "Bushlandia")
+- `intent` (required; "newsletter" or "review")
+- `age_band_interest` (optional; e.g., "0-4", "2-6", "7-10")
+- `utm_*` (optional; campaign tracking)
+
+**Email Service Provider**:
+To be determined. Review sequences (Ask #3–#6) require an ESP with automation capabilities:
+- Tags/segments for routing
+- Timed delays (immediate, +7 days, +14 days, weekly)
+- Custom field support
+- Trigger-based automation
+
+**Review Hub**:
+A dedicated on-site review experience (planned):
+- `/review/` — general review help + instructions
+- `/review/<book>/` — book-specific copy + marketplace selector
+- Final buttons redirect to Amazon review pages per marketplace
+- GA event tracking for outbound clicks
+
+**Ask #3–#6 Email Sequence**:
+When a user submits with `intent=review` and a specific `book_slug`:
+- **Ask #3** (immediate): thank you + gentle review ask + CTA to `/review/<book>/`
+- **Ask #4** (+7 days): reminder + simple one-click CTA
+- **Ask #5** (+14 days): new angle (help families / support indie author)
+- **Ask #6** (weekly, capped): rotating angles + value-add content
+- **Stop conditions**: unsubscribe, explicit opt-out, or review posted
+
+**Note**: If Formspree integration needs updating, modify form action URL in `index.html` contact section. For ESP integration, update privacy policy and form submission logic as needed.
 
 ## Design System
 
