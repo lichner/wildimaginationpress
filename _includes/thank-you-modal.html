@@ -1,0 +1,49 @@
+{% comment %}
+  Thank You Modal - Reusable success modal for email signup flows.
+  Shown by showThankYouModal() in assets/js/main.js.
+{% endcomment %}
+
+<div id="thank-you-modal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-dialog" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description">
+    <button class="modal-close" aria-label="Close modal">&times;</button>
+
+    <div class="modal-content">
+      <div class="modal-icon">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 16.2L4.8 12L3.4 13.4L9 19L21 7L19.6 5.6L9 16.2Z" fill="var(--primary-green)"/>
+        </svg>
+      </div>
+
+      <h2 id="modal-title">Welcome to Our Story Tree!</h2>
+      <p id="modal-description">Thank you for joining our community of book lovers!</p>
+
+      <div class="modal-benefits">
+        <p><strong>You'll be the first to know when our book is ready!</strong></p>
+        <div class="benefit-grid">
+          <div class="benefit-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 5C19.89 4.65 18.67 4.5 17.5 4.5C15.55 4.5 13.45 4.9 12 6C10.55 4.9 8.45 4.5 6.5 4.5C4.55 4.5 2.45 4.9 1 6V18.5C1 18.78 1.22 19 1.5 19C1.6 19 1.69 18.97 1.78 18.92C2.55 18.47 3.74 18.2 5 18.2C6.83 18.2 8.15 18.7 9 19.5C10.25 20.5 11.75 20.5 13 19.5C13.85 18.7 15.17 18.2 17 18.2C18.26 18.2 19.45 18.47 20.22 18.92C20.31 18.97 20.4 19 20.5 19C20.78 19 21 18.78 21 18.5V5Z" fill="var(--secondary-green)"/>
+            </svg>
+            <span>Release announcements</span>
+          </div>
+          <div class="benefit-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L3.09 8.26L4 21H20L20.91 8.26L12 2ZM12 4.44L18.18 9H5.82L12 4.44ZM18 19H6L5.27 10H18.73L18 19Z" fill="var(--secondary-green)"/>
+            </svg>
+            <span>Exclusive previews</span>
+          </div>
+          <div class="benefit-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" fill="var(--secondary-green)"/>
+            </svg>
+            <span>Behind-the-scenes stories</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-button-primary" onclick="closeThankYouModal()">Continue Reading</button>
+      </div>
+    </div>
+  </div>
+</div>

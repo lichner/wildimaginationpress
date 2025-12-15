@@ -1,0 +1,21 @@
+{% comment %}
+  Book-specific notification signup trigger for "Coming Soon" books.
+  Opens the signup modal with book context pre-populated.
+  Usage: {% include book-notify-form.html %}
+{% endcomment %}
+
+<button type="button"
+        class="cta-button cta-button-status btn-signup-trigger"
+        data-signup-modal
+        data-intent="newsletter"
+        data-source="book-page"
+        data-book-slug="{{ page.slug | default: page.name | remove: '.html' | slugify }}"
+        data-book-title="{{ page.book_title | default: page.title | escape }}"
+        {% if page.series.name %}data-series="{{ page.series.name | escape }}"{% endif %}
+        data-age-range="{{ page.age_range | split: ' ' | first }}"
+        data-title="Get Notified"
+        data-subtitle="Be the first to know when {{ page.book_title | default: page.title | escape }} is available!"
+        data-button-text="Notify Me"
+        data-show-optional="false">
+  Notify Me When Available
+</button>

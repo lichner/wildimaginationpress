@@ -1,0 +1,96 @@
+{% comment %}
+  Signup Modal - Reusable modal for email signup forms
+  Triggered by buttons with data-signup-modal attribute
+  Form context is set via JavaScript based on trigger button data attributes
+{% endcomment %}
+
+<div id="signup-modal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-dialog modal-dialog--signup" role="dialog" aria-labelledby="signup-modal-title" aria-describedby="signup-modal-description">
+    <button class="modal-close" aria-label="Close modal">&times;</button>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="signup-modal-title" class="modal-title">Join the Story Tree</h3>
+        <p id="signup-modal-description" class="modal-subtitle">Be first to know about new releases and exclusive content.</p>
+      </div>
+
+      <form id="signup-modal-form" class="email-signup--modal" method="post">
+        <!-- Primary Fields -->
+        <div class="modal-form-fields">
+          <div class="form-field">
+            <label for="modal-first-name" class="visually-hidden">First Name</label>
+            <input type="text"
+                   id="modal-first-name"
+                   name="first_name"
+                   placeholder="First name (optional)"
+                   autocomplete="given-name">
+          </div>
+          <div class="form-field">
+            <label for="modal-email" class="visually-hidden">Email</label>
+            <input type="email"
+                   id="modal-email"
+                   name="email"
+                   placeholder="Email address"
+                   required
+                   autocomplete="email">
+          </div>
+        </div>
+
+        <!-- Optional Fields (shown for homepage/newsletter signups) -->
+        <div id="modal-optional-fields" class="modal-optional-fields" style="display: none;">
+          <div class="form-field">
+            <label for="modal-age-range">My child is...</label>
+            <select id="modal-age-range" name="age_band_interest">
+              <option value="">Select age range (optional)</option>
+              <option value="0-4">0-4 years (Board & Picture books)</option>
+              <option value="2-6">2-6 years (Picture books)</option>
+              <option value="7-10">7-10 years (Chapter books)</option>
+            </select>
+          </div>
+
+          <fieldset class="form-field">
+            <legend>I'm interested in...</legend>
+            <div class="checkbox-grid">
+              {% for book in site.books %}
+              <label class="checkbox-label">
+                <input type="checkbox"
+                       name="book_interests[]"
+                       value="{{ book.slug | default: book.name | remove: '.html' | slugify }}"
+                       data-book-slug="{{ book.slug | default: book.name | remove: '.html' | slugify }}"
+                       data-book-title="{{ book.book_title | default: book.title | escape }}"
+                       {% if book.sub_title and book.sub_title != "" %}data-book-sub-title="{{ book.sub_title | escape }}"{% endif %}
+                       {% if book.series and book.series.name %}data-series="{{ book.series.name | escape }}"{% endif %}>
+                <span class="book-interest-text">
+                  <span class="book-interest-title">{{ book.book_title | default: book.title }}</span>
+                  {% if book.sub_title and book.sub_title != "" %}
+                    <span class="book-interest-subtitle">{{ book.sub_title }}</span>
+                  {% endif %}
+                </span>
+              </label>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Hidden Fields (populated by JavaScript based on context) -->
+        <input type="hidden" name="intent" id="modal-intent" value="newsletter">
+        <input type="hidden" name="source_page" id="modal-source-page" value="homepage">
+        <input type="hidden" name="book_slug" id="modal-book-slug" value="">
+        <input type="hidden" name="book_title" id="modal-book-title" value="">
+        <input type="hidden" name="series" id="modal-series" value="">
+        <input type="hidden" name="age_band_interest_hidden" id="modal-age-range-hidden" value="">
+        <input type="hidden" name="customer_status" id="modal-customer-status" value="">
+        <input type="hidden" name="utm_source" id="modal-utm-source" value="">
+        <input type="hidden" name="utm_medium" id="modal-utm-medium" value="">
+        <input type="hidden" name="utm_campaign" id="modal-utm-campaign" value="">
+        <input type="hidden" name="_recaptcha" id="modal-recaptcha-response">
+
+        <button type="submit" class="btn-submit btn-submit--modal">Join the Story Tree</button>
+      </form>
+
+      <p class="modal-privacy">
+        <small>We respect your privacy. <a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a></small>
+      </p>
+    </div>
+  </div>
+</div>

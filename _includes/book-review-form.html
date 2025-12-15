@@ -1,0 +1,24 @@
+{% comment %}
+  Book review signup trigger for "Available" books.
+  Opens the signup modal with review intent for Ask #3-#6 sequence.
+  Usage: {% include book-review-form.html %}
+{% endcomment %}
+
+<div class="book-review-cta">
+  <button type="button"
+          class="btn-review-trigger btn-signup-trigger"
+          data-signup-modal
+          data-intent="review"
+          data-source="book-page"
+          data-book-slug="{{ page.slug | default: page.name | remove: '.html' | slugify }}"
+          data-book-title="{{ page.book_title | default: page.title | escape }}"
+          {% if page.series.name %}data-series="{{ page.series.name | escape }}"{% endif %}
+          {% if page.age_range %}data-age-range="{{ page.age_range | split: ' ' | first }}"{% endif %}
+          data-customer-status="purchased"
+          data-title="Love This Book?"
+          data-subtitle="Help other families discover {{ page.book_title | default: page.title | escape }} by leaving a review!"
+          data-button-text="I'll Write a Review"
+          data-show-optional="false">
+    Help Others Discover This Book
+  </button>
+</div>
