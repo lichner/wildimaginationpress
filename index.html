@@ -122,10 +122,20 @@ image: /assets/images/wild-imagination-logo.jpg
                   Buy on Amazon
                 </a>
               {% else %}
-                <p class="book-card-status">{{ book.status }}</p>
+                {% assign spotlight_status = book.status | default: '' | downcase %}
+                {% if spotlight_status contains 'coming soon' %}
+                  {% include book-notify-pill.html book=book pill_class="book-card-notify-pill" source="homepage-series-spotlight" %}
+                {% else %}
+                  <p class="book-card-status">{{ book.status }}</p>
+                {% endif %}
               {% endif %}
             {% else %}
-            <p class="book-card-status">{{ book.status }}</p>
+              {% assign spotlight_status = book.status | default: '' | downcase %}
+              {% if spotlight_status contains 'coming soon' %}
+                {% include book-notify-pill.html book=book pill_class="book-card-notify-pill" source="homepage-series-spotlight" %}
+              {% else %}
+                <p class="book-card-status">{{ book.status }}</p>
+              {% endif %}
             {% endif %}
           </div>
         </div>

@@ -1,0 +1,35 @@
+{% comment %}
+  Reusable "Notify Me When Available" pill for book cards (lists/spotlights).
+  Opens the signup modal with book context pre-populated.
+
+  Usage:
+    {% include book-notify-pill.html book=book pill_class="book-status-notify-pill" source="books" %}
+
+  Params:
+    - book: Jekyll book document (required)
+    - pill_class: CSS class for sizing/styling (optional)
+    - source: analytics/source string (optional)
+{% endcomment %}
+
+{% assign b = include.book %}
+{% if b %}
+  {% assign notify_slug = b.slug | default: b.name | remove: '.html' | slugify %}
+  {% assign notify_title = b.book_title | default: b.title %}
+  {% assign notify_age = b.age_range | split: ' ' | first %}
+
+  <button type="button"
+          class="{{ include.pill_class | default: 'book-status-notify-pill' }} btn-signup-trigger"
+          data-signup-modal
+          data-intent="newsletter"
+          data-source="{{ include.source | default: 'book-card' }}"
+          data-book-slug="{{ notify_slug }}"
+          data-book-title="{{ notify_title | escape }}"
+          {% if b.series and b.series.name %}data-series="{{ b.series.name | escape }}"{% endif %}
+          data-age-range="{{ notify_age }}"
+          data-title="Get Notified"
+          data-subtitle="Be the first to know when {{ notify_title | escape }} is available!"
+          data-button-text="Notify Me"
+          data-show-optional="false">
+    Notify Me When Available
+  </button>
+{% endif %}

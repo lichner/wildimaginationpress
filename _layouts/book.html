@@ -513,10 +513,20 @@ layout: default
                   Buy on Amazon
                 </a>
               {% else %}
-                <p class="book-status-small">{{ book.status }}</p>
+                {% assign series_card_status = book.status | default: '' | downcase %}
+                {% if series_card_status contains 'coming soon' %}
+                  {% include book-notify-pill.html book=book pill_class="book-status-notify-pill" source="series" %}
+                {% else %}
+                  <p class="book-status-small">{{ book.status }}</p>
+                {% endif %}
               {% endif %}
             {% else %}
-            <p class="book-status-small">{{ book.status }}</p>
+              {% assign series_card_status = book.status | default: '' | downcase %}
+              {% if series_card_status contains 'coming soon' %}
+                {% include book-notify-pill.html book=book pill_class="book-status-notify-pill" source="series" %}
+              {% else %}
+                <p class="book-status-small">{{ book.status }}</p>
+              {% endif %}
             {% endif %}
           </div>
         </div>
@@ -585,7 +595,12 @@ layout: default
               Buy on Amazon
             </a>
             {% else %}
-            <p class="book-status-small">{{ book.status }}</p>
+              {% assign related_card_status = book.status | default: '' | downcase %}
+              {% if related_card_status contains 'coming soon' %}
+                {% include book-notify-pill.html book=book pill_class="book-status-notify-pill" source="related" %}
+              {% else %}
+                <p class="book-status-small">{{ book.status }}</p>
+              {% endif %}
             {% endif %}
           </div>
         </div>

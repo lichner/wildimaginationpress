@@ -144,10 +144,20 @@ permalink: /author/
                 Buy on Amazon
               </a>
             {% else %}
-              <p class="book-status-small">{{ book.status }}</p>
+              {% assign author_list_status = book.status | default: '' | downcase %}
+              {% if author_list_status contains 'coming soon' %}
+                {% include book-notify-pill.html book=book pill_class="book-status-notify-pill" source="author" %}
+              {% else %}
+                <p class="book-status-small">{{ book.status }}</p>
+              {% endif %}
             {% endif %}
           {% else %}
-          <p class="book-status-small">{{ book.status }}</p>
+            {% assign author_list_status = book.status | default: '' | downcase %}
+            {% if author_list_status contains 'coming soon' %}
+              {% include book-notify-pill.html book=book pill_class="book-status-notify-pill" source="author" %}
+            {% else %}
+              <p class="book-status-small">{{ book.status }}</p>
+            {% endif %}
           {% endif %}
         </div>
       </div>

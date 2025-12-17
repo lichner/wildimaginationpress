@@ -71,10 +71,20 @@ permalink: /books/
                   Buy on Amazon
                 </a>
               {% else %}
-                <p class="book-status-small">{{ book.status }}</p>
+                {% assign list_status = book.status | default: '' | downcase %}
+                {% if list_status contains 'coming soon' %}
+                  {% include book-notify-pill.html book=book pill_class="book-status-notify-pill" source="books" %}
+                {% else %}
+                  <p class="book-status-small">{{ book.status }}</p>
+                {% endif %}
               {% endif %}
             {% elsif book.status %}
-            <p class="book-status-small">{{ book.status }}</p>
+              {% assign list_status = book.status | default: '' | downcase %}
+              {% if list_status contains 'coming soon' %}
+                {% include book-notify-pill.html book=book pill_class="book-status-notify-pill" source="books" %}
+              {% else %}
+                <p class="book-status-small">{{ book.status }}</p>
+              {% endif %}
             {% endif %}
           </div>
         </div>
