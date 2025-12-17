@@ -1,0 +1,115 @@
+{% comment %}
+  Help Others Discover this Book
+  - Inline review-intent signup form (reuses existing JS submission logic)
+  - Amazon reviews (hardcoded via _data/amazon_reviews.yml)
+
+  Usage: {% include help-others-discover-section.html %}
+{% endcomment %}
+
+{% assign book_slug = page.slug | default: page.name | remove: '.html' | slugify %}
+{% assign book_title = page.book_title | default: page.title %}
+{% assign reviews = site.data.amazon_reviews[book_slug] %}
+
+<section class="book-help-discover" id="help-others-discover">
+  <div class="container">
+    <h2>Help Others Discover this Book</h2>
+
+    <div class="book-help-discover__content">
+      <div class="book-help-discover__form">
+        <h3 class="book-help-discover__subtitle">Loved {{ book_title }}?</h3>
+        <p class="book-help-discover__intro">Join our list and we’ll email you simple steps for leaving an Amazon review.</p>
+
+        <form id="help-discover-form-{{ book_slug }}" class="email-signup email-signup--modal" method="post">
+          <div class="modal-form-fields">
+            <div class="form-field">
+              <label for="help-discover-first-name-{{ book_slug }}" class="visually-hidden">First Name</label>
+              <input type="text"
+                     id="help-discover-first-name-{{ book_slug }}"
+                     name="first_name"
+                     placeholder="First name (optional)"
+                     autocomplete="given-name">
+            </div>
+            <div class="form-field">
+              <label for="help-discover-email-{{ book_slug }}" class="visually-hidden">Email</label>
+              <input type="email"
+                     id="help-discover-email-{{ book_slug }}"
+                     name="email"
+                     placeholder="Email address"
+                     required
+                     autocomplete="email">
+            </div>
+          </div>
+
+          <!-- Hidden Fields (used by existing JS submission logic) -->
+          <input type="hidden" name="intent" value="review">
+          <input type="hidden" name="source_page" value="book-page">
+          <input type="hidden" name="book_slug" value="{{ book_slug }}">
+          <input type="hidden" name="book_title" value="{{ book_title | escape }}">
+          <input type="hidden" name="series" value="{% if page.series and page.series.name %}{{ page.series.name | escape }}{% endif %}">
+          <input type="hidden" name="age_band_interest_hidden" value="{% if page.age_range %}{{ page.age_range | split: ' ' | first }}{% endif %}">
+          <input type="hidden" name="customer_status" value="purchased">
+          <input type="hidden" name="utm_source" id="help-discover-utm-source-{{ book_slug }}" value="">
+          <input type="hidden" name="utm_medium" id="help-discover-utm-medium-{{ book_slug }}" value="">
+          <input type="hidden" name="utm_campaign" id="help-discover-utm-campaign-{{ book_slug }}" value="">
+          <input type="hidden" name="_recaptcha" id="help-discover-recaptcha-{{ book_slug }}" value="">
+
+          <button type="submit" class="btn-submit btn-submit--modal">Email me the review link</button>
+        </form>
+
+        <p class="modal-privacy book-help-discover__privacy">
+          <small>We respect your privacy. <a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a></small>
+        </p>
+      </div>
+
+      <div class="book-help-discover__reviews">
+        <h3 class="book-help-discover__subtitle">Recent Amazon reviews</h3>
+
+        {% if reviews and reviews.size > 0 %}
+          <div class="amazon-reviews" data-max-visible="5">
+            <ul class="amazon-reviews__list">
+              {% for review in reviews %}
+                <li class="amazon-review">
+                  <div class="amazon-review__header">
+                    <div class="amazon-review__who">
+                      <span class="amazon-review__name">{{ review.reviewer_name }}</span>
+                      <span class="amazon-review__rating" role="img" aria-label="{{ review.rating }} out of 5 stars">
+                        {% for i in (1..5) %}{% if i <= review.rating %}★{% else %}☆{% endif %}{% endfor %}
+                      </span>
+                    </div>
+
+                    <div class="amazon-review__meta">
+                      {% if review.verified_purchase %}
+                        <span class="amazon-review__badge">Verified purchase</span>
+                      {% endif %}
+                      {% if review.format %}
+                        <span class="amazon-review__badge amazon-review__badge--muted">{{ review.format }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  {% if review.title and review.title != '' %}
+                    <div class="amazon-review__title">{{ review.title }}</div>
+                  {% endif %}
+
+                  <div class="amazon-review__text">{{ review.text }}</div>
+
+                  <div class="amazon-review__footer">
+                    <span>
+                      Reviewed in {{ review.country }} on {{ review.reviewed_on | date: "%e %B %Y" }}{% if review.time and review.time != '' %} at {{ review.time }}{% endif %}
+                    </span>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+
+            <button type="button" class="amazon-reviews__toggle" hidden aria-expanded="false">
+              Show more reviews
+            </button>
+          </div>
+        {% else %}
+          <p class="amazon-reviews__empty">No Amazon reviews yet. If you’ve read {{ book_title }}, you can help other families by leaving the first one.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

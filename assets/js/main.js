@@ -58,6 +58,21 @@ function captureUtmParams() {
         if (field) field.value = utmParams[param];
     });
 
+    // Also populate any per-book inline hidden fields (e.g. help-discover section)
+    // using an ID prefix convention.
+    const pairs = [
+        ['utm_source', 'help-discover-utm-source-'],
+        ['utm_medium', 'help-discover-utm-medium-'],
+        ['utm_campaign', 'help-discover-utm-campaign-']
+    ];
+
+    pairs.forEach(([key, prefix]) => {
+        const nodes = document.querySelectorAll(`[id^="${prefix}"]`);
+        nodes.forEach(node => {
+            node.value = utmParams[key] || '';
+        });
+    });
+
     return utmParams;
 }
 
@@ -242,11 +257,15 @@ async function handleFormSubmission(form, formId) {
         // Close signup modal if it's open
         closeSignupModal();
 
-        // Show appropriate success message
-        if (formId === 'email-form' || formId === 'signup-modal-form') {
-            showThankYouModal();
-        } else if (intent === 'review') {
-            showNotification('Thanks! Check your email for review instructions.', 'success');
+// Show appropriate success message
+        if (intent === 'review') {
+            const submittedBookTitle = (formData.get('book_title') || '').toString();
+            showThankYouModal({
+                variant: 'review',
+                bookTitle: submittedBookTitle
+            }, form);
+        } else if (formId === 'email-form' || formId === 'signup-modal-form') {
+            showThankYouModal({ variant: 'newsletter' }, form);
         } else {
             showNotification('Thanks! You\'re on the list. We\'ll notify you when this book is available.', 'success');
         }
@@ -289,9 +308,69 @@ function trackFormConversion(formId, intent, source, formData) {
 }
 
 // Modal functionality
-function showThankYouModal() {
+let lastThankYouForm = null;
+
+const THANK_YOU_VARIANTS = {
+    newsletter: {
+        title: 'Welcome to Our Story Tree!',
+        description: 'Thank you for joining our community of book lovers!',
+        benefitsTitle: "You'll be the first to know when our book is ready!",
+        benefits: ['Release announcements', 'Exclusive previews', 'Behind-the-scenes stories'],
+        primaryActionText: 'Continue Reading'
+    },
+    review: {
+        title: 'Thank you for your support!',
+        description: "We’ve sent you an email with the review link and a couple of quick steps.",
+        benefitsTitle: 'Next steps:',
+        benefits: ['Open the email we just sent', 'Tap the Amazon review link', 'Share a short, honest review'],
+        primaryActionText: 'Continue Reading'
+    }
+};
+
+function setThankYouModalContent(options = {}) {
+    const modal = document.getElementById('thank-you-modal');
+    if (!modal) return;
+
+    const variantKey = options.variant && THANK_YOU_VARIANTS[options.variant]
+        ? options.variant
+        : 'newsletter';
+
+    const variant = THANK_YOU_VARIANTS[variantKey];
+
+    const titleEl = modal.querySelector('#modal-title');
+    const descEl = modal.querySelector('#modal-description');
+    const benefitsTitleEl = modal.querySelector('#thank-you-benefits-title');
+    const b1 = modal.querySelector('#thank-you-benefit-1');
+    const b2 = modal.querySelector('#thank-you-benefit-2');
+    const b3 = modal.querySelector('#thank-you-benefit-3');
+    const primaryAction = modal.querySelector('#thank-you-primary-action');
+
+    const bookTitle = (options.bookTitle || '').trim();
+
+    if (titleEl) {
+        if (variantKey === 'review' && bookTitle) {
+            titleEl.textContent = `Thanks for supporting ${bookTitle}!`;
+        } else {
+            titleEl.textContent = variant.title;
+        }
+    }
+
+    if (descEl) descEl.textContent = variant.description;
+    if (benefitsTitleEl) benefitsTitleEl.textContent = variant.benefitsTitle;
+
+    if (b1) b1.textContent = variant.benefits[0] || '';
+    if (b2) b2.textContent = variant.benefits[1] || '';
+    if (b3) b3.textContent = variant.benefits[2] || '';
+
+    if (primaryAction) primaryAction.textContent = variant.primaryActionText;
+}
+
+function showThankYouModal(options = {}, submittedForm = null) {
     const modal = document.getElementById('thank-you-modal');
     if (modal) {
+        if (submittedForm) lastThankYouForm = submittedForm;
+        setThankYouModalContent(options);
+
         modal.classList.add('is-visible');
         modal.setAttribute('aria-hidden', 'false');
         
@@ -312,8 +391,16 @@ function closeThankYouModal() {
         
         // Restore body scrolling
         document.body.style.overflow = '';
-        
-        // Return focus to form
+
+        // Return focus to the form that triggered the modal
+        if (lastThankYouForm) {
+            const emailInput = lastThankYouForm.querySelector('input[type="email"]');
+            if (emailInput) emailInput.focus();
+            lastThankYouForm = null;
+            return;
+        }
+
+        // Backward-compatible fallback
         const emailForm = document.getElementById('email-form');
         if (emailForm) {
             const emailInput = emailForm.querySelector('input[type="email"]');
@@ -646,6 +733,41 @@ function showNotification(message, type = 'info') {
         }
     }, 5000);
 }
+
+// Amazon reviews progressive disclosure (no-JS fallback shows all)
+document.addEventListener('DOMContentLoaded', function() {
+    const containers = document.querySelectorAll('.amazon-reviews[data-max-visible]');
+
+    containers.forEach(container => {
+        const maxVisible = parseInt(container.dataset.maxVisible || '5', 10);
+        const items = Array.from(container.querySelectorAll('.amazon-review'));
+        const toggle = container.querySelector('.amazon-reviews__toggle');
+
+        if (!items.length || !toggle || !Number.isFinite(maxVisible) || maxVisible < 1) return;
+        if (items.length <= maxVisible) return;
+
+        // Collapse (JS-only). Without JS, all reviews render.
+        items.slice(maxVisible).forEach(item => { item.hidden = true; });
+
+        toggle.hidden = false;
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = 'Show more reviews';
+
+        toggle.addEventListener('click', function() {
+            const expanded = toggle.getAttribute('aria-expanded') === 'true';
+
+            if (expanded) {
+                items.slice(maxVisible).forEach(item => { item.hidden = true; });
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.textContent = 'Show more reviews';
+            } else {
+                items.forEach(item => { item.hidden = false; });
+                toggle.setAttribute('aria-expanded', 'true');
+                toggle.textContent = 'Show fewer reviews';
+            }
+        });
+    });
+});
 
 // Performance optimization: Lazy load images
 document.addEventListener('DOMContentLoaded', function() {

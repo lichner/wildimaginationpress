@@ -212,8 +212,14 @@ layout: default
               </a>
               {% endif %}
             </div>
-            {% comment %} Review signup form for available books {% endcomment %}
-            {% include book-review-form.html %}
+            {% comment %}
+              Review CTA:
+              - For Available (published) books: show the dedicated inline section later on the page.
+              - For non-available books: keep existing notify/modal behavior.
+            {% endcomment %}
+            {% unless page.status == "Available" %}
+              {% include book-review-form.html %}
+            {% endunless %}
           {% else %}
             {% comment %} Notify form for Coming Soon books {% endcomment %}
             {% include book-notify-form.html %}
@@ -391,6 +397,10 @@ layout: default
     <div class="description-content">{{ page.full_description | markdownify }}</div>
   </div>
 </section>
+
+{% if page.status == "Available" %}
+  {% include help-others-discover-section.html %}
+{% endif %}
 
 {% if page.faq %}
 <section class="book-faq">
