@@ -120,7 +120,7 @@ layout: default
                    class="btn-format paperback primary-paperback btn-marketplace-trigger" 
                    data-format="paperback"
                    {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}
-                   onclick="openMarketplaceModal()">
+                   onclick="openMarketplaceModal('paperback')">
                   <span class="format-name">Buy on Amazon</span>
                   {% if page.amazon.paperback.price %}
                   <span class="format-price">{{ page.amazon.paperback.price }}</span>
@@ -146,7 +146,17 @@ layout: default
           {% endif %}
           {% comment %} Check if any format is available using new multi-format structure {% endcomment %}
           {% assign has_available_format = false %}
-          {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+
+          {% assign kindle_available = false %}
+          {% if page.amazon and page.amazon.kindle and page.amazon.kindle.status == "available" %}
+            {% if page.amazon.kindle.marketplaces %}
+              {% assign kindle_available = true %}
+            {% elsif page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+              {% assign kindle_available = true %}
+            {% endif %}
+          {% endif %}
+
+          {% if kindle_available %}
             {% assign has_available_format = true %}
           {% elsif page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" or page.amazon.paperback.status == "available" and page.amazon.paperback.marketplaces %}
             {% assign has_available_format = true %}
@@ -156,20 +166,36 @@ layout: default
           
           {% if has_available_format %}
             <div class="format-selector">
-              {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
-              <a href="{{ page.amazon.kindle.url }}" 
-                 class="btn-format kindle" 
-                 data-format="kindle"
-                 {% if page.amazon.kindle.asin != "" %}data-asin="{{ page.amazon.kindle.asin }}"{% endif %}
-                 data-track="amazon">
-                <span class="format-name">Kindle eBook</span>
-                {% if page.amazon.kindle.price %}
-                <span class="format-price">{{ page.amazon.kindle.price }}</span>
+              {% if page.amazon.kindle.status == "available" %}
+                {% if page.amazon.kindle.marketplaces %}
+                  <button 
+                     class="btn-format kindle btn-marketplace-trigger" 
+                     data-format="kindle"
+                     {% if page.amazon.kindle.asin != "" %}data-asin="{{ page.amazon.kindle.asin }}"{% endif %}
+                     onclick="openMarketplaceModal('kindle')">
+                    <span class="format-name">Kindle eBook</span>
+                    {% if page.amazon.kindle.price %}
+                    <span class="format-price">{{ page.amazon.kindle.price }}</span>
+                    {% endif %}
+                    {% if page.amazon.kindle.ku_eligible %}
+                    <span class="ku-badge">KU</span>
+                    {% endif %}
+                  </button>
+                {% elsif page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+                  <a href="{{ page.amazon.kindle.url }}" 
+                     class="btn-format kindle" 
+                     data-format="kindle"
+                     {% if page.amazon.kindle.asin != "" %}data-asin="{{ page.amazon.kindle.asin }}"{% endif %}
+                     data-track="amazon">
+                    <span class="format-name">Kindle eBook</span>
+                    {% if page.amazon.kindle.price %}
+                    <span class="format-price">{{ page.amazon.kindle.price }}</span>
+                    {% endif %}
+                    {% if page.amazon.kindle.ku_eligible %}
+                    <span class="ku-badge">KU</span>
+                    {% endif %}
+                  </a>
                 {% endif %}
-                {% if page.amazon.kindle.ku_eligible %}
-                <span class="ku-badge">KU</span>
-                {% endif %}
-              </a>
               {% endif %}
               
               {% if has_primary_paperback == false and page.amazon.paperback.status == "available" %}
@@ -611,7 +637,15 @@ layout: default
 </section>
 {% endif %}
 
+{% assign show_marketplace_modal = false %}
 {% if page.amazon and page.amazon.paperback and page.amazon.paperback.marketplaces %}
+  {% assign show_marketplace_modal = true %}
+{% endif %}
+{% if page.amazon and page.amazon.kindle and page.amazon.kindle.marketplaces %}
+  {% assign show_marketplace_modal = true %}
+{% endif %}
+
+{% if show_marketplace_modal %}
 <!-- Marketplace Selector Modal -->
 <div id="marketplace-modal" class="marketplace-modal" aria-hidden="true" role="dialog" aria-labelledby="marketplace-modal-title">
   <div class="marketplace-modal-container">
@@ -621,13 +655,15 @@ layout: default
         <h3 id="marketplace-modal-title">Choose Your Amazon Store</h3>
         <p>Select your preferred Amazon marketplace to purchase {{ page.title }}</p>
       </div>
-      <div class="marketplace-list">
+      {% if page.amazon.paperback and page.amazon.paperback.marketplaces %}
+      <div class="marketplace-list" data-format="paperback">
         {%- for pair in page.amazon.paperback.marketplaces -%}
           {%- assign key = pair[0] -%}
           {%- assign market = pair[1] -%}
           <a href="{{ market.url }}" 
              class="marketplace-option {% if market.primary %}primary{% endif %}" 
              data-track="amazon"
+             data-format="paperback"
              data-marketplace="{{ key }}"
              {% if page.amazon.paperback.asin != "" %}data-asin="{{ page.amazon.paperback.asin }}"{% endif %}>
             {% if market.flag %}<span class="marketplace-flag">{{ market.flag }}</span>{% endif %}
@@ -639,6 +675,29 @@ layout: default
           </a>
         {%- endfor -%}
       </div>
+      {% endif %}
+
+      {% if page.amazon.kindle and page.amazon.kindle.marketplaces %}
+      <div class="marketplace-list" data-format="kindle">
+        {%- for pair in page.amazon.kindle.marketplaces -%}
+          {%- assign key = pair[0] -%}
+          {%- assign market = pair[1] -%}
+          <a href="{{ market.url }}" 
+             class="marketplace-option {% if market.primary %}primary{% endif %}" 
+             data-track="amazon"
+             data-format="kindle"
+             data-marketplace="{{ key }}"
+             {% if page.amazon.kindle.asin != "" %}data-asin="{{ page.amazon.kindle.asin }}"{% endif %}>
+            {% if market.flag %}<span class="marketplace-flag">{{ market.flag }}</span>{% endif %}
+            <div class="marketplace-info">
+              <span class="marketplace-name">{{ market.name }}</span>
+              <span class="marketplace-domain">{{ market.url | replace: 'https://', '' | replace: 'http://', '' | split: '/' | first }}</span>
+            </div>
+            <span class="marketplace-arrow">→</span>
+          </a>
+        {%- endfor -%}
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -647,23 +706,46 @@ layout: default
 // Track scroll position for mobile
 let scrollPosition = 0;
 
-function openMarketplaceModal() {
+function openMarketplaceModal(format) {
   const modal = document.getElementById('marketplace-modal');
   if (modal) {
+    // Pick a default format if not provided
+    let chosenFormat = format;
+    if (!chosenFormat) {
+      if (modal.querySelector('.marketplace-list[data-format="paperback"]')) {
+        chosenFormat = 'paperback';
+      } else if (modal.querySelector('.marketplace-list[data-format="kindle"]')) {
+        chosenFormat = 'kindle';
+      }
+    }
+
+    if (chosenFormat) {
+      modal.dataset.activeFormat = chosenFormat;
+
+      // Update header copy based on format
+      const titleEl = modal.querySelector('#marketplace-modal-title');
+      const descEl = modal.querySelector('.marketplace-modal-header p');
+      if (titleEl) titleEl.textContent = 'Choose Your Amazon Store';
+      if (descEl) {
+        const label = chosenFormat === 'kindle' ? 'Kindle eBook' : 'Paperback';
+        descEl.textContent = `Select your preferred Amazon marketplace to purchase ${label}`;
+      }
+    }
+
     // Save current scroll position
     scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    
+
     // Use requestAnimationFrame for smooth rendering
     requestAnimationFrame(() => {
       modal.classList.add('is-visible');
       modal.setAttribute('aria-hidden', 'false');
-      
+
       // Prevent background scroll (works on all devices)
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollPosition}px`;
       document.body.style.width = '100%';
-      
+
       // Focus trap for accessibility
       requestAnimationFrame(() => {
         const firstFocusable = modal.querySelector('button, a');

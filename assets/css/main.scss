@@ -3793,6 +3793,16 @@ blockquote {
   gap: 0.75rem;
 }
 
+// Support multiple formats (e.g., paperback vs kindle) within the same modal
+.marketplace-modal .marketplace-list[data-format] {
+  display: none;
+}
+
+.marketplace-modal[data-active-format="paperback"] .marketplace-list[data-format="paperback"],
+.marketplace-modal[data-active-format="kindle"] .marketplace-list[data-format="kindle"] {
+  display: flex;
+}
+
 .marketplace-option {
   display: flex;
   align-items: center;
