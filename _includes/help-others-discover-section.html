@@ -1,14 +1,14 @@
 {% comment %}
   Help Others Discover this Book
   - Inline review-intent signup form (reuses existing JS submission logic)
-  - Amazon reviews (hardcoded via _data/amazon_reviews.yml)
+  - Amazon reviews (hardcoded via _data/reviews.yml)
 
   Usage: {% include help-others-discover-section.html %}
 {% endcomment %}
 
 {% assign book_slug = page.slug | default: page.name | remove: '.html' | slugify %}
 {% assign book_title = page.book_title | default: page.title %}
-{% assign reviews = site.data.amazon_reviews[book_slug] %}
+{% assign reviews = site.data.reviews[book_slug] %}
 
 <section class="book-help-discover" id="help-others-discover">
   <div class="container">
@@ -62,16 +62,27 @@
       </div>
 
       <div class="book-help-discover__reviews">
-        <h3 class="book-help-discover__subtitle">Recent Amazon reviews</h3>
+        <h3 class="book-help-discover__subtitle">Recent Customer Reviews</h3>
 
         {% if reviews and reviews.size > 0 %}
-          <div class="amazon-reviews" data-max-visible="5">
-            <ul class="amazon-reviews__list">
+          <div class="customer-reviews" data-max-visible="5">
+            <ul class="customer-reviews__list">
               {% for review in reviews %}
                 <li class="amazon-review">
                   <div class="amazon-review__header">
                     <div class="amazon-review__who">
-                      <span class="amazon-review__name">{{ review.reviewer_name }}</span>
+                      {% if review.source == 'Amazon' and review.url %}
+                        <span class="amazon-review__name">
+                          <a href="{{ review.url }}"
+                             target="_blank"
+                             rel="noopener noreferrer"
+                             data-track="amazon">
+                            {{ review.reviewer_name }}
+                          </a>
+                        </span>
+                      {% else %}
+                        <span class="amazon-review__name">{{ review.reviewer_name }}</span>
+                      {% endif %}
                       <span class="amazon-review__rating" role="img" aria-label="{{ review.rating }} out of 5 stars">
                         {% for i in (1..5) %}{% if i <= review.rating %}★{% else %}☆{% endif %}{% endfor %}
                       </span>
@@ -83,6 +94,23 @@
                       {% endif %}
                       {% if review.format %}
                         <span class="amazon-review__badge amazon-review__badge--muted">{{ review.format }}</span>
+                      {% endif %}
+                      {% if review.source == 'Amazon' and review.url %}
+                        <a class="amazon-review__badge amazon-review__badge--logo"
+                           href="{{ review.url }}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           data-track="amazon">
+                          <img src="{{ '/assets/images/amazon_logo.png' | relative_url }}"
+                               alt="View this review on Amazon"
+                               loading="lazy">
+                        </a>
+                      {% elsif review.source and review.source != 'Amazon' %}
+                        <span class="amazon-review__badge amazon-review__badge--signature">
+                          <img src="{{ '/assets/images/email_signature.png' | relative_url }}"
+                               alt="Customer review submitted directly to Wild Imagination Press"
+                               loading="lazy">
+                        </span>
                       {% endif %}
                     </div>
                   </div>
@@ -102,12 +130,12 @@
               {% endfor %}
             </ul>
 
-            <button type="button" class="amazon-reviews__toggle" hidden aria-expanded="false">
+            <button type="button" class="customer-reviews__toggle" hidden aria-expanded="false">
               Show more reviews
             </button>
           </div>
         {% else %}
-          <p class="amazon-reviews__empty">No Amazon reviews yet. If you’ve read {{ book_title }}, you can help other families by leaving the first one.</p>
+          <p class="customer-reviews__empty">No customer reviews yet. If you’ve read {{ book_title }}, you can help other families by leaving the first one.</p>
         {% endif %}
       </div>
     </div>

@@ -734,14 +734,14 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Amazon reviews progressive disclosure (no-JS fallback shows all)
+// Customer reviews progressive disclosure (no-JS fallback shows all)
 document.addEventListener('DOMContentLoaded', function() {
-    const containers = document.querySelectorAll('.amazon-reviews[data-max-visible]');
+    const containers = document.querySelectorAll('.customer-reviews[data-max-visible]');
 
     containers.forEach(container => {
         const maxVisible = parseInt(container.dataset.maxVisible || '5', 10);
         const items = Array.from(container.querySelectorAll('.amazon-review'));
-        const toggle = container.querySelector('.amazon-reviews__toggle');
+        const toggle = container.querySelector('.customer-reviews__toggle');
 
         if (!items.length || !toggle || !Number.isFinite(maxVisible) || maxVisible < 1) return;
         if (items.length <= maxVisible) return;

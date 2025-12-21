@@ -2752,7 +2752,7 @@ blockquote {
   margin: 0.75rem 0 0;
 }
 
-.amazon-reviews__list {
+.customer-reviews__list {
   list-style: none;
   padding: 0;
   margin: 1rem 0 0;
@@ -2769,11 +2769,24 @@ blockquote {
   box-shadow: 0 2px 10px rgba(45, 90, 61, 0.06);
 }
 
+@media (max-width: 480px) {
+  .amazon-review {
+    padding: 1rem;
+  }
+}
+
 .amazon-review__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .amazon-review__header {
+    align-items: center;
+  }
 }
 
 .amazon-review__who {
@@ -2785,6 +2798,16 @@ blockquote {
 .amazon-review__name {
   font-weight: 700;
   color: var(--text-dark);
+}
+
+.amazon-review__name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.amazon-review__name a:hover,
+.amazon-review__name a:focus {
+  text-decoration: underline;
 }
 
 .amazon-review__rating {
@@ -2816,6 +2839,30 @@ blockquote {
   color: var(--text-medium);
 }
 
+.amazon-review__badge--logo {
+  background: #ffffff;
+  border: 1px solid rgba(90, 108, 125, 0.18);
+  padding: 0.25rem 0.7rem;
+}
+
+.amazon-review__badge--logo img {
+  display: block;
+  height: 26px;
+  width: auto;
+}
+
+.amazon-review__badge--signature {
+  background: #ffffff;
+  border: 1px solid rgba(90, 108, 125, 0.18);
+  padding: 0.25rem 0.7rem;
+}
+
+.amazon-review__badge--signature img {
+  display: block;
+  height: 22px;
+  width: auto;
+}
+
 .amazon-review__title {
   margin-top: 0.75rem;
   font-weight: 700;
@@ -2834,7 +2881,7 @@ blockquote {
   color: var(--text-light);
 }
 
-.amazon-reviews__toggle {
+.customer-reviews__toggle {
   margin-top: 1rem;
   width: 100%;
   padding: 0.75rem 1rem;
@@ -2854,7 +2901,7 @@ blockquote {
   }
 }
 
-.amazon-reviews__empty {
+.customer-reviews__empty {
   margin: 1rem 0 0;
   color: var(--text-medium);
 }
