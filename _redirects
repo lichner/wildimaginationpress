@@ -1,0 +1,14 @@
+# Redirects for improved SEO and shorter URLs
+# Format: from_url to_url [status_code]
+
+# Bushlandia Book Series - Shorter URLs
+/books/bushlandia-book-1 /books/bushlandia-magic-imagination-australian-bush/ 301
+/books/bushlandia-book-2 /books/bushlandia-secret-sound-hollow/ 301
+/books/bushlandia-book-3 /books/bushlandia-skyseed-experiment/ 301
+
+# Generic Bushlandia redirect to first book
+/books/bushlandia /books/bushlandia-magic-imagination-australian-bush/ 301
+
+# Alternative spellings and common searches
+/books/bushlandia-the-magic-of-imagination /books/bushlandia-magic-imagination-australian-bush/ 301
+/books/bushlandia-magic-imagination /books/bushlandia-magic-imagination-australian-bush/ 301
