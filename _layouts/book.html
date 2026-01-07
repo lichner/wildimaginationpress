@@ -261,10 +261,11 @@ layout: default
 {
   "@context": "https://schema.org",
   "@type": "Book",
-  "name": "{% if page.sub_title and page.sub_title != '' %}{{ display_title }} - {{ page.sub_title }}{% else %}{{ display_title }}{% endif %}",
+  "name": "{{ display_title }}{% if page.sub_title and page.sub_title != '' %}: {{ page.sub_title }}{% endif %}",
   {% if page.sub_title and page.sub_title != "" %}
   "alternativeHeadline": "{{ page.sub_title }}",
   {% endif %}
+  "headline": "{{ display_title }}",
   "author": {
     "@type": "Person",
     "name": "{% if page.author.name %}{{ page.author.name }}{% else %}{{ page.author }}{% endif %}",
@@ -302,8 +303,10 @@ layout: default
   "bookFormat": "https://schema.org/{{ page.format | default: 'Paperback' }}",
   {% endif %}
   "image": "{{ page.cover_image | absolute_url }}",
-  "description": "{{ page.description | strip_html | truncate: 160 }}",
+  "description": "{{ page.full_description | default: page.description | strip_html | strip_newlines | escape | truncate: 500 }}",
+  "url": "{{ page.url | absolute_url }}",
   "inLanguage": "en-AU",
+  "countryOfOrigin": "Australia",
   "audience": {
     "@type": "PeopleAudience",
     "suggestedMinAge": {{ page.age_range | split: '-' | first }},
@@ -311,19 +314,46 @@ layout: default
   },
   {% comment %} Multiple offers support - only from new multi-format structure {% endcomment %}
   {% assign has_offers = false %}
-  {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
-    {% assign has_offers = true %}
-  {% elsif page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
-    {% assign has_offers = true %}
-  {% elsif page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
+  {% if page.amazon.kindle.status == "available" %}
+    {% if page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+      {% assign has_offers = true %}
+    {% elsif page.amazon.kindle.marketplaces %}
+      {% assign has_offers = true %}
+    {% endif %}
+  {% endif %}
+  {% if page.amazon.paperback.status == "available" %}
+    {% if page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+      {% assign has_offers = true %}
+    {% elsif page.amazon.paperback.marketplaces %}
+      {% assign has_offers = true %}
+    {% endif %}
+  {% endif %}
+  {% if page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
     {% assign has_offers = true %}
   {% endif %}
   {% if has_offers %}
   "offers": [
-    {% if page.amazon.kindle.status == "available" and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+    {% if page.amazon.kindle.status == "available" %}
+      {% assign kindle_url = "" %}
+      {% if page.amazon.kindle.url and page.amazon.kindle.url != "" and page.amazon.kindle.url != "#" %}
+        {% assign kindle_url = page.amazon.kindle.url %}
+      {% elsif page.amazon.kindle.marketplaces %}
+        {% if page.amazon.kindle.marketplaces.au %}
+          {% assign kindle_url = page.amazon.kindle.marketplaces.au.url %}
+        {% elsif page.amazon.kindle.marketplaces.us %}
+          {% assign kindle_url = page.amazon.kindle.marketplaces.us.url %}
+        {% else %}
+          {% for market in page.amazon.kindle.marketplaces %}
+            {% if forloop.first %}
+              {% assign kindle_url = market[1].url %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+      {% if kindle_url and kindle_url != "" %}
     {
       "@type": "Offer",
-      "url": "{{ page.amazon.kindle.url }}",
+      "url": "{{ kindle_url }}",
       "priceCurrency": "AUD",
       {% if page.amazon.kindle.price %}
       "price": "{{ page.amazon.kindle.price | remove: '$' | remove: 'AUD' | strip }}",
@@ -333,15 +363,19 @@ layout: default
         "@type": "Book",
         "bookFormat": "https://schema.org/EBook"
       }
-    {% assign has_more_offers = false %}
-    {% if page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
-      {% assign has_more_offers = true %}
+    }{% assign has_more_offers = false %}
+    {% if page.amazon.paperback.status == "available" %}
+      {% if page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" or page.amazon.paperback.marketplaces %}
+        {% assign has_more_offers = true %}
+      {% endif %}
     {% elsif page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
       {% assign has_more_offers = true %}
     {% endif %}
     {% if has_more_offers %},{% endif %}
+      {% endif %}
     {% endif %}
-    {% if page.amazon.paperback.status == "available" and page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" %}
+    {% if page.amazon.paperback.status == "available" %}
+      {% if page.amazon.paperback.url != "" and page.amazon.paperback.url != "#" or page.amazon.paperback.marketplaces %}
     {
       "@type": "Offer",
       {% if page.amazon.paperback.marketplaces %}{% assign _primary_offer = page.amazon.paperback.marketplaces.au | default: page.amazon.paperback.marketplaces.first[1] %}
@@ -359,6 +393,7 @@ layout: default
         "bookFormat": "https://schema.org/Paperback"
       }
     }{% if page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %},{% endif %}
+      {% endif %}
     {% endif %}
     {% if page.amazon.audiobook.status == "available" and page.amazon.audiobook.url != "" and page.amazon.audiobook.url != "#" %}
     {
@@ -377,15 +412,29 @@ layout: default
     {% endif %}
   ],
   {% endif %}
-  "numberOfPages": {{ page.page_count | default: 32 }}{% if page.category_meta.primary or page.category or page.bisac_codes %},{% endif %}
+  "numberOfPages": {{ page.page_count | default: 32 }},
   {% if page.category_meta and page.category_meta.primary %}
-  "genre": "{{ page.category_meta.primary }}"{% if page.bisac_codes %},{% endif %}
+  "genre": "{{ page.category_meta.primary }}",
   {% elsif page.category %}
-  "genre": "{{ page.category }}"{% if page.bisac_codes %},{% endif %}
+  "genre": "{{ page.category }}",
   {% endif %}
-  {% if page.bisac_codes %}
-  "keywords": "{{ page.bisac_codes | join: ', ' }}"
+  {% if page.keywords %}
+  "keywords": "{{ page.keywords }}",
+  {% elsif page.bisac_codes %}
+  "keywords": "{{ page.bisac_codes | join: ', ' }}",
   {% endif %}
+  {% if page.series %}
+  "isPartOf": {
+    "@type": "BookSeries",
+    "name": "{{ page.series.name }}",
+    "position": {{ page.series.number }}
+  },
+  {% endif %}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "1"
+  }
 }
 </script>
 

@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Books
-description: Explore books from Wild Imagination Press
+title: Books - Wild Imagination Press | Australian Children's Books Collection
+description: Explore our collection of enchanting Australian children's books including the Bushlandia series. Adventure stories that nurture imagination and environmental awareness for ages 0-10.
 permalink: /books/
+canonical_url: https://wildimaginationpress.com/books/
 ---
 
 <section class="books-section">
@@ -96,4 +97,92 @@ permalink: /books/
   </div>
 </section>
 
+<!-- CollectionPage Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Books - Wild Imagination Press",
+  "description": "Collection of Australian children's books including the Bushlandia series and other enchanting stories",
+  "url": "https://wildimaginationpress.com/books/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wild Imagination Press",
+    "url": "https://wildimaginationpress.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://wildimaginationpress.com/assets/images/wild-imagination-logo.jpg"
+    }
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {% if site.books and site.books.size > 0 %}
+        {% assign sorted_books = site.books | sort: "order" %}
+        {% for book in sorted_books %}
+        {
+          "@type": "ListItem",
+          "position": {{ forloop.index }},
+          "item": {
+            "@type": "Book",
+            "name": "{% assign display_title = book.book_title | default: book.title %}{{ display_title }}{% if book.sub_title and book.sub_title != '' %}: {{ book.sub_title }}{% endif %}",
+            "author": {
+              "@type": "Person",
+              "name": "{% if book.author.name %}{{ book.author.name }}{% else %}{{ book.author }}{% endif %}"
+            },
+            "url": "{{ book.url | absolute_url }}",
+            {% if book.cover_image %}
+            "image": "{{ book.cover_image | absolute_url }}",
+            {% endif %}
+            {% if book.isbn %}
+            "isbn": "{{ book.isbn }}",
+            {% endif %}
+            {% if book.series %}
+            "isPartOf": {
+              "@type": "BookSeries",
+              "name": "{{ book.series.name }}",
+              "position": {{ book.series.number }}
+            },
+            {% endif %}
+            "description": "{{ book.description | strip_html | truncate: 200 }}"
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      {% endif %}
+    ]
+  }
+}
+</script>
+
+<!-- Bushlandia Series Structured Data -->
+{% assign bushlandia_books = site.books | where_exp: "book", "book.series.name == 'Bushlandia'" | sort: "series.number" %}
+{% if bushlandia_books.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BookSeries",
+  "name": "Bushlandia Series",
+  "author": {
+    "@type": "Person",
+    "name": "Rebecca Mola",
+    "url": "https://wildimaginationpress.com/author/rebecca-mola/"
+  },
+  "numberOfItems": {{ bushlandia_books | size }},
+  "hasPart": [
+    {% for book in bushlandia_books %}
+    {
+      "@type": "Book",
+      "name": "{{ book.book_title | default: book.title }}{% if book.sub_title %}: {{ book.sub_title }}{% endif %}",
+      "position": {{ book.series.number }},
+      "url": "{{ book.url | absolute_url }}",
+      "author": {
+        "@type": "Person",
+        "name": "Rebecca Mola"
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
 
