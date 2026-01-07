@@ -787,3 +787,6 @@ document.addEventListener('DOMContentLoaded', function() {
         images.forEach(img => imageObserver.observe(img));
     }
 });
+
+// Update copyright year dynamically
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
