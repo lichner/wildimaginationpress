@@ -2752,6 +2752,88 @@ blockquote {
   margin: 0.75rem 0 0;
 }
 
+// Blog Post Callout (book pages, inside help-others-discover)
+.book-blog-callout__card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(45, 90, 61, 0.08);
+  border-left: 4px solid var(--soft-pink);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+  }
+}
+
+.book-blog-callout__icon {
+  flex-shrink: 0;
+  color: var(--secondary-green);
+  display: flex;
+  align-items: center;
+}
+
+.book-blog-callout__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.book-blog-callout__label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--secondary-green);
+  margin-bottom: 0.25rem;
+}
+
+.book-blog-callout__title {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--primary-green);
+  text-decoration: none;
+  line-height: 1.4;
+
+  &:hover {
+    color: var(--secondary-green);
+  }
+}
+
+.book-blog-callout__arrow {
+  flex-shrink: 0;
+  color: var(--light-green);
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+
+  .book-blog-callout__card:hover & {
+    color: var(--secondary-green);
+  }
+}
+
+@media (max-width: 480px) {
+  .book-blog-callout__card {
+    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .book-blog-callout__icon {
+    display: none;
+  }
+
+  .book-blog-callout__title {
+    font-size: 0.95rem;
+  }
+}
+
 .customer-reviews__list {
   list-style: none;
   padding: 0;

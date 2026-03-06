@@ -6,9 +6,13 @@ sitemap: false
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Writing Style Rules
+
+- **Never use em dashes (`—`) or en dashes (`–`) in any text content.** Use commas, full stops, or rewrite the sentence instead. This applies to all user-facing copy: HTML content, front matter descriptions, blog posts, and any generated text.
+
 ## Project Overview
 
-Wild Imagination Press is a Jekyll-based static website for a children's book publisher. The site showcases books with a nature-inspired design, includes email signup functionality with Google reCAPTCHA v3, and features comprehensive SEO optimization. Deployed on GitHub Pages with automatic deployment via GitHub Actions.
+Wild Imagination Press is a Jekyll-based static website for a children's book publisher. The site showcases books with a nature-inspired design, includes email signup functionality via MailerLite API with Google reCAPTCHA v3, and features comprehensive SEO optimization. Deployed on GitHub Pages.
 
 ## Development Commands
 
@@ -36,43 +40,57 @@ bundle exec ruby _scripts/validate_seo.rb
 ```
 
 ### Deployment
-- **Platform**: GitHub Pages (auto-deploy from git)
+- **Platform**: GitHub Pages (direct deployment from `main` branch, no GitHub Actions workflow)
 - **Build command**: `bundle exec jekyll build`
 - **Publish directory**: `_site`
-- **Ruby version**: 3.2.2
-- **Bundler version**: 2.5.9+
 
 ## Architecture Overview
 
 ### Jekyll Collections System
-Books are managed via Jekyll collections, not posts. This provides:
-- Custom permalinks: `/:collection/:name/` (e.g., `/books/one-puppy-two-puppies/`)
-- Individual pages for each book with SEO-friendly URLs
-- Flexible metadata via front matter
-- Books use `.html` extension (not `.md`) to support rich HTML content
+Two collections are configured:
+- **`books`**: Book pages with permalink `/:collection/:name/` (e.g., `/books/one-puppy-two-puppies/`)
+- **`authors`**: Author pages with permalink `/author/:name/` (e.g., `/author/rebecca-mola/`)
+
+Books use `.html` extension (not `.md`) to support rich HTML content.
 
 **Key point**: When adding books, create `.html` files in `_books/` directory with YAML front matter + HTML content.
 
 ### Layouts & Includes Structure
+
+**Layouts** (4 total):
 - **`_layouts/default.html`**: Main site template with header, navigation, footer, analytics
-- **`_layouts/book.html`**: Extends default layout for individual book pages, includes hero section, description, and related books
-- **`_includes/head.html`**: Contains SEO metadata, Open Graph tags, Google Analytics, reCAPTCHA, structured data (JSON-LD), and font preloading
+- **`_layouts/book.html`**: Extends default for individual book pages (hero, description, reviews, related books)
+- **`_layouts/post.html`**: Blog post layout
+- **`_layouts/author.html`**: Author profile pages
+
+**Key Includes** (8 total):
+- **`_includes/head.html`**: SEO metadata, Open Graph tags, Google Analytics, reCAPTCHA, structured data (JSON-LD), font loading
+- **`_includes/signup-modal.html`**: Reusable email signup modal triggered by `data-signup-modal` buttons
+- **`_includes/thank-you-modal.html`**: Success modal shown after form submission
+- **`_includes/book-preview.html`**: Book preview image gallery
+- **`_includes/book-review-form.html`**: Review intent signup form for book pages
+- **`_includes/book-notify-form.html`**: "Notify me" signup for coming-soon books
+- **`_includes/book-notify-pill.html`**: Compact notification signup pill
+- **`_includes/help-others-discover-section.html`**: Review/sharing CTA section on book pages
 
 ### JavaScript Architecture
 - **`assets/js/main.js`**: Core site functionality
   - Mobile navigation toggle with hamburger menu
-  - Email form handling with reCAPTCHA v3 and Formspree integration
-  - Modal functionality for thank-you messages
+  - Email signup via **MailerLite API** (config at top of file with API key and group IDs)
+  - Signup modal system (`openSignupModal`/`closeSignupModal`) driven by `data-signup-modal` trigger buttons
+  - Thank-you modal with variant content (newsletter vs review)
+  - Google reCAPTCHA v3 integration for form submissions
   - Smooth scrolling for anchor links with header offset
   - Scroll animations using Intersection Observer API
-  - Amazon link tracking via event delegation (CSP-compliant)
+  - Amazon link tracking via event delegation
   - Lazy image loading
   - Email validation utilities
   - Notification system for user feedback
+  - Customer reviews progressive disclosure (show more/fewer)
 
 - **`assets/js/analytics.js`**: Separate Google Analytics initialization with privacy-focused configuration (IP anonymization, cookie settings)
 
-**Important**: All event handlers are inline or delegated for CSP compliance. No `onclick` attributes in HTML.
+**Note**: Some `onclick` attributes exist in `book.html` and `thank-you-modal.html`. New event handlers should use event delegation or `addEventListener` for consistency.
 
 ### CSS Architecture
 - **`assets/css/main.scss`**: Single SCSS file with CSS custom properties
@@ -81,6 +99,9 @@ Books are managed via Jekyll collections, not posts. This provides:
 - Responsive typography using `clamp()` functions
 - Mobile-first responsive design
 
+### Data Files
+- **`_data/reviews.yml`**: Customer reviews per book, used for dynamic aggregate ratings in `book.html` JSON-LD structured data
+
 ### Configuration (`_config.yml`)
 Key settings include:
 - Site metadata: title, description, URL, timezone
@@ -88,69 +109,121 @@ Key settings include:
 - Google Analytics ID: `google_analytics: G-F2V6B1H630`
 - Navigation: Defined in `nav_links` array
 - Jekyll plugins: jekyll-sitemap, jekyll-feed, jekyll-seo-tag
-- Collections configuration for books with custom permalinks
+- Collections configuration for books and authors with custom permalinks
+- Blog settings with permalink pattern and excerpts
 - Sitemap priorities and changefreq settings
 
 ## Content Management
 
 ### Adding New Books
 1. Create new file in `_books/` directory (e.g., `new-book-title.html`)
-2. Use this front matter template with Markdown formatting:
+2. Use this front matter template:
 
 ```yaml
 ---
 title: "Book Title"
-author: "Rebecca Mola"
+book_title: "Book Title"
+sub_title: "Optional Subtitle"
+author:
+  name: Rebecca Mola
+  url: /author/rebecca-mola/
+order: 1  # Display order in book listings
 status: "Coming Soon"  # or "Available"
 age_range: "2-6 years"
+image: /assets/images/books/cover-square-medium.jpg  # Square image for cards
 category: "Picture Book"
+cover_image: "/assets/images/books/cover-large.jpg"  # Large cover for book page
 features:
   - Feature 1
   - Feature 2
   - Feature 3
-description: "Short description for previews"
+
+# Categorization
+category_meta:
+  primary: "JUVENILE FICTION / Animals / General"
+  secondary: "JUVENILE FICTION / Imagination & Play"
+bisac_codes:
+  - "JUV002000"
+amazon_categories:
+  - "Children's Books > Animals"
+
+# SEO
+seo:
+  json_ld: false
+  type: WebPage
+description: "Short description for previews and SEO"
+keywords: "keyword1, keyword2, keyword3"
+
+# Book Details
+published_date: "2025-01-01"
+isbn: "978-XXXXXXXXX"
+page_count: 32
+publisher: "Wild Imagination Press"
+
+# Amazon KDP Product Links (multi-format, multi-marketplace)
+amazon:
+  kindle:
+    asin: ""
+    url: ""
+    price: "$4.99 AUD"
+    ku_eligible: true
+    status: "pending"  # pending | available | coming_soon
+  paperback:
+    asin: ""
+    url: ""
+    price: "$19.95 AUD"
+    print_length: 32
+    status: "pending"
+  audiobook:
+    asin: ""
+    url: ""
+    price: "$14.99 AUD"
+    status: "pending"
+
+format: "Paperback"  # Primary format for display
+
+# Social Sharing
+og_image: "/assets/images/books/cover-square-medium.jpg"
+twitter_image: "/assets/images/books/cover-square-medium.jpg"
+
+# Book Preview
+preview_images:
+  - path: "/assets/images/books/page-01"
+    caption: "Description of preview page"
+
+# FAQ (renders as FAQ structured data + on-page accordion)
+faq:
+  - question: "Question about the book?"
+    answer: "Answer to the question."
+
+layout: book
 full_description: |
   **Use Markdown syntax for rich formatting!**
 
-  Write natural paragraphs with blank lines between them. The `markdownify` filter in the layout will convert this to proper HTML.
-
-  Inside **Book Title**, discover:
+  Write natural paragraphs with blank lines between them. The `markdownify` filter
+  in the layout will convert this to proper HTML.
 
   - Use bullet points for features
   - Bold text with **double asterisks**
-  - Italic text with *single asterisks*
   - Natural paragraph breaks
-
-  You can still embed HTML for complex layouts:
-
-  <div class="custom-class">
-    <p>HTML works when needed</p>
-  </div>
-
-  **End with a strong call to action!**
-cover_image: /assets/images/book-cover.jpg  # Optional, omit if not available
-amazon_link: "#"  # Use "#" for coming soon, or real Amazon URL
-published_date: "2024-01-01"  # Optional
-isbn: "978-XXXXXXXXX"  # Optional
-price: "$12.99"  # Optional
-publisher: "Wild Imagination Press"
-layout: book
 ---
 ```
 
-**Important**: The `full_description` field uses Markdown syntax and is processed by the `markdownify` Liquid filter in `_layouts/book.html`. This provides:
-- Proper semantic HTML output (`<p>`, `<ul>`, `<li>`, `<strong>`, `<em>`)
-- Better authoring experience (clean, readable syntax)
-- Natural paragraph and list formatting
-- Ability to mix Markdown with HTML when needed
+**Important**: The `full_description` field uses Markdown syntax and is processed by the `markdownify` Liquid filter in `_layouts/book.html`.
 
 3. Book pages automatically include:
    - Hero section with cover placeholder or image
    - Book metadata display
    - Status badge styling
    - Feature tags
+   - Book preview gallery (if `preview_images` provided)
+   - FAQ section (if `faq` provided)
    - Call-to-action button (Amazon link or notification signup)
+   - Customer reviews (from `_data/reviews.yml`)
    - Related books section (shows other books in collection)
+
+### Blog
+The site includes a blog at `/blog/`. Posts use `_layouts/post.html` and follow the permalink pattern `/blog/:categories/:year/:month/:day/:title/`.
 
 ### Navigation Updates
 Modify `nav_links` array in `_config.yml`:
@@ -160,8 +233,10 @@ nav_links:
     url: /
   - name: Books
     url: /books/
+  - name: Blog
+    url: /blog/
   - name: About Author
-    url: /#author
+    url: /author/rebecca-mola/
   - name: Contact
     url: /#contact
 ```
@@ -183,57 +258,41 @@ The `_scripts/` directory contains Ruby-based SEO validation:
   - Amazon link clicks (outbound tracking)
   - Form validation errors
   - Conversion events with reCAPTCHA status
-- All tracking is CSP-compliant with event delegation
 - Cookie settings: `SameSite=None;Secure` for compliance
 
-### Email Form Integration & Mailing List Architecture
-The site uses a multi-intent email signup system designed to support automated review request sequences (Ask #3–#6).
+### Email Signup System
+The site uses **MailerLite API** for email collection with a modal-based signup flow.
 
-**Current Form Setup**:
-- Client-side form in contact section with validation
-- Google reCAPTCHA v3 integration (site key in `_includes/head.html`)
-- Formspree backend for email collection (action URL in form)
-- Modal thank-you message on successful submission
-- Analytics tracking for form engagement and conversions
-- Works in both localhost and production environments
+**Architecture**:
+- **Backend**: MailerLite API (configured in `main.js` with API key and group IDs)
+- **Forms**: Modal-based signup via `_includes/signup-modal.html`, triggered by buttons with `data-signup-modal` attribute
+- **Additional forms**: `book-review-form.html`, `book-notify-form.html`, `book-notify-pill.html` for book-specific signups
+- **reCAPTCHA**: Google reCAPTCHA v3 validates submissions before API call
+- **Success feedback**: Thank-you modal (`_includes/thank-you-modal.html`) with variant content for newsletter vs review intents
 
-**Two Signup Intents**:
-1. **Newsletter**: General book updates, freebies, behind-the-scenes content
-2. **Review**: Reader has purchased/read a specific book and is willing to review it
+**Two Signup Intents** (mapped to MailerLite groups):
+1. **Newsletter** (group `173760929538770599`): General book updates, freebies, behind-the-scenes content
+2. **Review** (group `173761193104639311`): Reader willing to review a specific book
 
-**Data Model for Forms**:
-All signup forms capture (or can capture via hidden fields):
-- `email` (required)
-- `source_page` (homepage, book, blog)
-- `book_slug` (optional; which book the user is interested in)
-- `series` (optional; e.g., "Bushlandia")
-- `intent` (required; "newsletter" or "review")
-- `age_band_interest` (optional; e.g., "0-4", "2-6", "7-10")
-- `utm_*` (optional; campaign tracking)
+**Data captured per submission**:
+- `email` (required), `first_name` (optional)
+- `intent` (newsletter or review), `source_page`, `customer_status`
+- `book_slug`, `book_title`, `series`, `book_interests`
+- `age_band_interest`
+- `utm_source`, `utm_medium`, `utm_campaign`
 
-**Email Service Provider**:
-To be determined. Review sequences (Ask #3–#6) require an ESP with automation capabilities:
-- Tags/segments for routing
-- Timed delays (immediate, +7 days, +14 days, weekly)
-- Custom field support
-- Trigger-based automation
-
-**Review Hub**:
-A dedicated on-site review experience (planned):
-- `/review/` — general review help + instructions
-- `/review/<book>/` — book-specific copy + marketplace selector
-- Final buttons redirect to Amazon review pages per marketplace
-- GA event tracking for outbound clicks
-
-**Ask #3–#6 Email Sequence**:
-When a user submits with `intent=review` and a specific `book_slug`:
-- **Ask #3** (immediate): thank you + gentle review ask + CTA to `/review/<book>/`
-- **Ask #4** (+7 days): reminder + simple one-click CTA
-- **Ask #5** (+14 days): new angle (help families / support indie author)
-- **Ask #6** (weekly, capped): rotating angles + value-add content
-- **Stop conditions**: unsubscribe, explicit opt-out, or review posted
-
-**Note**: If Formspree integration needs updating, modify form action URL in `index.html` contact section. For ESP integration, update privacy policy and form submission logic as needed.
+**Trigger buttons** pass context via `data-*` attributes:
+```html
+<button data-signup-modal
+        data-intent="newsletter"
+        data-source="book-page"
+        data-book-slug="one-puppy-two-puppies"
+        data-book-title="One Puppy, Two Puppies"
+        data-title="Modal Heading"
+        data-subtitle="Modal subheading text">
+  Sign Up
+</button>
+```
 
 ## Design System
 
@@ -250,24 +309,21 @@ Nature-inspired palette defined in CSS custom properties (`assets/css/main.scss`
 - **Cream**: `#faf7f2` (warm backgrounds)
 - **Warm White**: `#fefefe` (primary background)
 
-### Typography Stack
-- **Headings**: 'Playfair Display' (serif, elegant)
-- **Body**: 'Inter' (sans-serif, modern)
-- **Brand**: 'Crimson Text' (professional serif)
-- Loaded via Google Fonts with preconnect optimization
+### Typography
+- **Google Fonts**: Only **Quicksand** is loaded (`head.html`), used across the site
+- CSS variables in `main.scss` still reference Playfair Display, Inter, and Crimson Text font families but these are not imported — Quicksand is the active font
 - Responsive sizing using `clamp()` for fluid typography
 
 ### Iconography
 - Material UI icons used for professional presentation
-- Greyscale SVG icons (#666666)
+- Icon colors use CSS variables (`var(--primary-green)`, `var(--secondary-green)`)
 - 20x20px standard size with responsive scaling
-- See `HUMANIZED_ICON_OPTIONS.md` for icon strategy
 
 ## Performance & Security
 
 ### GitHub Pages Configuration
 The site is deployed on GitHub Pages with:
-- Automatic deployment via GitHub Actions on push to main branch
+- Direct deployment from `main` branch (no GitHub Actions workflow)
 - Native Jekyll support with safe mode enabled
 - Automatic SSL certificates via Let's Encrypt
 - Custom domain support with HTTPS enforcement
@@ -276,15 +332,15 @@ The site is deployed on GitHub Pages with:
 - Lazy loading images with `loading="lazy"` attribute
 - Intersection Observer API for efficient scroll animations
 - Event delegation for better performance
-- CSP-compliant inline event tracking (no inline onclick handlers)
 - Efficient JavaScript with DOM-ready patterns
 - Smooth scrolling with offset calculations for fixed header
 
 ### Structured Data
 JSON-LD structured data in `_includes/head.html`:
 - Organization schema with logo, founding date, contact info
-- Social media links (Instagram, Twitter/X)
-- Enhances search engine understanding of the business
+- Social media links (Facebook, Instagram, X)
+- Book-specific structured data with aggregate ratings from `_data/reviews.yml`
+- FAQ structured data from book front matter `faq` field
 
 ## Common Workflows
 
@@ -315,9 +371,13 @@ Key breakpoints are defined in `main.scss`. Test mobile navigation, book grid la
 
 ### File Organization
 - Books: `.html` files in `_books/` with YAML front matter
+- Authors: `.html` files in `_authors/`
+- Blog posts: Markdown files in `_posts/`
+- Data: `_data/reviews.yml` for customer reviews
 - Images: `assets/images/` with semantic naming
 - Scripts: Development/validation scripts in `_scripts/`
-- Layouts: Two-level layout inheritance (default → book)
+- Layouts: `default`, `book`, `post`, `author` in `_layouts/`
+- Includes: 8 partials in `_includes/` (head, signup-modal, thank-you-modal, book-preview, book-review-form, book-notify-form, book-notify-pill, help-others-discover-section)
 
 ### Browser Support
 - Modern browsers: Chrome 60+, Firefox 60+, Safari 12+, Edge 79+
@@ -327,8 +387,6 @@ Key breakpoints are defined in `main.scss`. Test mobile navigation, book grid la
 
 ### Git Workflow
 - Main branch: `main`
-- Clean working tree at start of conversation
-- Recent commits include content updates (Bushlandia, tags, home page changes)
 
 ### Important Files Reference
 - Site configuration: `_config.yml`
@@ -337,4 +395,6 @@ Key breakpoints are defined in `main.scss`. Test mobile navigation, book grid la
 - SEO metadata: `_includes/head.html`
 - Homepage: `index.html`
 - Book template: `_layouts/book.html`
+- Signup modal: `_includes/signup-modal.html`
+- Customer reviews data: `_data/reviews.yml`
 - SEO validation: `_scripts/validate_seo.rb`

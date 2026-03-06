@@ -4,7 +4,10 @@
       "Bash(cd:*)",
       "WebSearch",
       "Bash(bundle exec:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(find:*)",
+      "Bash(numfmt:*)",
+      "Bash(du:*)"
     ],
     "deny": [],
     "ask": []

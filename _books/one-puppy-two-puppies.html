@@ -6,7 +6,7 @@ author:
   name: Rebecca Mola
   url: /author/rebecca-mola/
 order: 2
-status: Coming Soon
+status: Available
 age_range: "0-4 years"
 image: /assets/images/books/onepuppytwopuppies-cover-square-medium.jpg
 category: "Counting"
@@ -25,9 +25,13 @@ bisac_codes:
   - "JNF013000"  # Concepts / Counting & Numbers
   - "JUV002070"  # Animals / Dogs
 amazon_categories:
-  - "Children's Books > Early Learning > Counting & Numbers"
-  - "Children's Books > Animals > Dogs"
-  - "Children's Books > Basic Concepts"
+  kindle:
+    - "Kindle Books > Children's & Young Adult > Animals > Dogs > Fiction"
+    - "Kindle Books > Science & Maths > Mathematics > Counting & Numeration"
+    - "Kindle Books > Children's & Young Adult > Baby-3 > Basic Concepts > Counting"
+  paperback:
+    - "Books > Children's Books > Animals > Dogs"
+    - "Books > Children's Books > Early Learning > Basic Concepts > Counting"
 
 # Disable jekyll-seo-tag JSON-LD; use custom Book JSON-LD from layout
 seo:
@@ -35,39 +39,94 @@ seo:
   type: WebPage
 
 # SEO & Marketing
-description: "A delightful counting book following ten playful puppies through fun daily activities. Perfect for toddlers learning numbers while celebrating the bond between children and their beloved pets."
-keywords: "counting books for toddlers, puppy books, numbers 1-10, preschool books, toddler learning, animal books, interactive counting, early maths, bedtime stories, ages 0-4"
+description: "A rhyming counting book from 1 to 10 featuring playful puppies running, digging, splashing, tugging and jumping. With diverse dog breeds, animated number characters, and a heartwarming bedtime ending, this interactive read-aloud is perfect for toddlers aged 0-4 learning early maths."
+keywords: "counting books for toddlers ages 0-4, rhyming picture book about dogs and numbers, early math skills counting from 1 to 10, interactive story that gets kids moving, bedtime puppy story for toddlers and preschool, read aloud book about love between child and pet, cute dog book for kindergarten and pre k, counting book for kids with puppies, Rebecca Mola"
 
 # Book Details
-published_date: "2025-10-01"
-isbn: "TBA"
-page_count: 32
+published_date: "2026-03-06"
+isbn: "978-1764423029"
+page_count: 24
 publisher: "Wild Imagination Press"
 
-# Amazon KDP Product Links (Structure ready, values to be filled when account is active)
-# Note: Kindle, Paperback, and Audiobook formats are supported
+# Amazon KDP Product Links
 amazon:
   kindle:
-    asin: ""  # Will be populated when KDP account is active
-    url: ""   # Will be populated when book is published
-    price: "$4.99 AUD"  # Estimated price
-    ku_eligible: true  # Plan for Kindle Unlimited enrollment
-    status: "pending"  # pending | available | coming_soon
-  paperback:
-    asin: ""  # Will be populated when KDP account is active
-    url: ""   # Will be populated when book is published
-    price: "$19.95 AUD"  # Estimated price
-    print_length: 32  # KDP uses print length, not page count
+    asin: ""
+    url: ""
+    price: "$4.99 AUD"
+    ku_eligible: true
     status: "pending"
+  paperback:
+    asin: "176442302X"
+    price: "$19.95 AUD"
+    print_length: 24
+    status: "available"
+    marketplaces:
+      au:
+        url: "https://www.amazon.com.au/dp/176442302X"
+        name: "Australia"
+        flag: "\U0001F1E6\U0001F1FA"
+        primary: true
+      us:
+        url: "https://www.amazon.com/dp/176442302X"
+        name: "United States"
+        flag: "\U0001F1FA\U0001F1F8"
+      uk:
+        url: "https://www.amazon.co.uk/dp/176442302X"
+        name: "United Kingdom"
+        flag: "\U0001F1EC\U0001F1E7"
+      de:
+        url: "https://www.amazon.de/dp/176442302X"
+        name: "Germany"
+        flag: "\U0001F1E9\U0001F1EA"
+      fr:
+        url: "https://www.amazon.fr/dp/176442302X"
+        name: "France"
+        flag: "\U0001F1EB\U0001F1F7"
+      es:
+        url: "https://www.amazon.es/dp/176442302X"
+        name: "Spain"
+        flag: "\U0001F1EA\U0001F1F8"
+      it:
+        url: "https://www.amazon.it/dp/176442302X"
+        name: "Italy"
+        flag: "\U0001F1EE\U0001F1F9"
+      nl:
+        url: "https://www.amazon.nl/dp/176442302X"
+        name: "Netherlands"
+        flag: "\U0001F1F3\U0001F1F1"
+      pl:
+        url: "https://www.amazon.pl/dp/176442302X"
+        name: "Poland"
+        flag: "\U0001F1F5\U0001F1F1"
+      se:
+        url: "https://www.amazon.se/dp/176442302X"
+        name: "Sweden"
+        flag: "\U0001F1F8\U0001F1EA"
+      be:
+        url: "https://www.amazon.com.be/dp/176442302X"
+        name: "Belgium"
+        flag: "\U0001F1E7\U0001F1EA"
+      ie:
+        url: "https://www.amazon.ie/dp/176442302X"
+        name: "Ireland"
+        flag: "\U0001F1EE\U0001F1EA"
+      jp:
+        url: "https://www.amazon.co.jp/dp/176442302X"
+        name: "Japan"
+        flag: "\U0001F1EF\U0001F1F5"
+      ca:
+        url: "https://www.amazon.ca/dp/176442302X"
+        name: "Canada"
+        flag: "\U0001F1E8\U0001F1E6"
   audiobook:
-    asin: ""  # Will be populated when audiobook is available (via ACX or similar)
-    url: ""   # Will be populated when audiobook is published
-    price: "$14.99 AUD"  # Estimated price
-    status: "pending"  # pending | available | coming_soon
-  
+    asin: ""
+    url: ""
+    price: "$14.99 AUD"
+    status: "pending"
 
 # Primary format (for display purposes)
-format: "Paperback"  # Primary format planned
+format: "Paperback"
 
 # Social Sharing
 og_image: "/assets/images/books/onepuppytwopuppies-cover-square-medium.jpg"
@@ -76,38 +135,77 @@ twitter_image: "/assets/images/books/onepuppytwopuppies-cover-square-medium.jpg"
 # Book Preview
 preview_images:
   - path: "/assets/images/books/onepuppytwopuppies-page-08"
-    caption: "Counting puppies playing together"
+    caption: "Two puppies (golden retriever and dalmatian) running through a flower meadow"
   - path: "/assets/images/books/onepuppytwopuppies-page-10"
-    caption: "Puppies running and jumping"
+    caption: "Three puppies digging in the garden, discovering worms and bones"
   - path: "/assets/images/books/onepuppytwopuppies-page-13"
-    caption: "Learning numbers with puppy friends"
+    caption: "Six black pugs splashing joyfully in puddles with a frog"
   - path: "/assets/images/books/onepuppytwopuppies-page-14"
-    caption: "Snuggle time with puppies"
+    caption: "Eight dachshunds hilariously tangled in a tug-of-war rope"
 
 # FAQ
 faq:
   - question: "What age group is this counting book for?"
     answer: "One Puppy, Two Puppies is designed for toddlers and preschoolers aged 0-4 years. It's perfect for introducing early maths concepts through engaging puppy illustrations and interactive counting activities."
-  
+
   - question: "Where can I purchase this book?"
-    answer: "This delightful counting book will be available on Amazon in November 2025. Sign up for our email list to receive launch notifications and exclusive early reader offers!"
-  
+    answer: "One Puppy, Two Puppies is now available as a paperback on Amazon in multiple markets worldwide. Visit the links on this page to grab your copy today!"
+
   - question: "Is this book available in different formats?"
-    answer: "One Puppy, Two Puppies will launch as Paperback and digital formats.  A durable hardcover edition perfect for little hands will be available later. Subscribe to stay informed about all format releases."
-  
+    answer: "One Puppy, Two Puppies is currently available as a paperback on Amazon. A Kindle ebook edition is coming soon. Subscribe to our newsletter to be notified when new formats are released."
+
   - question: "What educational value does this book provide?"
-    answer: "This counting book teaches numbers 1-10 through playful puppy activities, helping toddlers develop early maths skills, counting confidence, and number recognition. It also celebrates the special bond between children and pets while encouraging interactive read-aloud engagement."
-  
+    answer: "This rhyming counting book teaches numbers 1-10 through playful puppy activities like running, digging, splashing, tugging and jumping. It helps toddlers develop early maths skills, counting confidence, and number recognition while celebrating the special bond between children and pets."
+
   - question: "How long does it take to read this book?"
-    answer: "One Puppy, Two Puppies is a 32-page picture book that typically takes 5-10 minutes to read aloud, making it perfect for bedtime stories, circle time, or quick counting practice sessions throughout the day."
+    answer: "One Puppy, Two Puppies is a 24-page picture book that typically takes 5-10 minutes to read aloud, making it perfect for bedtime stories, circle time, or quick counting practice sessions throughout the day."
+
+blog_post:
+  url: /blog/book-release/2026/03/06/one-puppy-two-puppies-is-here/
+  title: "One Puppy, Two Puppies Is Here! Our New Counting Book for Toddlers"
 
 layout: book
 full_description: |
-  Does your little one love puppies and learning to count? This delightful book combines both in the most heartwarming way!
+  Does your little one love puppies? Can they count to ten? This bouncy rhyming book invites toddlers on a counting adventure with the most adorable puppies around!
 
-  Join ten playful puppies as they invite your child into their world of fun activities. From running in sunshine to digging in gardens, splashing in puddles to jumping for treats, each page brings new adventures and counting practice.
+  Count from one to ten as playful puppies run through sunshine, dig in the garden, splash in puddles, tug on a rope, and jump for treats. Each spread pairs a number with a lively puppy activity and invites your child to join in the fun: "Come do it too!"
 
-  This sweet story celebrates both learning and the precious relationship between children and their beloved pets. Every page invites little ones to join in the fun while building essential early math skills.
+  Featuring animated number characters with big personalities, a colourful cast of dog breeds - from golden retrievers and dalmatians to pugs, poodles, dachshunds and corgis - and a heartwarming bedtime ending where a child snuggles up with their one and only pup.
 
-  **Perfect for bedtime cuddles, this book will have you and your child snuggling up together, just like the child and puppy in the story!**
+  **"But I love just one, my one and only pup, to cuddle before sleep... we snuggle right up!"**
+
+  Inside **One Puppy, Two Puppies**, discover:
+
+  - A rhyming counting journey from 1 to 10 that builds early maths confidence
+  - Interactive "come do it too!" prompts that get little ones moving
+  - Animated number characters that bring each number to life
+  - Diverse dog breeds on every page to spot and name
+  - A gentle, loving bedtime ending perfect for winding down
+
+  <div class="book-preview-images">
+    <div class="preview-image-container">
+      <img src="/assets/images/books/onepuppytwopuppies-page-08-medium.jpg"
+           srcset="/assets/images/books/onepuppytwopuppies-page-08-small.jpg 400w,
+                   /assets/images/books/onepuppytwopuppies-page-08-medium.jpg 700w,
+                   /assets/images/books/onepuppytwopuppies-page-08-large.jpg 1000w"
+           alt="Two puppies running through a sunny flower meadow from One Puppy Two Puppies counting book"
+           class="preview-image"
+           loading="lazy">
+      <span class="preview-caption">One puppy, two puppies running in the sun!</span>
+    </div>
+    <div class="preview-image-container">
+      <img src="/assets/images/books/onepuppytwopuppies-page-13-medium.jpg"
+           srcset="/assets/images/books/onepuppytwopuppies-page-13-small.jpg 400w,
+                   /assets/images/books/onepuppytwopuppies-page-13-medium.jpg 700w,
+                   /assets/images/books/onepuppytwopuppies-page-13-large.jpg 1000w"
+           alt="Six black pugs splashing joyfully in puddles from One Puppy Two Puppies counting book"
+           class="preview-image"
+           loading="lazy">
+      <span class="preview-caption">Five puppies, six puppies splashing in the puddles!</span>
+    </div>
+  </div>
+
+  Whether it's a bedtime read, a playful counting session, or a gift for a puppy-loving toddler, this book turns numbers into an adventure and ends with the warmest cuddle.
+
+  **Ready to count some puppies? Grab your copy and start the fun!**
 ---
