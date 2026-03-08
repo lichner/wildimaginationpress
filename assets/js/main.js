@@ -642,9 +642,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Observe sections for animation
     const animatedElements = document.querySelectorAll('.book-card, .author-card, .mission-content, .contact-benefits');
     animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 });
@@ -654,13 +651,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.site-header');
     
     if (header) {
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                header.classList.add('is-scrolled');
-            } else {
-                header.classList.remove('is-scrolled');
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    if (window.scrollY > 100) {
+                        header.classList.add('is-scrolled');
+                    } else {
+                        header.classList.remove('is-scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
-        });
+        }, { passive: true });
     }
 });
 
