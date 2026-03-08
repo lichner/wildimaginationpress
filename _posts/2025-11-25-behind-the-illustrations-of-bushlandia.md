@@ -37,6 +37,23 @@ What sets Braia's work apart is his combination of technical skill and emotional
 
 Braia's commitment to excellence is evident on every page. He didn't simply complete a commission; he invested himself in creating something he could be proud of. That dedication transformed what could have been a transactional relationship into a genuine artistic collaboration where both of us pushed to make Bushlandia better.
 
+<div class="book-preview-images">
+  <div class="preview-image-container">
+    <img src="/assets/images/books/bushlandia-pages-26-27.png"
+         alt="Pages 26-27 of Bushlandia showing children exploring and building in the Australian bush"
+         class="preview-image"
+         loading="lazy">
+    <span class="preview-caption">The adventure begins in the Australian wilderness</span>
+  </div>
+  <div class="preview-image-container">
+    <img src="/assets/images/books/bushlandia-pages-28-29.png"
+         alt="Pages 28-29 of Bushlandia featuring the magical lyrebird and the children's nature town"
+         class="preview-image"
+         loading="lazy">
+    <span class="preview-caption">Discovering the magic of Bushlandia</span>
+  </div>
+</div>
+
 ## The Power of Visual Storytelling
 
 Illustrations in children's books do so much more than decorate the text. They deepen understanding, create emotional connections, and often communicate things that words alone cannot. In Bushlandia: The Magic of Imagination in the Australian Bush, the illustrations carry the wonder. They show readers the intricate beauty of the Australian bush, the personality of the lyrebird, and the magic that lives in nature when we look closely enough.
