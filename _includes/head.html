@@ -30,14 +30,16 @@
     
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://www.google.com" crossorigin>
     
     <!-- SEO -->
     {% seo %}
     
     <!-- Add og:image with dimensions and alt text for better social preview -->
     {% if page.og_image %}
-    <meta property="og:image:width" content="400" />
-    <meta property="og:image:height" content="400" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="{{ page.title }}" />
     {% elsif page.image %}
     {% if page.layout == 'default' %}

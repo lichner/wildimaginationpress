@@ -25,7 +25,7 @@
   // Typography
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
-  --font-brand: 'Crimson Text', serif; // More professional serif for brand
+  --font-brand: 'Crimson Text', serif;
   
   // Spacing
   --section-padding: 4rem 0;
@@ -2675,6 +2675,81 @@ blockquote {
   }
 }
 
+// Share Buttons
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  justify-content: center;
+
+  .share-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-medium);
+    margin-right: 0.25rem;
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--text-medium);
+    background: var(--cream);
+    transition: all 0.2s ease;
+    text-decoration: none;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &.share-facebook:hover {
+      background: #1877f2;
+      color: #fff;
+    }
+
+    &.share-x:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    &.share-pinterest:hover {
+      background: #e60023;
+      color: #fff;
+    }
+
+    &.share-copy {
+      border: none;
+      cursor: pointer;
+      font: inherit;
+
+      &:hover {
+        background: var(--primary-green);
+        color: #fff;
+      }
+
+      &.copied {
+        background: var(--secondary-green);
+        color: #fff;
+      }
+    }
+
+    &.share-email:hover {
+      background: var(--secondary-green);
+      color: #fff;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+}
+
 // Help Others Discover Section (published books)
 .book-help-discover {
   // Add breathing room from the previous section and avoid a hard divider line
@@ -2752,17 +2827,31 @@ blockquote {
   margin: 0.75rem 0 0;
 }
 
+// Share card (book pages, inside help-others-discover)
+.book-help-discover__share {
+  border: 1px solid rgba(45, 90, 61, 0.1);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-soft);
+  padding: 1.25rem 1.75rem;
+  background: rgba(255, 255, 255, 0.85);
+
+  .share-buttons {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+}
+
 // Blog Post Callout (book pages, inside help-others-discover)
 .book-blog-callout__card {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  background: white;
-  padding: 1.5rem 2rem;
-  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 1.5rem 1.75rem;
+  border-radius: var(--border-radius-large);
   box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(45, 90, 61, 0.08);
-  border-left: 4px solid var(--soft-pink);
+  border: 1px solid rgba(45, 90, 61, 0.1);
   transition: all 0.3s ease;
 
   &:hover {
@@ -2785,7 +2874,7 @@ blockquote {
 
 .book-blog-callout__label {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -2795,8 +2884,8 @@ blockquote {
 
 .book-blog-callout__title {
   display: block;
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
   font-weight: 600;
   color: var(--primary-green);
   text-decoration: none;

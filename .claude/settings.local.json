@@ -7,7 +7,12 @@
       "Bash(curl:*)",
       "Bash(find:*)",
       "Bash(numfmt:*)",
-      "Bash(du:*)"
+      "Bash(du:*)",
+      "Bash(ls -la /Users/lichnerc/Repos/wildimaginationpress/wildimaginationpress/*.html /Users/lichnerc/Repos/wildimaginationpress/wildimaginationpress/*.md)",
+      "Bash(file:*)",
+      "Bash(xargs basename:*)",
+      "Bash(grep:*)",
+      "Bash(sips:*)"
     ],
     "deny": [],
     "ask": []

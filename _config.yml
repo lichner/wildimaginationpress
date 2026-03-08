@@ -137,6 +137,10 @@ nav_links:
   - name: Contact
     url: /#contact
 
+# Sass settings
+sass:
+  style: compressed
+
 # Theme settings
 theme_color: "#27ae60"
 accent_color: "#74b9ff"
