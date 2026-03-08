@@ -33,6 +33,29 @@ There are a few things I'm particularly proud of with this one.
 
 **The bedtime ending.** After all that running and jumping and splashing, the book winds down to the most tender moment: a child cuddling up with their one special puppy at bedtime. *"But I love just one, my one and only pup, to cuddle before sleep... we snuggle right up!"* It's the perfect way to transition from playtime energy to bedtime calm, and I won't lie - it gets me every time.
 
+<div class="book-preview-images">
+  <div class="preview-image-container">
+    <img src="/assets/images/books/onepuppytwopuppies-page-08-medium.jpg"
+         srcset="/assets/images/books/onepuppytwopuppies-page-08-small.jpg 400w,
+                 /assets/images/books/onepuppytwopuppies-page-08-medium.jpg 700w,
+                 /assets/images/books/onepuppytwopuppies-page-08-large.jpg 1000w"
+         alt="Two puppies running through a sunny flower meadow from One Puppy Two Puppies counting book"
+         class="preview-image"
+         loading="lazy">
+    <span class="preview-caption">One puppy, two puppies running in the sun!</span>
+  </div>
+  <div class="preview-image-container">
+    <img src="/assets/images/books/onepuppytwopuppies-page-13-medium.jpg"
+         srcset="/assets/images/books/onepuppytwopuppies-page-13-small.jpg 400w,
+                 /assets/images/books/onepuppytwopuppies-page-13-medium.jpg 700w,
+                 /assets/images/books/onepuppytwopuppies-page-13-large.jpg 1000w"
+         alt="Six black pugs splashing joyfully in puddles from One Puppy Two Puppies counting book"
+         class="preview-image"
+         loading="lazy">
+    <span class="preview-caption">Five puppies, six puppies splashing in the puddles!</span>
+  </div>
+</div>
+
 ## Who Is This Book For?
 
 I wrote **One Puppy, Two Puppies** for toddlers and preschoolers aged 0-4, but truly, it's for anyone who loves puppies and believes that learning should feel like an adventure.
