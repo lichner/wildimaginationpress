@@ -2776,6 +2776,7 @@ blockquote {
 }
 
 .book-help-discover__form,
+.book-help-discover__newsletter,
 .book-help-discover__reviews {
   border: 1px solid rgba(45, 90, 61, 0.1);
   border-radius: var(--border-radius-large);
@@ -2788,6 +2789,18 @@ blockquote {
   background: linear-gradient(135deg, #f2f0d2 0%, var(--warm-yellow) 55%, #fefefe 100%);
 
   // Reuse modal form styles but avoid a white card within the golden panel
+  .email-signup--modal {
+    background: transparent;
+  }
+
+  .modal-privacy {
+    background: transparent;
+  }
+}
+
+.book-help-discover__newsletter {
+  background: linear-gradient(135deg, #e8f5e9 0%, #f0f8f4 55%, #fefefe 100%);
+
   .email-signup--modal {
     background: transparent;
   }
@@ -2814,6 +2827,7 @@ blockquote {
   }
 
   .book-help-discover__form,
+  .book-help-discover__newsletter,
   .book-help-discover__reviews {
     padding: 1.25rem;
   }

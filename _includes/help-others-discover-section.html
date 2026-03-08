@@ -15,6 +15,10 @@
     <h2>Help Others Discover this Book</h2>
 
     <div class="book-help-discover__content">
+      <div class="book-help-discover__share">
+        {% include share-buttons.html %}
+      </div>
+
       <div class="book-help-discover__form">
         <h3 class="book-help-discover__subtitle">Loved {{ book_title }}?</h3>
         <p class="book-help-discover__intro">Join our list and we’ll email you simple steps for leaving an Amazon review.</p>
@@ -46,7 +50,7 @@
           <input type="hidden" name="book_slug" value="{{ book_slug }}">
           <input type="hidden" name="book_title" value="{{ book_title | escape }}">
           <input type="hidden" name="series" value="{% if page.series and page.series.name %}{{ page.series.name | escape }}{% endif %}">
-          <input type="hidden" name="age_band_interest_hidden" value="{% if page.age_range %}{{ page.age_range | split: ' ' | first }}{% endif %}">
+          <input type="hidden" name="age_band_interest_hidden" value="{% if page.age_range %}{{ page.age_range | split: ‘ ‘ | first }}{% endif %}">
           <input type="hidden" name="customer_status" value="purchased">
           <input type="hidden" name="utm_source" id="help-discover-utm-source-{{ book_slug }}" value="">
           <input type="hidden" name="utm_medium" id="help-discover-utm-medium-{{ book_slug }}" value="">
@@ -57,12 +61,8 @@
         </form>
 
         <p class="modal-privacy book-help-discover__privacy">
-          <small>We respect your privacy. <a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a></small>
+          <small>We respect your privacy. <a href="{{ ‘/privacy/’ | relative_url }}">Privacy Policy</a></small>
         </p>
-      </div>
-
-      <div class="book-help-discover__share">
-        {% include share-buttons.html %}
       </div>
 
       {% if page.blog_post and page.blog_post.url %}
@@ -160,6 +160,52 @@
         {% else %}
           <p class="customer-reviews__empty">No customer reviews yet. If you’ve read {{ book_title }}, you can help other families by leaving the first one.</p>
         {% endif %}
+      </div>
+
+      <div class="book-help-discover__newsletter">
+        <h3 class="book-help-discover__subtitle">Stay in the Loop</h3>
+        <p class="book-help-discover__intro">Get notified about new books, freebies, and behind-the-scenes content.</p>
+
+        <form id="help-newsletter-form-{{ book_slug }}" class="email-signup email-signup--modal" method="post">
+          <div class="modal-form-fields">
+            <div class="form-field">
+              <label for="help-newsletter-first-name-{{ book_slug }}" class="visually-hidden">First Name</label>
+              <input type="text"
+                     id="help-newsletter-first-name-{{ book_slug }}"
+                     name="first_name"
+                     placeholder="First name (optional)"
+                     autocomplete="given-name">
+            </div>
+            <div class="form-field">
+              <label for="help-newsletter-email-{{ book_slug }}" class="visually-hidden">Email</label>
+              <input type="email"
+                     id="help-newsletter-email-{{ book_slug }}"
+                     name="email"
+                     placeholder="Email address"
+                     required
+                     autocomplete="email">
+            </div>
+          </div>
+
+          <!-- Hidden Fields -->
+          <input type="hidden" name="intent" value="newsletter">
+          <input type="hidden" name="source_page" value="book-page">
+          <input type="hidden" name="book_slug" value="{{ book_slug }}">
+          <input type="hidden" name="book_title" value="{{ book_title | escape }}">
+          <input type="hidden" name="series" value="{% if page.series and page.series.name %}{{ page.series.name | escape }}{% endif %}">
+          <input type="hidden" name="age_band_interest_hidden" value="{% if page.age_range %}{{ page.age_range | split: ' ' | first }}{% endif %}">
+          <input type="hidden" name="customer_status" value="interested">
+          <input type="hidden" name="utm_source" id="help-newsletter-utm-source-{{ book_slug }}" value="">
+          <input type="hidden" name="utm_medium" id="help-newsletter-utm-medium-{{ book_slug }}" value="">
+          <input type="hidden" name="utm_campaign" id="help-newsletter-utm-campaign-{{ book_slug }}" value="">
+          <input type="hidden" name="_recaptcha" id="help-newsletter-recaptcha-{{ book_slug }}" value="">
+
+          <button type="submit" class="btn-submit btn-submit--modal">Join the Story Tree</button>
+        </form>
+
+        <p class="modal-privacy book-help-discover__privacy">
+          <small>We respect your privacy. <a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a></small>
+        </p>
       </div>
     </div>
   </div>

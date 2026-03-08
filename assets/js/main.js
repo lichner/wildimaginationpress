@@ -264,7 +264,7 @@ async function handleFormSubmission(form, formId) {
                 variant: 'review',
                 bookTitle: submittedBookTitle
             }, form);
-        } else if (formId === 'email-form' || formId === 'signup-modal-form') {
+        } else if (intent === 'newsletter') {
             showThankYouModal({ variant: 'newsletter' }, form);
         } else {
             showNotification('Thanks! You\'re on the list. We\'ll notify you when this book is available.', 'success');
