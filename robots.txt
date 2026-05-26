@@ -22,12 +22,6 @@ Disallow: /.git/
 Disallow: /.bundle/
 Disallow: /tmp/
 
-# Disallow search parameters and tracking URLs
-Disallow: /*?utm_*
-Disallow: /*?ref=*
-Disallow: /*?source=*
-Disallow: /*?campaign=*
-
 # Allow important directories for SEO
 Allow: /assets/
 Allow: /books/
