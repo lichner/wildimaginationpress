@@ -12,7 +12,11 @@
       "Bash(file:*)",
       "Bash(xargs basename:*)",
       "Bash(grep:*)",
-      "Bash(sips:*)"
+      "Bash(sips:*)",
+      "WebFetch(domain:www.amazon.com.au)",
+      "Bash(python3 -)",
+      "Bash(git -C /Users/lichnerc/Repos/wildimaginationpress/wildimaginationpress show --stat e367c9f)",
+      "Bash(python3 -c \"import json,re; html=open\\('_site/author/rebecca-mola/index.html'\\).read\\(\\); m=re.findall\\(r'<script type=\\\\\"application/ld\\\\+json\\\\\">\\(.*?\\)</script>', html, re.S\\); [json.loads\\(x\\) for x in m]; print\\('json-ld ok:', len\\(m\\)\\)\")"
     ],
     "deny": [],
     "ask": []

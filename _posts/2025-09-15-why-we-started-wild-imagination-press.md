@@ -5,88 +5,64 @@ date: 2025-09-15
 author: Rebecca Mola
 category: Behind the Scenes
 permalink: /blog/behind-the-scenes/2025/09/15/why-we-started-wild-imagination-press/
-description: "Discover the inspiration behind Wild Imagination Press and our mission to create enchanting children's books that nurture creativity and imagination in young readers."
+description: "The story behind Wild Imagination Press: why an Australian author started an independent children's publisher, what the name means, and the books we are starting with."
 keywords: "children's book publisher, independent publisher australia, kids books, creative storytelling, wild imagination press"
-excerpt: "Every great story begins with a spark of imagination. Discover the inspiration behind Wild Imagination Press and our mission to create children's books that nurture creativity and imagination."
+excerpt: "Wild Imagination Press started with a fairly simple conviction: children deserve stories that make them laugh, teach them something real, and send them outside to build things. Here is why I started it, and where it is going."
 image: /assets/images/wild-imagination-logo.jpg
 ---
 
-Every great story begins with a spark of imagination. For Wild Imagination Press, that spark ignited from a simple but powerful belief: **every child deserves stories that make them laugh, learn, dream, and imagine**.
+Every publisher starts somewhere. This one started with a fairly simple conviction: children deserve stories that make them laugh, teach them something real, and send them outside to build things.
 
 ## The Beginning of Our Journey
 
-Wild Imagination Press was born from the courage to follow a dream - turning a love of storytelling and creativity into a venture that inspires imagination and connects children with the natural world. As the author of Bushlandia, I’m inspired by the wild beauty of the Australian bush and the boundless imagination of children. My work celebrates the connection between nature and creativity - encouraging young readers to explore, dream, and see magic in the world around them.
+Wild Imagination Press began when I finally worked up the courage to turn a lifelong love of storytelling into an actual venture. I write from the Australian bush, quite literally in the case of Bushlandia, and most of what I make celebrates the connection between nature and creativity. I want young readers to explore, to dream, and to notice the world around them.
 
 <!--more-->
 
-Children's literature has the incredible power to shape young minds, spark curiosity, and plant seeds of wonder that grow throughout a lifetime. 
+Children's books shaped who I am, and I suspect they shaped you too. A good one plants something that keeps growing for decades.
 
-## Our Mission: Where Stories Grow Like Magic
+## What the Name Means
 
-The name "Wild Imagination Press" captures everything we stand for. **Wild** represents the untamed creativity of childhood, the freedom to explore, play, and discover. It's also a nod to our Australian naturescapes that inspires so many of our stories - the bush, the wildlife, the beach, the raw beauty of nature that surrounds us.
-
-**Imagination** is at the heart of everything we do. We believe imagination is not just about fantasy; it's the foundation of problem - solving, empathy, innovation, collaboration and joy. When children imagine, so too does their creativity.
-
-**Press** reflects our commitment to quality publishing - creating books that are not just products, but treasured companions on a child's reading journey.
+I chose the name carefully. Wild is the untamed creativity of childhood, and it is also the Australian landscape that keeps finding its way into our stories: the bush, the wildlife, the beach. Imagination is what we are really in the business of. I believe it underpins problem solving, empathy and joy, not only fantasy. And Press is a promise that we take the publishing part seriously, so the books themselves are worth keeping and passing on.
 
 ## What Makes Us Different
 
-### 1. **Australian Heart, Universal Themes**
+Our stories are rooted in Australian landscapes and Australian childhoods, but the themes travel well. Friendship, creativity, looking after the places you love, learning through play. Families overseas seem to recognise these just as readily as families down the road from us.
 
-Our stories are rooted in Australian landscapes and experiences, from the unique wildlife of the bush to the everyday adventures of childhood Down Under. But the themes - friendship and teamwork, creativity, imagination, environmental stewardship, learning through play - resonate with families everywhere.
+We also hold a firm line on how learning should feel for young children, which is to say it should not feel like work. Whether it is environmental care smuggled inside a bush adventure or counting practice disguised as ten unruly puppies, the learning rides along inside the story.
 
-### 2. **Learning Through Joyful Engagement**
-
-We believe education should never feel like work for young children. Our books weave learning naturally into delightful narratives. Whether it's discovering environmental responsibility and deepening problem-solving skills through bush adventures or counting with playful puppies, the learning happens organically through the joy of the story.
-
-### 3. **Quality Over Quantity**
-
-As an independent publisher, we have the freedom to focus on creating exceptional books. Every story is crafted with purposeful intention, every illustration chosen with care, every page designed to nurture young imaginative minds.
-
-### 4. **Connection to Nature**
-
-In our increasingly digital world, we're passionate about fostering children's connection to the natural world. Our books inspire outdoor imaginative play, environmental awareness, creativity and appreciation for the living world around us.
+Being independent helps. Nobody is asking us to publish more books faster, so we can fuss over every page until it is right. And at a time when childhood keeps drifting indoors, we are unashamedly on the side of mud, sticks and made-up worlds in the backyard.
 
 ## Our First Two Books
 
-Wild Imagination Press launches with two standout titles that bring our philosophy to life - stories that inspire creativity, curiosity, and a love of the natural world.
+We are launching with two books that show what we are about.
 
-We're launching with two very special books that embody our philosophy:
+**[Bushlandia](/books/bushlandia-magic-imagination-australian-bush/)** invites readers aged 7 to 10 into the heart of the Australian bush, where four children dream up and build their own nature town over a summer. It is about imagination, friendship and what we owe the places we play in, and it is the first book of a planned trilogy.
 
-**[Bushlandia](/books/bushlandia/)** invites readers aged 7 - 10 into the heart of the Australian bush, where four children dream, create, and build their own nature town. It’s a celebration of imagination, friendship, and environmental care. Bushlandia: The Trilogy is on the horizon - watch this space for the adventures still to come.
+**[One Puppy, Two Puppies, Hey What Do You Do?](/books/one-puppy-two-puppies/)** is a rhyming counting book for ages 0 to 4, following ten playful puppies through their day. Early maths, a great many dogs, and a cuddle at the end.
 
-**[One Puppy, Two Puppies, Hey What Do You Do?](/books/one-puppy-two-puppies/)** is a delightful counting book for ages 0 - 4, following ten playful puppies through fun daily activities. It combines early maths learning with the joy of animals and the special bond between children and their beloved pets.
-
-While our books are created for different age groups and learning journeys, they share a common purpose: to make learning a creative and imaginative adventure, and to inspire a lifelong love of reading and discovery.
+Different ages, same purpose: make learning feel like an adventure and help a child fall in love with reading.
 
 ## What's Next for Wild Imagination Press
 
-This is just the start. From our imagination garden, new stories are coming to life - featuring Australia’s wildlife, outdoor adventures, and meaningful tales that nurture empathy, creativity, and emotional and mental wellbeing.
-
-We're also planning to create **resources for parents and educators** - activity guides, reading tips, and creative extensions that help bring our books to life beyond the page.
+More stories are already growing, featuring Australian wildlife, outdoor adventures, and themes of empathy and wellbeing. We are also planning resources for parents and educators, activity guides and reading tips that carry the books beyond the page.
 
 ## Join Our Story Tree
 
-Wild Imagination Press is more than a publisher; it's a community of families, educators, and book lovers who believe in the power of stories to shape young lives. We call our community the **Story Tree** - a place where readers, dreamers, and creative spirits gather.
+We call our community the Story Tree: the families, educators and book lovers gathered around these stories. If you would like to be part of it, you can:
 
-We'd love for you to be part of our journey:
-
-- **Subscribe to our email list** to be the first to know about new releases, get exclusive behind-the-scenes content, and receive free activity sheets and reading guides
-- **Follow us on social media** ([@wildimaginpress](https://x.com/wildimaginpress) on X and [@wildimaginationpress](https://instagram.com/wildimaginationpress) on Instagram) to see sneak peeks of upcoming books and join the conversation
-- **Share your reading experiences** with our books - we love seeing photos of young readers enjoying our stories!
+- [Join our email list](/#contact) to hear about new releases first, along with behind-the-scenes peeks, free activity sheets and reading guides
+- Follow along on [X](https://x.com/wildimaginpress) or [Instagram](https://instagram.com/wildimaginationpress) for sneak peeks of upcoming books
+- Share photos of your young readers enjoying our books. They genuinely make my week.
 
 ## A Personal Note
 
-Starting Wild Imagination Press has been one of the most fulfilling adventures of my life. Every time I imagine a child immersed in one of our stories, learning something new, or being inspired to explore the natural world, my heart is filled with gratitude.
+Starting Wild Imagination Press has been one of the most fulfilling things I have ever done. Thank you for being here at the very beginning. I can't wait to share what comes next with you and the young readers in your life.
 
-Thank you for being here at the beginning of this journey. Your support means everything, and I can't wait to share more stories with you and the young readers in your life.
-
-Here's to wild imaginations, magical stories, and the children who will carry them forward.
-
-With gratitude and excitement,  
-**Rebecca Mola**  
+With gratitude and excitement,
+**Rebecca Mola**
 Founder & Author, Wild Imagination Press
 
 ---
 
-*Want to stay connected? [Join our Story Tree](/#contact) to receive updates, free resources, and be part of our growing community of book-loving families.*
+*Want to stay connected? [Join our Story Tree](/#contact) to receive updates, free resources, and news of what is coming next.*
