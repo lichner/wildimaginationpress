@@ -9,9 +9,6 @@ permalink: /robots.txt
 User-agent: *
 Allow: /
 
-# Crawl delay for being respectful to search engines
-Crawl-delay: 1
-
 # Disallow development and admin paths
 Disallow: /admin/
 Disallow: /cdn-cgi/
@@ -22,20 +19,5 @@ Disallow: /.git/
 Disallow: /.bundle/
 Disallow: /tmp/
 
-# Disallow search parameters and tracking URLs
-Disallow: /*?utm_*
-Disallow: /*?ref=*
-Disallow: /*?source=*
-Disallow: /*?campaign=*
-
-# Allow important directories for SEO
-Allow: /assets/
-Allow: /books/
-Allow: /assets/images/
-
 # Sitemap location
 Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml
-
-# Additional sitemaps (for future expansion)
-# Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap-books.xml
-# Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap-authors.xml
